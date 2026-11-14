@@ -1,0 +1,261 @@
+<!doctype html>
+<!-- GAMMA Debian, mockup A "Contador". Criação original. -->
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css">
+<style>
+/* ---------- papel de parede ---------- */
+.wp-label{font:500 13px var(--mono);letter-spacing:.32em;color:var(--sub)}
+.wp-foot{right:40px;bottom:28px;font:400 11px var(--mono);color:var(--dim);letter-spacing:.2em}
+
+/* ---------- painel superior ---------- */
+.panel{left:0;top:0;width:3440px;height:30px;background:var(--bg);border-bottom:1px solid var(--dim);display:flex;align-items:center;z-index:50}
+.pb{height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--ice)}
+.pb.mbtn{background:var(--ok-f);color:var(--accent);font-weight:700;box-shadow:inset 0 -2px 0 var(--accent)}
+.sep{width:1px;height:16px;background:var(--dim);margin:0 6px}
+.ws{display:flex;gap:6px;padding:0 10px}
+.task{height:30px;display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--sub);border-right:1px solid #0E200F}
+.task.on{color:var(--white);box-shadow:inset 0 -2px 0 var(--accent)}
+.task.on i{color:var(--accent)}
+.tray{margin-left:auto;display:flex;align-items:center;height:30px}
+.met{display:flex;align-items:center;gap:6px;padding:0 12px;height:30px;border-left:1px solid #0E200F}
+.met b{font:500 11px var(--ui);letter-spacing:.06em;color:var(--sub)}
+.met span{font:500 13px var(--mono);color:var(--ice)}
+.met.wa span{color:var(--amber)}
+.clock{padding:0 16px;border-left:1px solid var(--dim);display:flex;gap:10px;align-items:baseline}
+.clock span{font:500 14px var(--mono);color:var(--white)}
+.clock small{font:400 12px var(--mono);color:var(--sub)}
+
+/* ---------- janela ---------- */
+.win{background:var(--bg);border:1px solid var(--dim);box-shadow:0 18px 60px rgba(0,0,0,.7)}
+.win.focus{border-color:var(--accent);box-shadow:0 0 0 1px rgba(120,255,90,.12),0 0 24px rgba(120,255,90,.16),0 18px 60px rgba(0,0,0,.8)}
+.tb{height:32px;display:flex;align-items:center;padding:0 6px 0 12px;gap:10px;border-bottom:1px solid var(--dim);background:#050E06}
+.tb .t{font:700 13px var(--ui);color:var(--white);letter-spacing:.02em}
+.win:not(.focus) .tb .t{color:var(--sub);font-weight:500}
+.tb .ctl{margin-left:auto;display:flex;gap:2px}
+.tb .ctl span{width:28px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--sub);position:relative}
+.tb .ctl span .hx{position:absolute}
+.tb .ctl span.hot{color:var(--accent)}
+.tabs{display:flex;gap:0;padding:0 16px;border-bottom:1px solid var(--dim)}
+.tab{padding:12px 16px 10px;color:var(--sub);font:500 13px var(--ui)}
+.tab.on{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent);text-shadow:var(--tglow)}
+.body{display:flex;gap:28px;padding:22px 24px}
+h3{font:700 14px var(--ui);color:var(--white);margin-bottom:12px;letter-spacing:.01em}
+.lbl{font:400 12px var(--ui);color:var(--sub);margin-bottom:6px}
+.list{border:1px solid var(--dim);height:452px;position:relative;overflow:hidden}
+.row{height:30px;display:flex;align-items:center;gap:10px;padding:0 12px;color:var(--ice)}
+.row.sel{background:var(--ok-f);color:var(--white);box-shadow:inset 2px 0 0 var(--accent)}
+.row small{margin-left:auto;font:400 11px var(--mono);color:var(--sub)}
+.sb{position:absolute;right:3px;top:4px;bottom:4px;width:6px}
+.sb::before{content:"";position:absolute;left:2.5px;top:0;bottom:0;width:1px;background:var(--dim)}
+.sb i{position:absolute;left:0;top:30px;width:6px;height:150px;background:var(--ne-b)}
+.field{height:32px;border:1px solid var(--dim);background:#020702;display:flex;align-items:center;padding:0 10px;color:var(--ice);font:400 13px var(--ui)}
+.field.mono{font-family:var(--mono)}
+.field.focus{border-color:var(--accent);box-shadow:0 0 0 1px rgba(120,255,90,.2),0 0 10px rgba(120,255,90,.2)}
+.caret{display:inline-block;width:1.5px;height:16px;background:var(--accent);margin-left:1px;box-shadow:var(--tglow)}
+.combo{justify-content:space-between}
+.combo i{color:var(--accent)}
+.btn{height:32px;padding:0 18px;border:1px solid var(--ne-b);background:var(--ne-f);color:var(--ice);font:500 13px var(--ui);display:inline-flex;align-items:center;gap:8px;border-radius:2px}
+.btn.pri{background:var(--ok-f);border-color:var(--accent);color:var(--accent);font-weight:700;text-shadow:var(--tglow);box-shadow:0 0 10px rgba(120,255,90,.15)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--sub)}
+.grid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.chk{display:flex;align-items:center;gap:10px;height:28px;color:var(--ice)}
+.chk .box{position:relative;width:18px;height:18px}
+.chk .box svg.m{position:absolute;left:1px;top:1px;width:16px;height:16px;color:var(--bg)}
+.chk.dis{color:var(--sub);opacity:.65}
+.slider{position:relative;height:28px;margin-top:4px}
+.slider .tr{position:absolute;left:0;right:0;top:13px;height:2px;background:var(--dim)}
+.slider .fl{position:absolute;left:0;width:56%;top:13px;height:2px;background:var(--accent);box-shadow:var(--glow)}
+.slider .tk{position:absolute;top:20px;width:1px;height:5px;background:var(--dim)}
+.slider .th{position:absolute;left:calc(56% - 9px);top:5px}
+.info{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--wa-f);border:1px solid var(--amber);color:var(--white);font:400 13px var(--ui)}
+.info i{color:var(--amber)}
+.foot{display:flex;gap:10px;padding:14px 24px;border-top:1px solid var(--dim)}
+
+/* ---------- menu ---------- */
+.menu{background:var(--bg);border:1px solid var(--accent);box-shadow:0 0 20px rgba(120,255,90,.14),0 20px 60px rgba(0,0,0,.8);z-index:40;display:flex;flex-direction:column}
+.msearch{margin:12px;height:34px;border:1px solid var(--accent);display:flex;align-items:center;gap:10px;padding:0 10px;color:var(--sub);box-shadow:0 0 10px rgba(120,255,90,.18)}
+.msearch i{color:var(--accent)}
+.mcols{display:flex;flex:1;border-top:1px solid var(--dim)}
+.mapps{flex:1;padding:8px 0}
+.mapp{height:44px;display:flex;align-items:center;gap:12px;padding:0 16px;color:var(--ice)}
+.mapp i{color:var(--sub)}
+.mapp div{display:flex;flex-direction:column;line-height:1.25}
+.mapp small{font-size:11px;color:var(--sub)}
+.mapp.hot{background:var(--ok-f);box-shadow:inset 2px 0 0 var(--accent)}
+.mapp.hot, .mapp.hot i{color:var(--accent)}
+.mapp.hot b{color:var(--white)}
+.mapp b{font-weight:500}
+.mcats{width:200px;border-left:1px solid var(--dim);padding:8px 0}
+.mcat{height:32px;display:flex;align-items:center;gap:10px;padding:0 14px;color:var(--sub)}
+.mcat.on{color:var(--accent)}
+.mcat i{color:currentColor}
+.mfoot{height:48px;border-top:1px solid var(--dim);display:flex;align-items:center;gap:10px;padding:0 14px}
+.mfoot .u{color:var(--white);font-weight:500}
+.mfoot .acts{margin-left:auto;display:flex;gap:4px;color:var(--sub)}
+.mfoot .acts span{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid transparent}
+
+/* ---------- notificação ---------- */
+.notif{background:var(--bg);border:1px solid var(--amber);box-shadow:0 0 18px rgba(255,190,0,.12),0 14px 40px rgba(0,0,0,.8);display:flex;gap:14px;padding:16px;z-index:60}
+.notif .nt{font:700 14px var(--ui);color:var(--white)}
+.notif p{color:var(--ice);margin-top:3px}
+.notif .meta{font:400 11px var(--mono);color:var(--sub);margin-top:8px}
+.notif .x{position:absolute;right:10px;top:10px;color:var(--sub)}
+
+/* ---------- terminal ---------- */
+.term .scr{padding:14px 16px;font:400 14px/1.5 var(--mono);color:var(--ice);white-space:pre}
+.p{color:var(--accent)} .d{color:var(--sub)} .w{color:var(--white)} .a{color:var(--amber)} .r{color:var(--red)}
+.cur{background:var(--ice);color:var(--bg)}
+</style></head><body>
+<div class="mesh"></div>
+
+<!-- papel de parede: núcleo único -->
+<svg class="abs" style="left:0;top:0" width="3440" height="1440">
+  <line x1="2860" y1="250" x2="2860" y2="548" stroke="#234B23" stroke-width="1.5" stroke-dasharray="2 7"/>
+  <circle cx="2860" cy="244" r="5" fill="none" stroke="#6EAA6E" stroke-width="1.5"/>
+  <polygon data-hex="2860,760,205" fill="#041006" stroke="#78FF5A" stroke-width="2.5" style="filter:drop-shadow(0 0 8px rgba(120,255,90,.55)) drop-shadow(0 0 26px rgba(120,255,90,.18))"/>
+  <polygon data-hex="2860,760,186" fill="none" stroke="#234B23" stroke-width="1"/>
+  <circle cx="2860" cy="760" r="4" fill="#78FF5A" style="filter:drop-shadow(0 0 6px #78FF5A)"/>
+  <line x1="3040" y1="862" x2="3092" y2="892" stroke="#234B23" stroke-width="1" stroke-dasharray="2 5"/>
+  <polygon data-hex="3112,904,24" fill="#3C2C00" stroke="#FFBE00" stroke-width="1.5" style="filter:drop-shadow(0 0 5px rgba(255,190,0,.5))"/>
+  <circle cx="3112" cy="904" r="2.5" fill="#FFBE00"/>
+</svg>
+<div class="abs wp-label" style="left:2884px;top:234px">NÚCLEO U-235</div>
+<div class="abs" style="left:2884px;top:256px;font:500 12px var(--mono);letter-spacing:.3em;color:var(--amber)">06-A</div>
+<div class="abs" style="left:2828px;top:990px;font:500 13px var(--mono);letter-spacing:.3em;color:var(--sub)">U-235</div>
+<div class="abs" style="left:3148px;top:896px;font:500 12px var(--mono);letter-spacing:.25em;color:var(--amber)">U-238</div>
+<div class="abs wp-foot">GAMMA  DEBIAN 13</div>
+
+<!-- painel superior -->
+<div class="abs panel">
+  <div class="pb mbtn"><i class="hx" data-s="18" data-k="acc" data-w="1.6" data-g="1"></i>Aplicações</div>
+  <div class="ws">
+    <i class="hx" data-s="16" data-k="on" data-g="1"></i>
+    <i class="hx" data-s="16" data-k="ice"></i>
+    <i class="hx" data-s="16" data-k="off"></i>
+    <i class="hx" data-s="16" data-k="off"></i>
+  </div>
+  <div class="sep"></div>
+  <div class="task on"><i data-i="gear" data-s="16"></i>Aparência</div>
+  <div class="task"><i data-i="term" data-s="16"></i>Terminal</div>
+  <div class="task"><i data-i="folder" data-s="16"></i>Wallpapers</div>
+  <div class="tray">
+    <div class="met"><i class="hx" data-s="10" data-k="ok"></i><b>CPU</b><span>23%</span></div>
+    <div class="met"><i class="hx" data-s="10" data-k="ok"></i><b>MEM</b><span>61%</span></div>
+    <div class="met wa"><i class="hx" data-s="10" data-k="wa"></i><b>TEMP</b><span>78°C</span></div>
+    <div class="met"><i class="hx" data-s="10" data-k="nd"></i><b>GPU</b><span style="color:var(--sub)">--</span></div>
+    <div class="met"><i data-i="net" data-s="14" style="color:var(--sub)"></i><span>1,2 MB/s</span></div>
+    <div class="met"><i data-i="vol" data-s="16" style="color:var(--sub)"></i><span>40</span></div>
+    <div class="clock"><small>dom 08 nov</small><span>21:40</span></div>
+  </div>
+</div>
+
+<!-- menu de aplicações -->
+<div class="abs menu" style="left:0;top:30px;width:580px;height:620px">
+  <div class="msearch"><i data-i="search" data-s="16"></i>Buscar aplicativos<span class="caret" style="margin-left:-4px"></span></div>
+  <div class="mcols">
+    <div class="mapps">
+      <div class="mapp hot"><i data-i="term" data-s="22"></i><div><b>Terminal</b><small>Linha de comando</small></div></div>
+      <div class="mapp"><i data-i="globe" data-s="22"></i><div><b>Navegador web</b><small>Firefox</small></div></div>
+      <div class="mapp"><i data-i="folder" data-s="22"></i><div><b>Arquivos</b><small>Thunar</small></div></div>
+      <div class="mapp"><i data-i="edit" data-s="22"></i><div><b>Editor de texto</b><small>Mousepad</small></div></div>
+      <div class="mapp"><i data-i="chart" data-s="22"></i><div><b>Gerenciador de tarefas</b><small>Processos e recursos</small></div></div>
+      <div class="mapp"><i data-i="image" data-s="22"></i><div><b>Visualizador de imagens</b><small>Ristretto</small></div></div>
+      <div class="mapp"><i data-i="gear" data-s="22"></i><div><b>Configurações</b><small>Gerenciador de configurações</small></div></div>
+      <div class="mapp"><i data-i="sys" data-s="22"></i><div><b>Monitores</b><small>Tela e resolução</small></div></div>
+      <div class="mapp"><i data-i="music" data-s="22"></i><div><b>Reprodutor de música</b><small>Parole</small></div></div>
+    </div>
+    <div class="mcats">
+      <div class="mcat on"><i data-i="star" data-s="16"></i>Favoritos</div>
+      <div class="mcat"><i data-i="clock" data-s="16"></i>Recentes</div>
+      <div class="mcat"><i data-i="edit" data-s="16"></i>Acessórios</div>
+      <div class="mcat"><i data-i="code" data-s="16"></i>Desenvolvimento</div>
+      <div class="mcat"><i data-i="office" data-s="16"></i>Escritório</div>
+      <div class="mcat"><i data-i="image" data-s="16"></i>Gráficos</div>
+      <div class="mcat"><i data-i="globe" data-s="16"></i>Internet</div>
+      <div class="mcat"><i data-i="music" data-s="16"></i>Multimídia</div>
+      <div class="mcat"><i data-i="sys" data-s="16"></i>Sistema</div>
+      <div class="mcat"><i data-i="gear" data-s="16"></i>Configurações</div>
+    </div>
+  </div>
+  <div class="mfoot"><i class="hx" data-s="26" data-k="ne" data-t="L" data-tc="#BEFFAA" data-ts="12"></i><span class="u">lstavares84</span>
+    <div class="acts"><span><i data-i="gear" data-s="18"></i></span><span><i data-i="lock" data-s="18"></i></span><span><i data-i="power" data-s="18"></i></span></div></div>
+</div>
+
+<!-- janela focada: Aparência -->
+<div class="abs win focus" style="left:640px;top:96px;width:1060px">
+  <div class="tb"><i data-i="gear" data-s="16" style="color:var(--accent)"></i><span class="t">Aparência</span>
+    <div class="ctl"><span><i data-i="min" data-s="18"></i></span><span class="hot"><i class="hx" data-s="24" data-k="ok"></i><i data-i="max" data-s="18" style="position:relative"></i></span><span><i data-i="close" data-s="18"></i></span></div></div>
+  <div class="tabs"><div class="tab">Estilo</div><div class="tab">Ícones</div><div class="tab on">Fontes</div><div class="tab">Configurações</div></div>
+  <div class="body">
+    <div style="width:380px">
+      <h3>Tema</h3>
+      <div class="list">
+        <div class="row">Adwaita<small>gtk3</small></div>
+        <div class="row">Adwaita-dark<small>gtk3</small></div>
+        <div class="row sel"><i class="hx" data-s="12" data-k="on" data-g="1"></i>GAMMA<small>gtk3 + xfwm4</small></div>
+        <div class="row">GAMMA Fósforo<small>gtk3</small></div>
+        <div class="row">Greybird<small>gtk3 + xfwm4</small></div>
+        <div class="row">Greybird-dark<small>gtk3</small></div>
+        <div class="row">HighContrast<small>gtk3</small></div>
+        <div class="row">Xfce<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Xfce-dusk<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Xfce-flat<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Xfce-kolors<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Xfce-stellar<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Xfce-winter<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">ZOMG-PONIES!<small>xfwm4</small></div>
+        <div class="row" style="color:var(--sub)">Default<small>xfwm4</small></div>
+        <div class="sb"><i></i></div>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <h3 style="margin-bottom:0">Fontes</h3>
+      <div><div class="lbl">Fonte da interface</div>
+        <div class="grid"><div class="field">Roboto Regular 10</div><button class="btn">Escolher…</button></div></div>
+      <div><div class="lbl">Fonte monoespaçada</div>
+        <div class="grid"><div class="field mono focus">JetBrains Mono 11<span class="caret"></span></div><button class="btn">Escolher…</button></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div><div class="lbl">Suavização</div><div class="field combo">Subpixel RGB<i data-i="down" data-s="16"></i></div></div>
+        <div><div class="lbl">Dicas de contorno</div><div class="field combo">Leve<i data-i="down" data-s="16"></i></div></div>
+      </div>
+      <div>
+        <div class="chk"><span class="box"><i class="hx" data-s="18" data-k="on" data-g="1"></i><svg class="m abs"><use href="#i-check"/></svg></span>Ativar antisserrilhado</div>
+        <div class="chk"><span class="box"><i class="hx" data-s="18" data-k="line"></i></span>Usar dicas completas em todas as fontes</div>
+        <div class="chk dis"><span class="box"><i class="hx" data-s="18" data-k="ne"></i></span>Detectar DPI automaticamente (indisponível)</div>
+      </div>
+      <div><div class="lbl" style="display:flex;justify-content:space-between">DPI personalizado<span class="mono" style="color:var(--ice)">110</span></div>
+        <div class="slider"><div class="tr"></div><div class="fl"></div>
+          <div class="tk" style="left:0"></div><div class="tk" style="left:25%"></div><div class="tk" style="left:50%"></div><div class="tk" style="left:75%"></div><div class="tk" style="left:calc(100% - 1px)"></div>
+          <i class="hx th" data-s="18" data-k="on" data-g="1"></i></div></div>
+      <div class="info"><i class="hx" data-s="20" data-k="wa" data-t="!" data-ts="11"></i>Programas já abertos só usam a nova fonte depois de reiniciados.</div>
+    </div>
+  </div>
+  <div class="foot"><button class="btn ghost">Ajuda</button><button class="btn ghost">Restaurar padrão</button><span style="flex:1"></span><button class="btn">Fechar</button><button class="btn pri">Aplicar</button></div>
+</div>
+
+<!-- terminal sem foco -->
+<div class="abs win term" style="left:1240px;top:830px;width:1080px;height:470px">
+  <div class="tb"><i data-i="term" data-s="16" style="color:var(--sub)"></i><span class="t">Terminal  lstavares84: ~/github/lstavares84/gamma_debian_theme</span>
+    <div class="ctl"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div>
+  <div class="scr"><span class="p">lstavares84</span> <span class="d">gamma_debian_theme</span> <span class="p">▸</span> uname -sr
+Linux 6.12.115+deb13.1-amd64
+<span class="p">lstavares84</span> <span class="d">gamma_debian_theme</span> <span class="p">▸</span> echo $XDG_CURRENT_DESKTOP $XDG_SESSION_TYPE
+XFCE x11
+<span class="p">lstavares84</span> <span class="d">gamma_debian_theme</span> <span class="p">▸</span> ls Wallpapers/GREEN_colecao_completa_26_wallpapers | head -6
+<span class="w">01_HUD_global.png</span>           <span class="w">07_Mapa_tatico.png</span>
+<span class="w">02_Intrusao_cibernetica.png</span>   <span class="w">10_Monolito_verde.png</span>
+<span class="w">03_Vigilancia_tatica.png</span>      <span class="a">LISTA_E_VERIFICACAO.txt</span>
+<span class="p">lstavares84</span> <span class="d">gamma_debian_theme</span> <span class="p">▸</span> cat 05_Industrial_sci_fi.png
+cat: 05_Industrial_sci_fi.png: Arquivo ou diretório inexistente
+<span class="r">◆ 1</span> <span class="p">lstavares84</span> <span class="d">gamma_debian_theme</span> <span class="p">▸</span> <span class="cur"> </span></div>
+</div>
+
+<!-- notificação: atenção -->
+<div class="abs notif" style="left:3020px;top:46px;width:400px">
+  <i class="hx" data-s="40" data-k="wa" data-t="!" data-ts="18" data-g="1"></i>
+  <div style="flex:1"><div class="nt">Temperatura alta</div><p>CPU em 78 °C há 5 minutos.</p><div class="meta">sensores  21:39</div></div>
+  <i class="x" data-i="close" data-s="16"></i>
+</div>
+
+<script src="icons.js"></script>
+<script src="hex.js"></script>
+</body></html>

@@ -1,0 +1,74 @@
+# Arquivo: tema/GAMMA/gtk-2.0/gtkrc
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 14/11/2026 19:24 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Tema básico para aplicativos GTK 2 antigos, só com cores (motor padrão).
+
+gtk-color-scheme = "bg_color:#030A04\nfg_color:#BEFFAA\nbase_color:#030A04\ntext_color:#BEFFAA\nselected_bg_color:#0A300C\nselected_fg_color:#E6FFE1\ntooltip_bg_color:#030A04\ntooltip_fg_color:#BEFFAA\naccent:#78FF5A\ndim:#234B23\nsub:#6EAA6E\nneutral:#081C0A"
+
+gtk-button-images = 1
+gtk-menu-images = 1
+
+style "gamma-default" {
+  xthickness = 1
+  ythickness = 1
+  GtkWidget::focus-line-width = 1
+  GtkWidget::focus-line-pattern = "\1\0"
+  GtkWidget::link-color = @accent
+  GtkWidget::cursor-color = @accent
+  GtkScrollbar::slider-width = 10
+  GtkScrollbar::has-backward-stepper = 0
+  GtkScrollbar::has-forward-stepper = 0
+  GtkMenuBar::shadow-type = GTK_SHADOW_NONE
+  GtkToolbar::shadow-type = GTK_SHADOW_NONE
+
+  bg[NORMAL]        = @bg_color
+  bg[PRELIGHT]      = @selected_bg_color
+  bg[SELECTED]      = @selected_bg_color
+  bg[ACTIVE]        = @neutral
+  bg[INSENSITIVE]   = @bg_color
+
+  fg[NORMAL]        = @fg_color
+  fg[PRELIGHT]      = @selected_fg_color
+  fg[SELECTED]      = @selected_fg_color
+  fg[ACTIVE]        = @accent
+  fg[INSENSITIVE]   = @sub
+
+  base[NORMAL]      = @base_color
+  base[PRELIGHT]    = @selected_bg_color
+  base[SELECTED]    = @selected_bg_color
+  base[ACTIVE]      = @selected_bg_color
+  base[INSENSITIVE] = @bg_color
+
+  text[NORMAL]      = @text_color
+  text[PRELIGHT]    = @selected_fg_color
+  text[SELECTED]    = @selected_fg_color
+  text[ACTIVE]      = @selected_fg_color
+  text[INSENSITIVE] = @sub
+}
+
+style "gamma-button" = "gamma-default" {
+  bg[NORMAL]   = @neutral
+  bg[PRELIGHT] = @selected_bg_color
+  bg[ACTIVE]   = @selected_bg_color
+}
+
+style "gamma-menu" = "gamma-default" {
+  xthickness = 1
+  ythickness = 4
+  bg[NORMAL]   = @bg_color
+  bg[PRELIGHT] = @selected_bg_color
+  fg[PRELIGHT] = @selected_fg_color
+}
+
+style "gamma-tooltip" {
+  bg[NORMAL] = @tooltip_bg_color
+  fg[NORMAL] = @tooltip_fg_color
+}
+
+class "GtkWidget"        style "gamma-default"
+class "GtkButton"        style "gamma-button"
+class "GtkMenu"          style "gamma-menu"
+widget_class "*<GtkMenuItem>*" style "gamma-menu"
+widget "gtk-tooltip*"    style "gamma-tooltip"

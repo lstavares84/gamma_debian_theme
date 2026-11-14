@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Arquivo: editor/gamma.xml
+  Projeto: GAMMA Debian (tema Contador)
+  Versão: 1.0.0
+  Data e hora: 14/11/2026 19:35 (America/Sao_Paulo)
+  Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+  Esquema GtkSourceView 4 (Mousepad e outros editores GTK).
+-->
+<style-scheme id="gamma" name="GAMMA" version="1.0">
+  <author>lstavares84</author>
+  <description>Verde fluorescente sobre quase preto, tema Contador</description>
+
+  <color name="bg"      value="#030A04"/>
+  <color name="accent"  value="#78FF5A"/>
+  <color name="ice"     value="#BEFFAA"/>
+  <color name="white"   value="#E6FFE1"/>
+  <color name="sub"     value="#6EAA6E"/>
+  <color name="dim"     value="#234B23"/>
+  <color name="amber"   value="#FFBE00"/>
+  <color name="red"     value="#FF3C32"/>
+  <color name="ok_f"    value="#0A300C"/>
+  <color name="wa_f"    value="#3C2C00"/>
+  <color name="ne_f"    value="#081C0A"/>
+  <color name="ne_b"    value="#40783C"/>
+  <color name="teal"    value="#6EE6C8"/>
+  <color name="lime"    value="#C8E632"/>
+  <color name="mint"    value="#8CF0BE"/>
+
+  <style name="text"                       foreground="ice" background="bg"/>
+  <style name="selection"                  foreground="bg" background="accent"/>
+  <style name="selection-unfocused"        foreground="white" background="ok_f"/>
+  <style name="cursor"                     foreground="accent"/>
+  <style name="secondary-cursor"           foreground="sub"/>
+  <style name="current-line"               background="ne_f"/>
+  <style name="line-numbers"               foreground="ne_b" background="bg"/>
+  <style name="current-line-number"        foreground="accent" background="ne_f" bold="true"/>
+  <style name="right-margin"               foreground="dim" background="bg"/>
+  <style name="draw-spaces"                foreground="dim"/>
+  <style name="background-pattern"         background="ne_f"/>
+  <style name="bracket-match"              foreground="bg" background="ice" bold="true"/>
+  <style name="bracket-mismatch"           foreground="white" background="red"/>
+  <style name="search-match"               foreground="amber" background="wa_f"/>
+
+  <style name="def:comment"                foreground="sub" italic="true"/>
+  <style name="def:shebang"                foreground="sub" bold="true"/>
+  <style name="def:doc-comment-element"    foreground="sub" bold="true"/>
+  <style name="def:keyword"                foreground="accent" bold="true"/>
+  <style name="def:statement"              foreground="accent" bold="true"/>
+  <style name="def:builtin"                foreground="lime"/>
+  <style name="def:type"                   foreground="teal"/>
+  <style name="def:function"               foreground="white" bold="true"/>
+  <style name="def:identifier"             foreground="ice"/>
+  <style name="def:string"                 foreground="mint"/>
+  <style name="def:special-char"           foreground="lime"/>
+  <style name="def:character"              foreground="mint"/>
+  <style name="def:constant"               foreground="white"/>
+  <style name="def:number"                 foreground="white"/>
+  <style name="def:boolean"                foreground="white" bold="true"/>
+  <style name="def:floating-point"         foreground="white"/>
+  <style name="def:decimal"                foreground="white"/>
+  <style name="def:base-n-integer"         foreground="white"/>
+  <style name="def:preprocessor"           foreground="teal"/>
+  <style name="def:operator"               foreground="ice"/>
+  <style name="def:note"                   foreground="amber" bold="true"/>
+  <style name="def:error"                  foreground="red" underline="error"/>
+  <style name="def:warning"                foreground="amber"/>
+  <style name="def:net-address"            foreground="accent" underline="single"/>
+  <style name="def:link-destination"       foreground="accent" underline="single"/>
+  <style name="def:emphasis"               italic="true"/>
+  <style name="def:strong-emphasis"        bold="true"/>
+  <style name="def:heading"                foreground="accent" bold="true"/>
+  <style name="def:insertion"              foreground="accent"/>
+  <style name="def:deletion"               foreground="red"/>
+  <style name="diff:added-line"            foreground="accent"/>
+  <style name="diff:removed-line"          foreground="red"/>
+  <style name="diff:changed-line"          foreground="amber"/>
+  <style name="diff:location"              foreground="teal"/>
+  <style name="diff:special-case"          foreground="sub"/>
+  <style name="sh:variable"                foreground="teal"/>
+  <style name="xml:element-name"           foreground="accent"/>
+  <style name="xml:attribute-name"         foreground="teal"/>
+  <style name="css:property-name"          foreground="teal"/>
+</style-scheme>

@@ -1,0 +1,24 @@
+# Arquivo: tema/GAMMA/xfwm4/themerc
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 14/11/2026 19:26 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Gerado por ferramentas/gerar_xfwm4.py
+button_offset=4
+button_spacing=0
+full_width_title=true
+title_shadow_active=false
+title_shadow_inactive=false
+title_vertical_offset_active=1
+title_vertical_offset_inactive=1
+title_horizontal_offset=10
+active_text_color=#E6FFE1
+inactive_text_color=#6EAA6E
+active_text_shadow_color=#030A04
+inactive_text_shadow_color=#030A04
+maximized_offset=0
+shadow_delta_height=0
+shadow_delta_width=0
+shadow_delta_x=0
+shadow_delta_y=-4
+shadow_opacity=60

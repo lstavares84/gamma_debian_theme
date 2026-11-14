@@ -1,0 +1,23 @@
+/* GAMMA Debian, mockups: tokens comuns. Criação original. */
+@font-face{font-family:"Roboto";font-weight:400;src:url(../fonts/Roboto-400.ttf)}
+@font-face{font-family:"Roboto";font-weight:500;src:url(../fonts/Roboto-500.ttf)}
+@font-face{font-family:"Roboto";font-weight:700;src:url(../fonts/Roboto-700.ttf)}
+@font-face{font-family:"JetBrains Mono";font-weight:400;src:url(../fonts/JetBrainsMono-400.ttf)}
+@font-face{font-family:"JetBrains Mono";font-weight:500;src:url(../fonts/JetBrainsMono-500.ttf)}
+@font-face{font-family:"JetBrains Mono";font-weight:700;src:url(../fonts/JetBrainsMono-700.ttf)}
+:root{
+ --bg:#030A04;--accent:#78FF5A;--ice:#BEFFAA;--white:#E6FFE1;--sub:#6EAA6E;--dim:#234B23;
+ --amber:#FFBE00;--red:#FF3C32;
+ --ok-f:#0A300C;--ok-b:#78FF5A;--wa-f:#3C2C00;--wa-b:#FFBE00;--cr-f:#480404;--cr-b:#FF3C32;
+ --nd-f:#081209;--nd-b:#1E341E;--ne-f:#081C0A;--ne-b:#40783C;--mesh:#0A1A0B;
+ --glow:0 0 6px rgba(120,255,90,.55),0 0 18px rgba(120,255,90,.18);
+ --tglow:0 0 6px rgba(120,255,90,.45);
+ --ui:"Roboto",sans-serif;--mono:"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:3440px;height:1440px;overflow:hidden}
+body{background:var(--bg);color:var(--ice);font:400 13px/1.4 var(--ui);position:relative;-webkit-font-smoothing:antialiased}
+.mesh{position:absolute;inset:0;background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2219.053%22%20height%3D%2233%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%230A1A0B%22%20stroke-width%3D%221%22%3E%3Cpolygon%20points%3D%229.53%2C0.00%2019.05%2C5.50%2019.05%2C16.50%209.53%2C22.00%200.00%2C16.50%200.00%2C5.50%22/%3E%3Cpolygon%20points%3D%220.00%2C16.50%209.53%2C22.00%209.53%2C33.00%200.00%2C38.50%20-9.53%2C33.00%20-9.53%2C22.00%22/%3E%3Cpolygon%20points%3D%2219.05%2C16.50%2028.58%2C22.00%2028.58%2C33.00%2019.05%2C38.50%209.53%2C33.00%209.53%2C22.00%22/%3E%3Cpolygon%20points%3D%220.00%2C-16.50%209.53%2C-11.00%209.53%2C0.00%200.00%2C5.50%20-9.53%2C0.00%20-9.53%2C-11.00%22/%3E%3Cpolygon%20points%3D%2219.05%2C-16.50%2028.58%2C-11.00%2028.58%2C0.00%2019.05%2C5.50%209.53%2C0.00%209.53%2C-11.00%22/%3E%3C/g%3E%3C/svg%3E");background-size:19.053px 33px}
+.abs{position:absolute}
+.mono{font-family:var(--mono)}
+svg{display:block;overflow:visible}

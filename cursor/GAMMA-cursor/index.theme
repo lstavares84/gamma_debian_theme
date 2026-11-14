@@ -1,0 +1,7 @@
+# Arquivo: cursor/GAMMA-cursor/index.theme
+# Projeto: GAMMA Debian (tema Contador). Versão 1.0.0, 14/11/2026 19:30 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+[Icon Theme]
+Name=GAMMA-cursor
+Comment=Cursor do tema GAMMA Contador
+Inherits=Adwaita

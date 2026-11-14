@@ -1,0 +1,5 @@
+# Arquivo: .gitignore (GAMMA Debian, versão 1.0.0, 14/11/2026)
+# Pasta de inspiração local (coleção GREEN), não faz parte do tema publicado
+Wallpapers/
+__pycache__/
+*.pyc

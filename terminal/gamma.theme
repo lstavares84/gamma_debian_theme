@@ -1,0 +1,22 @@
+# Arquivo: terminal/gamma.theme
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 14/11/2026 19:35 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Esquema de cores do xfce4-terminal. Cores 0, 1, 3, 7, 10, 15 vêm da paleta;
+# as demais são derivações (verde-azulado, limão e menta no lugar de azul,
+# magenta e ciano), para que ls, git e vim continuem distinguindo as cores.
+[Scheme]
+Name=GAMMA
+ColorForeground=#BEFFAA
+ColorBackground=#030A04
+ColorCursor=#78FF5A
+ColorCursorForeground=#030A04
+ColorCursorUseDefault=FALSE
+ColorSelection=#E6FFE1
+ColorSelectionBackground=#0A300C
+ColorSelectionUseDefault=FALSE
+ColorBold=#E6FFE1
+ColorBoldUseDefault=FALSE
+TabActivityColor=#FFBE00
+ColorPalette=#0A1A0B;#FF3C32;#5ADC3C;#FFBE00;#3CB49B;#C8E632;#8CF0BE;#BEFFAA;#40783C;#FF7A6E;#78FF5A;#FFD75A;#6EE6C8;#E1FF78;#BEFFE1;#E6FFE1

@@ -1,0 +1,584 @@
+<!doctype html>
+<!-- GAMMA Debian, book v1 (direção A "Contador"). Criação original. -->
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css"><link rel="stylesheet" href="book.css"></head><body>
+<div class="zoom">
+
+<!-- 01 CAPA -->
+<section class="pg" data-p="1"><div class="mesh"></div>
+  <svg class="abs" style="left:0;top:0" width="1920" height="1080">
+    <line x1="1440" y1="150" x2="1440" y2="330" stroke="#234B23" stroke-width="1.5" stroke-dasharray="2 7"/>
+    <circle cx="1440" cy="146" r="4" fill="none" stroke="#6EAA6E" stroke-width="1.5"/>
+    <polygon data-hex="1440,520,190" fill="#041006" stroke="#78FF5A" stroke-width="2.5" style="filter:drop-shadow(0 0 8px rgba(120,255,90,.55)) drop-shadow(0 0 26px rgba(120,255,90,.18))"/>
+    <polygon data-hex="1440,520,172" fill="none" stroke="#234B23"/>
+    <circle cx="1440" cy="520" r="4" fill="#78FF5A" style="filter:drop-shadow(0 0 6px #78FF5A)"/>
+    <polygon data-hex="1672,654,22" fill="#3C2C00" stroke="#FFBE00" stroke-width="1.5" style="filter:drop-shadow(0 0 5px rgba(255,190,0,.5))"/>
+  </svg>
+  <div class="abs" style="left:96px;top:330px">
+    <div style="font:500 15px var(--mono);letter-spacing:.4em;color:var(--sub)">TEMA PARA DEBIAN 13 + XFCE</div>
+    <div style="font:700 120px/1 var(--ui);color:var(--accent);letter-spacing:.04em;margin-top:22px;text-shadow:0 0 14px rgba(120,255,90,.45)">GAMMA</div>
+    <div style="font:700 44px var(--ui);color:var(--white);margin-top:14px">Contador</div>
+    <div class="txt" style="margin-top:24px;font-size:18px">Book de identidade e especificação visual, versão 1.<br>Para avaliar antes de qualquer arquivo de tema ser escrito.</div>
+  </div>
+  <div class="abs" style="left:96px;bottom:70px;font:400 13px/1.8 var(--mono);color:var(--sub)">
+    lstavares84    08/11/2026<br><span style="color:var(--dim)">Samsung 3440x1440 (DP-2, principal)  +  LG 2560x1080 (DP-4, acima)</span></div>
+</section>
+
+<!-- 02 SUMÁRIO -->
+<section class="pg" data-p="2"><div class="mesh"></div>
+  <div class="hdr"><span class="n">02</span><h1>Sumário</h1><p>O book segue a ordem em que o tema será construído: fundamentos, controles, peças do XFCE, aplicativos e entrega.</p></div>
+  <div class="ct" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px 60px;align-content:start;font:400 17px var(--ui);color:var(--ice)" id="toc"></div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>02</span></div>
+</section>
+
+<!-- 03 CONCEITO -->
+<section class="pg" data-p="3"><div class="mesh"></div>
+  <div class="hdr"><span class="n">03</span><h1>Conceito</h1><p>Um contador de radiação em repouso: escuro, preciso e silencioso até que algo aconteça.</p></div>
+  <div class="ct cols">
+    <div style="flex:1.1">
+      <div style="font:700 44px/1.15 var(--ui);color:var(--white);max-width:16ch">A interface só brilha onde há atividade.</div>
+      <div class="txt" style="margin-top:28px">A tela fica quase preta. O verde fluorescente aparece apenas no que está <b>vivo agora</b>: a janela focada, o item selecionado, o campo em edição, o valor medido. Tudo o mais recua para tons de verde apagado. O resultado é um desktop que se lê como um instrumento: o olho vai direto ao ponto aceso.</div>
+      <div class="txt" style="margin-top:18px">As cores de estado têm significado fixo em todo o sistema e nunca são usadas como enfeite.</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <div class="box"><h4>PRINCÍPIOS</h4><div class="txt" style="font-size:14px">
+        <b>Um ponto aceso por região.</b> Foco, seleção e valor ativo recebem verde e brilho; o resto não.<br><br>
+        <b>Estado antes de estética.</b> Verde normal, âmbar atenção, vermelho crítico, cinza sem dado.<br><br>
+        <b>Hexágono como assinatura.</b> Caixas de seleção, indicadores, áreas de trabalho e o fundo usam a mesma geometria.<br><br>
+        <b>Precisão de instrumento.</b> Linhas de 1 px, cantos de no máximo 2 px, números em fonte monoespaçada.</div></div>
+      <div class="box"><h4>O QUE ESTE TEMA NÃO É</h4><div class="txt" style="font-size:14px">
+        Sem gradientes coloridos, sem cantos arredondados, sem brilho em elementos parados, sem efeito "hacker de filme" exagerado (chuva de caracteres, falhas de imagem) na interface do dia a dia.</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>03</span></div>
+</section>
+
+<!-- 04 PALETA -->
+<section class="pg" data-p="4"><div class="mesh"></div>
+  <div class="hdr"><span class="n">04</span><h1>Paleta</h1><p>Os oito códigos definidos por você, com função e contraste contra o fundo (WCAG 2.x).</p></div>
+  <div class="ct">
+    <div id="pal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px"></div>
+    <div class="note" style="margin-top:22px">Contraste calculado pela fórmula de luminância relativa da WCAG 2.x. AA exige 4,5:1 para texto comum e 3:1 para texto grande e elementos gráficos. "dim" é só para bordas e grades, nunca para texto.</div>
+    <h4 style="margin-top:40px">PROPORÇÃO DE USO NA TELA (orientação)</h4>
+    <div id="prop" style="display:flex;height:46px;border:1px solid var(--dim)"></div>
+    <div id="propl" style="display:flex;margin-top:8px"></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>04</span></div>
+</section>
+
+<!-- 05 ESTADOS -->
+<section class="pg" data-p="5"><div class="mesh"></div>
+  <div class="hdr"><span class="n">05</span><h1>Estados</h1><p>Cinco superfícies com significado fixo. A mesma regra vale para painel, janelas, notificações e terminal.</p></div>
+  <div class="ct"><div id="states" style="display:grid;grid-template-columns:repeat(5,1fr);gap:22px"></div>
+    <h4 style="margin-top:44px">ONDE CADA ESTADO APARECE</h4><div id="where"></div></div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>05</span></div>
+</section>
+
+<!-- 06 TIPOGRAFIA -->
+<section class="pg" data-p="6"><div class="mesh"></div>
+  <div class="hdr"><span class="n">06</span><h1>Tipografia</h1><p>Roboto para a interface, JetBrains Mono para números, terminal e dados. Ambas SIL OFL 1.1.</p></div>
+  <div class="ct cols">
+    <div style="flex:1">
+      <h4>ROBOTO, INTERFACE</h4>
+      <div style="font:700 56px/1.05 var(--ui);color:var(--white)">Aparência</div>
+      <div style="font:400 22px/1.4 var(--ui);color:var(--ice);margin-top:10px">Ação, opção, configuração: acentuação completa em português.</div>
+      <div style="display:flex;gap:28px;margin-top:22px;font:13px var(--ui);color:var(--ice)">
+        <span style="font-weight:400">Regular 400</span><span style="font-weight:500">Medium 500</span><span style="font-weight:700">Bold 700</span></div>
+      <h4 style="margin-top:40px">ESCALA (px a 96 dpi, pontos do XFCE entre parênteses)</h4>
+      <div id="scale"></div>
+    </div>
+    <div style="flex:1">
+      <h4>JETBRAINS MONO, DADOS E TERMINAL</h4>
+      <div style="font:500 56px/1.05 var(--mono);color:var(--ice)">U-235 0xEB</div>
+      <div style="font:400 16px/1.6 var(--mono);color:var(--ice);margin-top:14px">0123456789 ½ µ ° × → ↑ α β<br>CPU 23%  MEM 61%  TEMP 78°C<br><span style="color:var(--sub)">il1| O0 {}[]() == != &lt;= &gt;=</span></div>
+      <h4 style="margin-top:34px">REGRAS</h4>
+      <div class="txt" style="font-size:14px">
+        <b>Títulos de janela e seções:</b> Roboto Bold 13 a 14 px.<br>
+        <b>Texto de interface:</b> Roboto Regular 13 px (10 pt).<br>
+        <b>Rótulos de campo:</b> Roboto Regular 12 px em "sub".<br>
+        <b>Valores medidos, relógio, atalhos:</b> JetBrains Mono Medium.<br>
+        <b>Terminal e editor:</b> JetBrains Mono Regular 11 pt.<br>
+        <b>Rótulos em maiúsculas espaçadas:</b> só no papel de parede e em indicadores, como na coleção GREEN.</div>
+      <div class="note" style="margin-top:18px">Glifos ⬡ e ⬢ não existem no JetBrains Mono. O prompt usa ▸ (presente na fonte) e o hexágono é desenhado como imagem onde for preciso.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>06</span></div>
+</section>
+
+<!-- 07 HEXÁGONO -->
+<section class="pg" data-p="7"><div class="mesh"></div>
+  <div class="hdr"><span class="n">07</span><h1>Hexágono, malha e brilho</h1><p>A geometria única que amarra todo o tema.</p></div>
+  <div class="ct cols">
+    <div style="flex:1">
+      <svg width="520" height="440">
+        <polygon data-hex="230,220,170" fill="#041006" stroke="#78FF5A" stroke-width="2" style="filter:drop-shadow(0 0 6px rgba(120,255,90,.5))"/>
+        <line x1="230" y1="50" x2="230" y2="390" stroke="#234B23" stroke-dasharray="3 5"/>
+        <line x1="82.8" y1="220" x2="377.2" y2="220" stroke="#234B23" stroke-dasharray="3 5"/>
+        <circle cx="230" cy="220" r="3" fill="#78FF5A"/>
+        <text x="236" y="140" fill="#BEFFAA" style="font:500 13px JetBrains Mono">r</text>
+        <text x="300" y="214" fill="#BEFFAA" style="font:500 13px JetBrains Mono">√3/2 · r</text>
+        <text x="236" y="44" fill="#FFBE00" style="font:500 12px JetBrains Mono">vértice para cima</text>
+        <text x="400" y="120" fill="#6EAA6E" style="font:400 12px JetBrains Mono">largura = √3 · r</text>
+        <text x="400" y="140" fill="#6EAA6E" style="font:400 12px JetBrains Mono">altura  = 2 · r</text>
+      </svg>
+      <div class="txt" style="font-size:14px">Sempre com <b>vértice para cima</b>, como nas células do GAMMA. Traço de 1 a 1,5 px nos tamanhos de interface e 2 a 2,5 px no papel de parede.</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:22px">
+      <div class="box"><h4>TAMANHOS NA INTERFACE</h4>
+        <div style="display:flex;gap:26px;align-items:flex-end">
+          <div style="text-align:center"><i class="hx" data-s="10" data-k="ok"></i><div class="cap">10 px LED</div></div>
+          <div style="text-align:center"><i class="hx" data-s="12" data-k="on" data-g="1"></i><div class="cap">12 px marca</div></div>
+          <div style="text-align:center"><i class="hx" data-s="16" data-k="ice"></i><div class="cap">16 px área</div></div>
+          <div style="text-align:center"><i class="hx" data-s="18" data-k="on" data-g="1"></i><div class="cap">18 px seleção</div></div>
+          <div style="text-align:center"><i class="hx" data-s="24" data-k="ok"></i><div class="cap">24 px botão</div></div>
+          <div style="text-align:center"><i class="hx" data-s="40" data-k="wa" data-t="!" data-ts="18" data-g="1"></i><div class="cap">40 px alerta</div></div>
+        </div></div>
+      <div class="box" style="position:relative;height:150px;overflow:hidden"><div class="mesh" style="position:absolute;inset:0;background-size:19.053px 33px;transform:scale(3);transform-origin:0 0"></div>
+        <div style="position:relative"><h4>MALHA DE FUNDO (ampliada 3x)</h4><div class="note">hexágono de raio 11 px, traço 1 px #0A1A0B sobre #030A04</div></div></div>
+      <div class="box"><h4>BRILHO DE FÓSFORO</h4>
+        <div style="display:flex;gap:30px;align-items:center">
+          <span class="btn pri">Aplicar</span>
+          <div class="note mono" style="color:var(--ice)">elementos: 0 0 6px rgba(120,255,90,.55),<br>&nbsp;&nbsp;0 0 18px rgba(120,255,90,.18)<br>texto: 0 0 6px rgba(120,255,90,.45)</div></div>
+        <div class="note" style="margin-top:10px">Só em itens acesos: foco, seleção, valor ativo, botão principal. Nunca em texto corrido.</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>07</span></div>
+</section>
+
+<!-- 08 BOTÕES E CAMPOS -->
+<section class="pg" data-p="8"><div class="mesh"></div>
+  <div class="hdr"><span class="n">08</span><h1>Botões e campos</h1><p>Estados de cada controle GTK. Páginas de componentes ampliadas para leitura.</p></div>
+  <div class="ct zx" style="--z:1.4">
+    <h4>BOTÃO COMUM</h4>
+    <div style="display:flex;gap:28px;align-items:center">
+      <div><span class="btn">Fechar</span><div class="cap">normal</div></div>
+      <div><span class="btn hov">Fechar</span><div class="cap">sob o cursor</div></div>
+      <div><span class="btn prs">Fechar</span><div class="cap">pressionado</div></div>
+      <div><span class="btn foc">Fechar</span><div class="cap">foco do teclado</div></div>
+      <div><span class="btn dis">Fechar</span><div class="cap">desabilitado</div></div>
+      <div><span class="btn ghost">Ajuda</span><div class="cap">plano</div></div>
+    </div>
+    <h4 style="margin-top:34px">BOTÃO PRINCIPAL E DESTRUTIVO</h4>
+    <div style="display:flex;gap:28px;align-items:center">
+      <div><span class="btn pri">Aplicar</span><div class="cap">principal</div></div>
+      <div><span class="btn pri hov">Aplicar</span><div class="cap">principal, cursor</div></div>
+      <div><span class="btn crit">Apagar</span><div class="cap">destrutivo</div></div>
+      <div><span class="btn"><i data-i="folder" data-s="16" style="color:var(--accent)"></i>Abrir pasta</span><div class="cap">com ícone</div></div>
+      <div><span class="btn" style="padding:0 8px"><i data-i="gear" data-s="16"></i></span><div class="cap">só ícone</div></div>
+    </div>
+    <h4 style="margin-top:34px">CAMPOS DE TEXTO</h4>
+    <div style="display:grid;grid-template-columns:repeat(3,320px);gap:22px 40px">
+      <div><div class="field ph">Buscar arquivos</div><div class="cap">vazio, com dica</div></div>
+      <div><div class="field">Roboto Regular 10</div><div class="cap">preenchido</div></div>
+      <div><div class="field focus">wallpapers/<span class="sel">gamma</span><span class="caret"></span></div><div class="cap">foco, texto selecionado</div></div>
+      <div><div class="field err">3440x14o0</div><div class="cap" style="color:var(--red)">erro: use apenas números</div></div>
+      <div><div class="field dis">Detectado automaticamente</div><div class="cap">desabilitado</div></div>
+      <div><div class="field combo">Subpixel RGB<i data-i="down" data-s="16" style="color:var(--accent)"></i></div><div class="cap">lista suspensa</div></div>
+      <div><div class="spin"><span>110</span><b>−</b><b>+</b></div><div class="cap">campo numérico</div></div>
+      <div><div class="field" style="gap:8px"><i data-i="search" data-s="16" style="color:var(--accent)"></i>uranio<span style="margin-left:auto;color:var(--sub)"><i data-i="close" data-s="14"></i></span></div><div class="cap">busca com limpar</div></div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>08</span></div>
+</section>
+
+<!-- 09 SELEÇÃO E VALORES -->
+<section class="pg" data-p="9"><div class="mesh"></div>
+  <div class="hdr"><span class="n">09</span><h1>Seleção e valores</h1><p>Caixas de seleção e botões de opção são hexágonos. Medidores seguem as cores de estado.</p></div>
+  <div class="ct cols zx" style="--z:1.4">
+    <div style="flex:1">
+      <h4>CAIXA DE SELEÇÃO</h4>
+      <div class="chk"><span class="box2"><i class="hx" data-s="18" data-k="on" data-g="1"></i><svg class="m abs"><use href="#i-check"/></svg></span>Marcada</div>
+      <div class="chk"><span class="box2"><i class="hx" data-s="18" data-k="line"></i></span>Desmarcada</div>
+      <div class="chk"><span class="box2"><i class="hx" data-s="18" data-k="ok"></i><svg class="abs" style="left:4px;top:8px;width:10px;height:2px"><rect width="10" height="2" fill="#78FF5A"/></svg></span>Indeterminada (alguns itens)</div>
+      <div class="chk dis"><span class="box2"><i class="hx" data-s="18" data-k="ne"></i></span>Desabilitada</div>
+      <h4 style="margin-top:26px">BOTÃO DE OPÇÃO</h4>
+      <div class="chk"><span class="box2"><i class="hx" data-s="18" data-k="acc" data-w="1.5"></i><svg class="abs" style="left:0;top:0" width="18" height="18"><polygon data-hex="9,9,4" fill="#78FF5A"/></svg></span>Escala 1x</div>
+      <div class="chk"><span class="box2"><i class="hx" data-s="18" data-k="line"></i></span>Escala 1,25x</div>
+      <h4 style="margin-top:26px">INTERRUPTOR</h4>
+      <div style="display:flex;gap:30px;align-items:center;font:13px var(--ui);color:var(--ice)"><span style="display:flex;gap:10px;align-items:center"><span class="sw on"><i></i></span>Ligado</span><span style="display:flex;gap:10px;align-items:center"><span class="sw"><i></i></span>Desligado</span></div>
+    </div>
+    <div style="flex:1">
+      <h4>CONTROLE DESLIZANTE</h4>
+      <div style="display:flex;justify-content:space-between;width:320px;font:12px var(--ui);color:var(--sub)">DPI personalizado<span class="mono" style="color:var(--ice)">110</span></div>
+      <div class="slider"><div class="tr"></div><div class="fl" style="width:56%"></div><div class="tk" style="left:0"></div><div class="tk" style="left:25%"></div><div class="tk" style="left:50%"></div><div class="tk" style="left:75%"></div><div class="tk" style="right:0"></div><i class="hx th" data-s="18" data-k="on" data-g="1" style="left:calc(56% - 9px)"></i></div>
+      <h4 style="margin-top:30px">BARRA DE PROGRESSO</h4>
+      <div class="prog"><i style="width:64%"></i></div><div class="cap">copiando 64%</div>
+      <h4 style="margin-top:30px">MEDIDOR DE NÍVEL (bateria, disco, sinal)</h4>
+      <div class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><div class="cap">61%, normal</div>
+      <div class="level" style="margin-top:12px"><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i></i><i></i></div><div class="cap">80%, atenção</div>
+      <div class="level" style="margin-top:12px"><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i></div><div class="cap">97%, crítico</div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>09</span></div>
+</section>
+
+<!-- 10 NAVEGAÇÃO E LISTAS -->
+<section class="pg" data-p="10"><div class="mesh"></div>
+  <div class="hdr"><span class="n">10</span><h1>Navegação e listas</h1><p>Abas, listas com colunas, barras de rolagem, dicas e barras de aviso.</p></div>
+  <div class="ct cols zx" style="--z:1.28">
+    <div style="flex:1">
+      <h4>ABAS</h4>
+      <div class="tabs" style="width:520px"><div class="tab">Estilo</div><div class="tab hov">Ícones</div><div class="tab on">Fontes</div><div class="tab">Configurações</div></div>
+      <div class="cap">normal, sob o cursor, ativa</div>
+      <h4 style="margin-top:28px">LISTA COM COLUNAS (Thunar, configurações)</h4>
+      <div class="list" style="width:520px;height:250px">
+        <div class="row hd">NOME<small style="letter-spacing:.1em">TAMANHO</small></div>
+        <div class="row"><i data-i="folder" data-s="16" style="color:var(--accent)"></i>Wallpapers<small>97 itens</small></div>
+        <div class="row h"><i data-i="folder" data-s="16" style="color:var(--accent)"></i>mockups<small>3 itens</small></div>
+        <div class="row s"><i data-i="image" data-s="16" style="color:var(--accent)"></i>v1-A-contador.png<small>955 KB</small></div>
+        <div class="row"><i data-i="edit" data-s="16" style="color:var(--sub)"></i>LISTA_E_VERIFICACAO.txt<small>3 KB</small></div>
+        <div class="row" style="color:var(--sub)"><i data-i="code" data-s="16"></i>instalar.sh<small>a criar</small></div>
+        <div class="row" style="color:var(--sub)"><i data-i="code" data-s="16"></i>restaurar.sh<small>a criar</small></div>
+        <div class="sb"><i style="top:34px;height:120px"></i></div>
+      </div>
+      <div class="cap">cabeçalho, linha sob o cursor, linha selecionada</div>
+    </div>
+    <div style="flex:1">
+      <h4>BARRA DE ROLAGEM</h4>
+      <div style="display:flex;gap:46px;align-items:flex-end;height:140px">
+        <div style="text-align:center"><div style="position:relative;width:6px;height:120px;margin:0 auto"><div style="position:absolute;left:2.5px;top:0;bottom:0;width:1px;background:var(--dim)"></div><div style="position:absolute;left:0;top:20px;width:6px;height:50px;background:var(--ne-b)"></div></div><div class="cap">repouso 6 px</div></div>
+        <div style="text-align:center"><div style="position:relative;width:10px;height:120px;margin:0 auto;background:#061407"><div style="position:absolute;left:1px;top:20px;width:8px;height:50px;background:var(--ice)"></div></div><div class="cap">cursor 10 px</div></div>
+        <div style="text-align:center"><div style="position:relative;width:10px;height:120px;margin:0 auto;background:#061407"><div style="position:absolute;left:1px;top:20px;width:8px;height:50px;background:var(--accent);box-shadow:0 0 6px rgba(120,255,90,.6)"></div></div><div class="cap">arrastando</div></div>
+      </div>
+      <h4 style="margin-top:26px">DICA (TOOLTIP)</h4>
+      <span class="tip">Temperatura da CPU: <span class="mono" style="color:var(--amber)">78 °C</span></span>
+      <h4 style="margin-top:26px">BARRAS DE AVISO</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;width:560px">
+        <div class="info ok"><i class="hx" data-s="20" data-k="ok" data-t="✓" data-ts="10"></i>Tema aplicado.</div>
+        <div class="info wa"><i class="hx" data-s="20" data-k="wa" data-t="!" data-ts="11"></i>Programas abertos só usam a nova fonte depois de reiniciados.</div>
+        <div class="info cr"><i class="hx" data-s="20" data-k="cr" data-t="!" data-ts="11"></i>Não foi possível gravar em ~/.themes. Verifique as permissões.</div>
+        <div class="info nd"><i class="hx" data-s="20" data-k="nd" data-t="-" data-ts="11"></i>Sensor de GPU sem leitura.</div>
+        <div class="info ne"><i class="hx" data-s="20" data-k="ne" data-t="i" data-ts="11"></i>Há 12 papéis de parede nesta pasta.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>10</span></div>
+</section>
+
+<!-- 11 JANELAS -->
+<section class="pg" data-p="11"><div class="mesh"></div>
+  <div class="hdr"><span class="n">11</span><h1>Janelas (xfwm4)</h1><p>Barra de título de 32 px, borda de 1 px, botões com hexágono no estado sob o cursor.</p></div>
+  <div class="ct">
+    <div class="cols" style="gap:40px">
+      <div style="flex:1"><div class="win focus" style="height:150px"><div class="tb"><i data-i="term" data-s="16" style="color:var(--accent)"></i><span class="t">Terminal</span><div class="ctl"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div></div><div class="cap">janela com foco: borda verde e brilho externo</div></div>
+      <div style="flex:1"><div class="win" style="height:150px"><div class="tb"><i data-i="folder" data-s="16" style="color:var(--sub)"></i><span class="t">Wallpapers</span><div class="ctl"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div></div><div class="cap">sem foco: borda e título apagados</div></div>
+    </div>
+    <h4 style="margin-top:34px">BOTÕES DA BARRA DE TÍTULO (ampliados 2x)</h4>
+    <div style="display:flex;gap:60px;transform:scale(2);transform-origin:0 0;width:50%">
+      <div><div class="tb" style="border:1px solid var(--dim)"><div class="ctl" style="margin:0"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div><div class="cap" style="font-size:7px">normal</div></div>
+      <div><div class="tb" style="border:1px solid var(--dim)"><div class="ctl" style="margin:0"><span class="hot"><i class="hx" data-s="24" data-k="ok"></i><i data-i="max" data-s="18" style="position:relative"></i></span></div></div><div class="cap" style="font-size:7px">cursor</div></div>
+      <div><div class="tb" style="border:1px solid var(--dim)"><div class="ctl" style="margin:0"><span class="hot"><i class="hx" data-s="24" data-k="on"></i><i data-i="max" data-s="18" style="position:relative;color:var(--bg)"></i></span></div></div><div class="cap" style="font-size:7px">pressionado</div></div>
+      <div><div class="tb" style="border:1px solid var(--dim)"><div class="ctl" style="margin:0"><span class="hotc"><i class="hx" data-s="24" data-k="cr"></i><i data-i="close" data-s="18" style="position:relative"></i></span></div></div><div class="cap" style="font-size:7px">fechar, cursor</div></div>
+    </div>
+    <div class="cols" style="margin-top:110px;gap:40px">
+      <div style="flex:1"><div class="win focus" style="width:520px"><div class="tb"><span class="t">Substituir arquivo?</span><div class="ctl"><span><i data-i="close" data-s="18"></i></span></div></div>
+        <div style="display:flex;gap:16px;padding:20px"><i class="hx" data-s="40" data-k="wa" data-t="!" data-ts="18" data-g="1"></i><div><div style="font:700 14px var(--ui);color:var(--white)">"uranio-D0.png" já existe</div><div style="font:400 13px var(--ui);color:var(--ice);margin-top:4px">Substituir apaga a versão atual.</div></div></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;padding:0 20px 20px"><span class="btn">Cancelar</span><span class="btn crit">Substituir</span></div></div>
+        <div class="cap">diálogo de confirmação</div></div>
+      <div style="flex:1" class="txt"><b>Implementação:</b> o xfwm4 desenha a moldura a partir de imagens (themerc + XPM/PNG por botão e estado: ativo, inativo, cursor, pressionado). O brilho externo da janela focada depende do compositor do xfwm4 estar ligado; sem ele, fica só a borda verde.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>11</span></div>
+</section>
+
+<!-- 12 PAINEL -->
+<section class="pg" data-p="12"><div class="mesh"></div>
+  <div class="hdr"><span class="n">12</span><h1>Painel</h1><p>Barra superior de 30 px no Samsung. Ampliada 2x abaixo, com anotações.</p></div>
+  <div class="ct">
+    <div id="panelzoom" style="width:1728px;height:120px;overflow:hidden;position:relative;border:1px solid var(--dim)">
+      <div style="transform:scale(2);transform-origin:0 0;width:864px;position:absolute;left:0;top:0">
+        <div style="height:30px;background:var(--bg);border-bottom:1px solid var(--dim);display:flex;align-items:center;font:13px var(--ui);color:var(--ice)">
+          <div style="height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;background:var(--ok-f);color:var(--accent);font-weight:700;box-shadow:inset 0 -2px 0 var(--accent)"><i class="hx" data-s="18" data-k="acc" data-w="1.6" data-g="1"></i>Aplicações</div>
+          <div style="display:flex;gap:6px;padding:0 10px"><i class="hx" data-s="16" data-k="on" data-g="1"></i><i class="hx" data-s="16" data-k="ice"></i><i class="hx" data-s="16" data-k="off"></i><i class="hx" data-s="16" data-k="off"></i></div>
+          <div style="height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--white);box-shadow:inset 0 -2px 0 var(--accent)"><i data-i="term" data-s="16" style="color:var(--accent)"></i>Terminal</div>
+          <div style="height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--sub)"><i data-i="folder" data-s="16"></i>Arquivos</div>
+          <div style="margin-left:auto;display:flex;align-items:center;height:30px;gap:12px;padding-right:10px">
+            <span style="display:flex;gap:5px;align-items:center"><i class="hx" data-s="10" data-k="ok"></i><b style="font:500 11px var(--ui);color:var(--sub)">CPU</b><span class="mono">23%</span></span>
+            <span style="display:flex;gap:5px;align-items:center"><i class="hx" data-s="10" data-k="wa"></i><b style="font:500 11px var(--ui);color:var(--sub)">TEMP</b><span class="mono" style="color:var(--amber)">78°C</span></span>
+            <span style="display:flex;gap:5px;align-items:center"><i class="hx" data-s="10" data-k="nd"></i><b style="font:500 11px var(--ui);color:var(--sub)">GPU</b><span class="mono" style="color:var(--sub)">--</span></span>
+            <span class="mono" style="color:var(--sub);font-size:12px">dom 08 nov</span><span class="mono" style="color:var(--white);font-size:14px">21:40</span></div>
+        </div></div></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:26px;margin-top:26px;max-width:none" class="txt">
+      <div style="font-size:13px"><b>Menu</b><br>Botão com hexágono. Aberto, fica com fundo OK e linha verde embaixo.</div>
+      <div style="font-size:13px"><b>Áreas de trabalho</b><br>Hexágono cheio = atual. Contorno claro = tem janelas. Contorno apagado = vazia.</div>
+      <div style="font-size:13px"><b>Janelas abertas</b><br>A ativa ganha linha verde de 2 px e ícone aceso. As outras ficam em "sub".</div>
+      <div style="font-size:13px"><b>Medidores</b><br>LED de 10 px com a cor do estado, rótulo em Roboto e valor em mono. Exige plugin de monitoramento, a definir.</div>
+      <div style="font-size:13px"><b>Relógio</b><br>JetBrains Mono. Data em "sub", hora em "white".</div>
+    </div>
+    <div class="box" style="margin-top:30px"><h4>PONTO A CONFIRMAR NO SEU SISTEMA</h4><div class="txt" style="font-size:14px">Não sei ainda quais plugins seu painel usa (menu Whisker ou o menu padrão, monitor de CPU, sensores, genmon). Antes de escrever o tema vou pedir a saída de um comando somente leitura do xfconf para ajustar o painel ao que você realmente tem.</div></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>12</span></div>
+</section>
+
+<!-- 13 MENUS -->
+<section class="pg" data-p="13"><div class="mesh"></div>
+  <div class="hdr"><span class="n">13</span><h1>Menus</h1><p>Menu de aplicativos e menu de contexto com todos os tipos de item.</p></div>
+  <div class="ct cols zx" style="--z:1.3">
+    <div style="flex:1.2;position:relative">
+      <div class="menu" style="width:560px;display:flex;flex-direction:column">
+        <div style="margin:12px;height:34px;border:1px solid var(--accent);display:flex;align-items:center;gap:10px;padding:0 10px;color:var(--sub);font:13px var(--ui);box-shadow:0 0 10px rgba(120,255,90,.18)"><i data-i="search" data-s="16" style="color:var(--accent)"></i>Buscar aplicativos<span class="caret"></span></div>
+        <div style="display:flex;border-top:1px solid var(--dim)">
+          <div style="flex:1;padding:8px 0" id="mapps"></div>
+          <div style="width:190px;border-left:1px solid var(--dim);padding:8px 0" id="mcats"></div>
+        </div>
+        <div style="height:48px;border-top:1px solid var(--dim);display:flex;align-items:center;gap:10px;padding:0 14px"><i class="hx" data-s="26" data-k="ne" data-t="L" data-tc="#BEFFAA" data-ts="12"></i><span style="color:var(--white);font:500 13px var(--ui)">lstavares84</span><span style="margin-left:auto;display:flex;gap:16px;color:var(--sub)"><i data-i="gear" data-s="18"></i><i data-i="lock" data-s="18"></i><i data-i="power" data-s="18"></i></span></div>
+      </div>
+      <div class="cap">menu de aplicativos (formato do Whisker Menu, a confirmar qual você usa)</div>
+    </div>
+    <div style="flex:1;position:relative">
+      <div style="display:flex;align-items:flex-start">
+        <div class="menu" style="width:280px;padding:5px 0">
+          <div class="mi"><span class="ic"><i data-i="folder" data-s="16"></i></span>Abrir<small>Enter</small></div>
+          <div class="mi"><span class="ic"><i data-i="term" data-s="16"></i></span>Abrir terminal aqui</div>
+          <div class="mi h"><span class="ic" style="color:var(--accent)"><i data-i="image" data-s="16"></i></span>Definir como papel de parede<small style="color:var(--accent)">▸</small></div>
+          <div class="msep"></div>
+          <div class="mi"><span class="ic"><svg width="14" height="14"><polygon data-hex="7,7,6" fill="#78FF5A"/></svg></span>Mostrar arquivos ocultos<small>Ctrl+H</small></div>
+          <div class="mi"><span class="ic"><svg width="14" height="14"><polygon data-hex="7,7,6" fill="none" stroke="#6EAA6E" stroke-width="1.2"/></svg></span>Mostrar barra lateral<small>F9</small></div>
+          <div class="msep"></div>
+          <div class="mi d"><span class="ic"></span>Colar<small>Ctrl+V</small></div>
+          <div class="mi" style="color:#FF8A82"><span class="ic" style="color:var(--red)"><i data-i="close" data-s="16"></i></span>Mover para a lixeira<small>Del</small></div>
+        </div>
+        <div class="menu" style="width:230px;padding:5px 0;margin-top:62px;margin-left:-2px">
+          <div class="mi h">Monitor Samsung</div><div class="mi">Monitor LG</div><div class="mi">Os dois monitores</div></div>
+      </div>
+      <div class="cap">menu de contexto: item sob o cursor com submenu, opção marcada e desmarcada (hexágono), separador, item desabilitado, ação destrutiva em vermelho</div>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>13</span></div>
+</section>
+
+<!-- 14 NOTIFICAÇÕES -->
+<section class="pg" data-p="14"><div class="mesh"></div>
+  <div class="hdr"><span class="n">14</span><h1>Notificações</h1><p>xfce4-notifyd: canto superior direito do Samsung, borda na cor do estado, sem cor de fundo chamativa.</p></div>
+  <div class="ct zx" style="--z:1.4;display:grid;grid-template-columns:repeat(2,420px);gap:30px 60px;align-content:start" id="notifs"></div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>14</span></div>
+</section>
+
+<!-- 15 TERMINAL -->
+<section class="pg" data-p="15"><div class="mesh"></div>
+  <div class="hdr"><span class="n">15</span><h1>Terminal</h1><p>16 cores ANSI derivadas da paleta. Oito vêm direto dos seus códigos; as outras são derivação minha, marcadas com ◆.</p></div>
+  <div class="ct cols zx" style="--z:1.22">
+    <div style="flex:1"><div id="ansi" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
+      <div class="note" style="margin-top:14px">◆ derivação minha, para que ls, git e vim continuem distinguindo "azul", "magenta" e "ciano": viram verde-azulado, verde-limão e menta, sem sair da família do verde. Fundo #030A04, texto #BEFFAA, cursor #78FF5A, seleção #0A300C.</div></div>
+    <div style="flex:1.15"><div class="win focus"><div class="tb"><i data-i="term" data-s="16" style="color:var(--accent)"></i><span class="t">Terminal</span><div class="ctl"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div>
+      <div id="termdemo" style="padding:14px 16px;font:400 14px/1.5 var(--mono);color:#BEFFAA;white-space:pre;height:430px"></div></div></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>15</span></div>
+</section>
+
+<!-- 16 EDITOR -->
+<section class="pg" data-p="16"><div class="mesh"></div>
+  <div class="hdr"><span class="n">16</span><h1>Editor de texto</h1><p>Esquema GtkSourceView: vale para o Mousepad e outros editores GTK que usem a mesma biblioteca.</p></div>
+  <div class="ct cols zx" style="--z:1.3">
+    <div style="flex:1.5"><div class="win focus"><div class="tb"><i data-i="edit" data-s="16" style="color:var(--accent)"></i><span class="t">estado.py  Mousepad</span><div class="ctl"><span><i data-i="min" data-s="18"></i></span><span><i data-i="max" data-s="18"></i></span><span><i data-i="close" data-s="18"></i></span></div></div>
+      <div style="display:flex;font:400 14px/1.6 var(--mono)"><div id="ln" style="padding:12px 10px;color:#40783C;text-align:right;border-right:1px solid var(--dim);white-space:pre;user-select:none"></div><div id="code" style="padding:12px 16px;white-space:pre;color:#BEFFAA;flex:1"></div></div></div>
+      <div class="note" style="margin-top:10px">Código ilustrativo. A linha atual tem fundo #081C0A; a ocorrência buscada usa a superfície de atenção.</div></div>
+    <div style="flex:1" id="syn"></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>16</span></div>
+</section>
+
+<!-- 17 CURSOR E ÍCONES -->
+<section class="pg" data-p="17"><div class="mesh"></div>
+  <div class="hdr"><span class="n">17</span><h1>Cursor e ícones</h1><p>Proposta: cursor original e ícones simbólicos próprios; ícones de aplicativos de um pacote livre recolorido.</p></div>
+  <div class="ct cols zx" style="--z:1.25">
+    <div style="flex:1"><h4>CURSOR GAMMA (criação original, ampliado 3x e em 24 px)</h4>
+      <div id="cursors" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px"></div>
+      <div class="note" style="margin-top:14px">Preenchimento #030A04 com contorno #78FF5A, para ser visível em fundos claros e escuros. Gerado com xcursorgen (pacote x11-apps), instalado em ~/.icons sem sudo.</div></div>
+    <div style="flex:1"><h4>ÍCONES SIMBÓLICOS (painel, menus, botões)</h4>
+      <div id="sym" style="display:flex;flex-wrap:wrap;gap:14px;color:var(--ice)"></div>
+      <h4 style="margin-top:30px">PASTAS E APLICATIVOS</h4>
+      <div style="display:flex;gap:22px;align-items:flex-end" id="folders"></div>
+      <div class="txt" style="font-size:14px;margin-top:18px"><b>Proposta:</b> partir do Papirus-Dark (licença GPL-3.0) e recolorir pastas e ícones simbólicos para os tons da paleta. Ícones de aplicativos coloridos ficam como estão. <span class="tagn">a confirmar</span> se o pacote papirus-icon-theme está disponível no seu Debian; vou pedir a saída de um comando antes.</div></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>17</span></div>
+</section>
+
+<!-- 18 PAPÉIS DE PAREDE -->
+<section class="pg" data-p="18"><div class="mesh"></div>
+  <div class="hdr"><span class="n">18</span><h1>Papéis de parede</h1><p>Série "Contador": 12 composições originais, cada uma em 3440x1440 e 2560x1080.</p></div>
+  <div class="ct" id="wps" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px 22px;align-content:start"></div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>18</span></div>
+</section>
+
+<!-- 19 ROTAÇÃO -->
+<section class="pg" data-p="19"><div class="mesh"></div>
+  <div class="hdr"><span class="n">19</span><h1>Troca automática</h1><p>Os papéis de parede se renovam sozinhos, com o recurso nativo do XFCE, sem programa extra.</p></div>
+  <div class="ct cols">
+    <div style="flex:1">
+      <div class="txt">O gerenciador de área de trabalho do XFCE (xfdesktop) troca o fundo sozinho a partir de uma pasta, <b>separadamente em cada monitor</b>. Como os dois monitores têm 798 mm de largura, a versão do LG é a mesma arte reduzida a 75%: o desenho fica do mesmo tamanho físico nas duas telas.</div>
+      <div class="box" style="margin-top:24px"><h4>PROPOSTA PADRÃO</h4><div class="txt" style="font-size:14px;font-family:var(--mono);line-height:1.9">
+        Samsung  ~/.local/share/backgrounds/gamma/3440x1440/<br>
+        LG       ~/.local/share/backgrounds/gamma/2560x1080/<br>
+        intervalo   30 minutos<br>
+        ordem       aleatória, independente em cada monitor<br>
+        ajuste      preencher, sem distorcer</div></div>
+      <div class="box" style="margin-top:18px"><h4>ALTERNATIVA: CICLO DO DIA</h4><div class="txt" style="font-size:14px">O xfdesktop também tem um modo que distribui as imagens ao longo do dia. Nele, a ordem dos arquivos vira uma programação: composições mais vivas de dia e "Silêncio" ou "Fósforo" à noite.</div></div>
+      <div class="note" style="margin-top:14px">As opções exatas variam conforme a versão do xfdesktop. Vou confirmar no seu sistema com um comando somente leitura antes do script de instalação.</div>
+    </div>
+    <div style="flex:1">
+      <svg width="760" height="560" id="rot"></svg>
+    </div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>19</span></div>
+</section>
+
+<!-- 20 DESKTOP COMPLETO -->
+<section class="pg" data-p="20"><div class="mesh"></div>
+  <div class="hdr"><span class="n">20</span><h1>Área de trabalho completa</h1><p>Mockup A aprovado como direção, no Samsung 3440x1440 (reduzido).</p></div>
+  <div class="ct"><img src="A_contador.png" style="width:1728px;border:1px solid var(--dim)"><div class="cap">painel, menu aberto, janela Aparência com foco, terminal sem foco, notificação de atenção e papel de parede 01 Núcleo</div></div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>20</span></div>
+</section>
+
+<!-- 21 DOIS MONITORES -->
+<section class="pg" data-p="21"><div class="mesh"></div>
+  <div class="hdr"><span class="n">21</span><h1>Dois monitores</h1><p>A disposição do seu xrandr: LG acima (deslocado 432 px), Samsung abaixo e principal.</p></div>
+  <div class="ct" style="display:flex;gap:40px">
+    <div style="position:relative;width:1300px;height:820px">
+      <img src="../wp/l02.png" style="position:absolute;left:163px;top:0;width:967px;border:1px solid var(--dim)">
+      <img src="A_contador.png" style="position:absolute;left:0;top:410px;width:1300px;border:1px solid var(--dim)">
+    </div>
+    <div class="txt" style="font-size:14px;width:330px"><b>LG, DP-4.</b> Papel de parede 02 Meia-vida, trocando a cada 30 minutos pela sua própria pasta.<br><br><b>Samsung, DP-2.</b> Painel, notificações e menu ficam aqui, por ser o monitor principal. <span class="tagn">a confirmar</span><br><br>Tamanho físico igual nos dois: 798 x 334 mm, conforme o xrandr.</div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>21</span></div>
+</section>
+
+<!-- 22 ENTREGA -->
+<section class="pg" data-p="22"><div class="mesh"></div>
+  <div class="hdr"><span class="n">22</span><h1>Entrega e próximos passos</h1><p>O que será escrito depois da sua aprovação, e o que preciso saber antes.</p></div>
+  <div class="ct cols">
+    <div style="flex:1"><h4>ARQUIVOS (instalação no seu usuário, sem sudo)</h4>
+      <div style="font:400 13px/1.75 var(--mono);color:var(--ice);white-space:pre"><span style="color:var(--accent)">~/.themes/GAMMA/</span>
+  gtk-3.0/gtk.css           <span style="color:var(--sub)">controles GTK 3</span>
+  gtk-2.0/gtkrc             <span style="color:var(--sub)">básico, para apps antigos</span>
+  xfwm4/themerc + botões    <span style="color:var(--sub)">molduras de janela</span>
+  xfce-notify-4.0/gtk.css   <span style="color:var(--sub)">notificações</span>
+<span style="color:var(--accent)">~/.icons/GAMMA-cursor/</span>     <span style="color:var(--sub)">cursor original</span>
+<span style="color:var(--accent)">~/.local/share/</span>
+  xfce4/terminal/colorschemes/gamma.theme
+  gtksourceview-4/styles/gamma.xml
+  backgrounds/gamma/3440x1440/  <span style="color:var(--sub)">12 PNG</span>
+  backgrounds/gamma/2560x1080/  <span style="color:var(--sub)">12 PNG</span>
+  fonts/                        <span style="color:var(--sub)">só se faltar no sistema</span>
+<span style="color:var(--accent)">instalar.sh</span>   backup do xfconf atual + aplica tudo
+<span style="color:var(--accent)">restaurar.sh</span>  volta exatamente ao backup</div></div>
+    <div style="flex:1"><h4>DECISÕES PARA VOCÊ</h4>
+      <div class="txt" style="font-size:14px;line-height:1.75">
+        <b>1.</b> As cores derivadas do terminal (verde-azulado, limão, menta) servem?<br>
+        <b>2.</b> Intervalo de troca: 30 min, ou ciclo do dia?<br>
+        <b>3.</b> Algum dos 12 papéis de parede deve sair ou ser refeito?<br>
+        <b>4.</b> Cursor original e ícones Papirus recoloridos: seguir?<br>
+        <b>5.</b> Painel só no Samsung, como no mockup?</div>
+      <h4 style="margin-top:28px">INFORMAÇÕES QUE VOU PEDIR (comandos somente leitura)</h4>
+      <div class="txt" style="font-size:14px;line-height:1.75">Plugins do painel e menu em uso; versão do xfdesktop e do xfwm4; terminal e editor que você usa; se Roboto, JetBrains Mono, Papirus e x11-apps já estão instalados.</div></div>
+  </div>
+  <div class="ftr"><span>GAMMA  CONTADOR  BOOK V1</span><span>22</span></div>
+</section>
+
+</div>
+<script src="icons.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const h=(html)=>html;
+// sumário
+const toc=['Capa','Sumário','Conceito','Paleta','Estados','Tipografia','Hexágono, malha e brilho','Botões e campos','Seleção e valores','Navegação e listas','Janelas (xfwm4)','Painel','Menus','Notificações','Terminal','Editor de texto','Cursor e ícones','Papéis de parede','Troca automática','Área de trabalho completa','Dois monitores','Entrega e próximos passos'];
+$('toc').innerHTML=toc.map((t,i)=>`<div style="display:flex;gap:18px;border-bottom:1px solid #0E200F;padding-bottom:12px"><span class="mono" style="color:var(--amber);font-size:14px;width:30px">${String(i+1).padStart(2,'0')}</span>${t}</div>`).join('');
+// contraste
+function lum(hx){const c=[1,3,5].map(i=>parseInt(hx.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+const cr=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const pal=[['bg','#030A04','fundo principal'],['accent','#78FF5A','títulos, seleção, foco, ícones ativos'],['ice','#BEFFAA','texto principal e valores normais'],['white','#E6FFE1','texto neutro de maior destaque'],['sub','#6EAA6E','rótulos, texto secundário, desabilitado'],['dim','#234B23','bordas, divisórias, grades'],['amber','#FFBE00','atenção, aviso'],['red','#FF3C32','erro, crítico']];
+$('pal').innerHTML=pal.map(([n,c,u])=>{const r=cr(c,'#030A04');const lv=n=='bg'?'base':r>=7?'AAA':r>=4.5?'AA':r>=3?'AA texto grande':'só gráfico';
+ return `<div class="box" style="padding:0"><div style="height:150px;background:${c};border-bottom:1px solid var(--dim);display:flex;align-items:flex-end;padding:14px;font:700 22px var(--ui);color:${n=='bg'||n=='dim'?'#BEFFAA':'#030A04'}">${n}</div>
+ <div style="padding:14px"><div class="mono" style="font-size:18px;color:var(--white)">${c}</div><div class="note" style="margin-top:4px;min-height:36px">${u}</div>
+ <div class="mono" style="font-size:12px;color:${n=='bg'?'var(--sub)':r>=4.5?'var(--accent)':r>=3?'var(--amber)':'var(--sub)'};margin-top:6px">${n=='bg'?'referência':r.toFixed(1).replace('.',',')+':1  '+lv}</div></div></div>`}).join('');
+// estados
+const st=[['OK','Normal','#0A300C','#78FF5A','ok','CPU','23%','Tudo dentro do esperado.'],['Atenção','Aviso','#3C2C00','#FFBE00','wa','TEMP','78°C','Merece um olhar, não exige ação imediata.'],['Crítico','Erro','#480404','#FF3C32','cr','DISCO','97%','Exige ação agora.'],['Sem dado','Sem leitura','#081209','#1E341E','nd','GPU','N/D','Sensor ausente ou parado. Não é erro.'],['Neutro','Informativo','#081C0A','#40783C','ne','REDE','info','Fundo de painéis e botões comuns.']];
+$('states').innerHTML=st.map(([n,s,f,b,k,l,v,d])=>`<div><div style="height:250px;background:${f};border:1px solid ${b};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;${k=='ok'||k=='wa'||k=='cr'?`box-shadow:0 0 18px ${b}33`:''}">
+ <i class="hx" data-s="64" data-k="${k}" ${k!='nd'&&k!='ne'?'data-g="1"':''}></i><div style="font:700 13px var(--ui);letter-spacing:.14em;color:${k=='nd'?'#6EAA6E':'#E6FFE1'}">${l}</div><div class="mono" style="font-size:22px;color:${k=='nd'?'#40603E':k=='ne'?'#BEFFAA':b}">${v}</div></div>
+ <h2 style="margin-top:16px">${n}</h2><div class="note">${s}. ${d}</div><div class="mono" style="font-size:12px;color:var(--ice);margin-top:10px">preench. ${f}<br>borda   ${b}</div></div>`).join('');
+// proporção
+const pr2=[['bg','#030A04',78],['dim','#234B23',8],['sub','#6EAA6E',5],['ice','#BEFFAA',5],['accent','#78FF5A',2.5],['white','#E6FFE1',1],['amber','#FFBE00',.3],['red','#FF3C32',.2]];
+$('prop').innerHTML=pr2.map(([n,c,v])=>`<div style="flex:${v};background:${c}"></div>`).join('');
+$('propl').innerHTML=pr2.map(([n,c,v])=>`<div style="flex:${Math.max(v,4)};font:400 11px var(--mono);color:var(--sub)">${n} ${String(v).replace('.',',')}%</div>`).join('');
+const wh=[['Painel','LED e valor normais','LED âmbar, valor âmbar','LED vermelho, valor vermelho','LED cinza, "--"','fundo do botão de menu aberto'],['Janelas e diálogos','barra de aviso verde','barra de aviso âmbar','barra vermelha, botão destrutivo','campo sem leitura','botões comuns'],['Notificações','borda verde, some em 5 s','borda âmbar, 10 s','borda vermelha, fica','borda cinza','não usado'],['Terminal','verde (2, 10)','amarelo (3, 11)','vermelho (1, 9)','preto claro (8)','texto ice'],['Papel de parede','núcleo e pulsos','um destaque por composição','não usado','"Silêncio"','malha e grades']];
+$('where').innerHTML='<div style="display:grid;grid-template-columns:1.1fr repeat(5,1fr);font:13px var(--ui)">'+['','OK','Atenção','Crítico','Sem dado','Neutro'].map((t,i)=>`<div style="padding:8px 10px;border-bottom:1px solid var(--dim);font:700 12px var(--ui);letter-spacing:.08em;color:${['','#78FF5A','#FFBE00','#FF3C32','#6EAA6E','#BEFFAA'][i]}">${t}</div>`).join('')+wh.map(r=>r.map((c,i)=>`<div style="padding:8px 10px;border-bottom:1px solid #0E200F;color:${i?'var(--ice)':'var(--white)'};${i?'':'font-weight:700'}">${c}</div>`).join('')).join('')+'</div>';
+// escala tipográfica
+const sc=[[46,700,'ui','Capa e títulos grandes','',],[24,700,'ui','Título de diálogo','(18 pt)'],[18,700,'ui','Seção de página','(13,5 pt)'],[14,700,'ui','Título de janela e grupo','(10,5 pt)'],[13,400,'ui','Texto de interface','(10 pt)'],[12,400,'ui','Rótulo de campo','(9 pt)'],[11,500,'mono','Atalho, metadado','(8 pt)']];
+$('scale').innerHTML=sc.map(([s,w,f,t,p])=>`<div style="display:flex;align-items:baseline;gap:18px;border-bottom:1px solid #0E200F;padding:7px 0"><span class="mono" style="width:44px;color:var(--amber);font-size:12px">${s}</span><span style="font:${w} ${s}px var(--${f});color:var(--ice)">${t}</span><span class="note" style="margin-left:auto">${p}</span></div>`).join('');
+// menu apps
+const apps=[['term','Terminal','Linha de comando',1],['globe','Navegador web','Firefox'],['folder','Arquivos','Thunar'],['edit','Editor de texto','Mousepad'],['chart','Gerenciador de tarefas','Processos e recursos'],['image','Visualizador de imagens','Ristretto'],['gear','Configurações','Gerenciador de configurações']];
+$('mapps').innerHTML=apps.map(([i,n,s,hot])=>`<div style="height:44px;display:flex;align-items:center;gap:12px;padding:0 16px;${hot?'background:var(--ok-f);box-shadow:inset 2px 0 0 var(--accent)':''}"><i data-i="${i}" data-s="22" style="color:${hot?'var(--accent)':'var(--sub)'}"></i><div style="display:flex;flex-direction:column;line-height:1.25"><b style="font:500 13px var(--ui);color:${hot?'var(--white)':'var(--ice)'}">${n}</b><small style="font:400 11px var(--ui);color:var(--sub)">${s}</small></div></div>`).join('');
+const cats=[['star','Favoritos',1],['clock','Recentes'],['edit','Acessórios'],['code','Desenvolvimento'],['office','Escritório'],['image','Gráficos'],['globe','Internet'],['music','Multimídia'],['sys','Sistema'],['gear','Configurações']];
+$('mcats').innerHTML=cats.map(([i,n,on])=>`<div style="height:32px;display:flex;align-items:center;gap:10px;padding:0 14px;font:13px var(--ui);color:${on?'var(--accent)':'var(--sub)'}"><i data-i="${i}" data-s="16"></i>${n}</div>`).join('');
+// notificações
+const nt=[['ok','#78FF5A','Tema aplicado','GAMMA ativo em janelas, painel e terminal.','aparência  21:40'],['wa','#FFBE00','Temperatura alta','CPU em 78 °C há 5 minutos.','sensores  21:39'],['cr','#FF3C32','Falha ao salvar','Sem permissão de escrita em /etc. Use a pasta pessoal.','instalar.sh  21:38'],['nd','#1E341E','Sensor sem leitura','Nenhum dado da GPU nos últimos 10 minutos.','sensores  21:30']];
+$('notifs').innerHTML=nt.map(([k,c,t,p,m],i)=>`<div><div class="notif" style="border:1px solid ${c};box-shadow:${k=='nd'?'none':`0 0 18px ${c}22`},0 14px 40px rgba(0,0,0,.8)"><i class="hx" data-s="40" data-k="${k}" data-t="${k=='ok'?'✓':k=='nd'?'-':'!'}" data-ts="18" ${k=='nd'?'':'data-g="1"'}></i><div style="flex:1"><div class="nt" ${k=='nd'?'style="color:var(--sub)"':''}>${t}</div><p ${k=='nd'?'style="color:var(--sub)"':''}>${p}</p><div class="meta">${m}</div>${i==2?'<div style="display:flex;gap:8px;margin-top:12px"><span class="btn" style="height:28px">Ver registro</span><span class="btn ghost" style="height:28px">Dispensar</span></div>':''}</div><i class="x" data-i="close" data-s="16"></i></div><div class="cap">${['OK','Atenção','Crítico, com ações','Sem dado'][i]}</div></div>`).join('')+
+ `<div style="grid-column:1/3" class="txt"><b>Duração:</b> OK e sem dado somem em 5 s; atenção em 10 s; crítico fica até ser dispensado. O xfce4-notifyd aplica esse comportamento pela urgência que cada programa envia; o tema define só a aparência.</div>`;
+// ANSI
+const ansi=[['0','preto','#0A1A0B',1],['8','preto claro','#40783C',1],['1','vermelho','#FF3C32',0],['9','vermelho claro','#FF7A6E',1],['2','verde','#5ADC3C',1],['10','verde claro','#78FF5A',0],['3','amarelo','#FFBE00',0],['11','amarelo claro','#FFD75A',1],['4','azul','#3CB49B',1],['12','azul claro','#6EE6C8',1],['5','magenta','#C8E632',1],['13','magenta claro','#E1FF78',1],['6','ciano','#8CF0BE',1],['14','ciano claro','#BEFFE1',1],['7','branco','#BEFFAA',0],['15','branco claro','#E6FFE1',0]];
+const ord=[0,2,4,6,8,10,12,14,1,3,5,7,9,11,13,15];
+$('ansi').innerHTML=ord.map(i=>{const [n,nm,c,d]=ansi[i];return `<div class="box" style="padding:0"><div style="height:62px;background:${c};border-bottom:1px solid var(--dim)"></div><div style="padding:8px 10px"><div class="mono" style="font-size:12px;color:var(--white)">${n.padStart(2,'0')} ${c}${d?' <span style="color:var(--amber)">◆</span>':''}</div><div class="note">${nm}</div></div></div>`}).join('');
+const A=i=>ansi.find(a=>a[0]==String(i))[2];
+const sp=(c,t,b)=>`<span style="color:${c};${b?'font-weight:700':''}">${t}</span>`;
+const pr=sp(A(10),'lstavares84')+' '+sp(A(8),'gamma_debian_theme')+' '+sp(A(10),'▸');
+$('termdemo').innerHTML=[pr+' ls --color',
+ sp(A(12),'mockups',1)+'  '+sp(A(12),'Wallpapers',1)+'  '+sp(A(10),'instalar.sh',1)+'  '+sp(A(13),'previa.png')+'  '+sp(A(14),'tema -> ~/.themes/GAMMA'),
+ pr+' git status -s',
+ sp(A(3),' M')+' gtk-3.0/gtk.css', sp(A(2),'A ')+' xfwm4/themerc', sp(A(1),'??')+' restaurar.sh',
+ pr+' apt list --upgradable 2>/dev/null | head -2',
+ 'Listando... '+sp(A(2),'Pronto'),
+ sp(A(10),'exemplo-pacote')+sp(A(8),'/stable 1.2-3 amd64 [atualizável]'),
+ pr+' journalctl -p warning -n 2 --no-pager',
+ sp(A(11),'nov 08 21:39 sensores: temperatura acima de 75 °C'),
+ sp(A(9),'nov 08 21:38 instalar.sh: falha ao gravar em /etc'),
+ pr+' for i in {0..15}; do printf "\\e[48;5;${i}m  "; done',
+ ansi.map(a=>`<span style="background:${a[2]}">  </span>`).sort((x,y)=>0).join(''),
+ sp(A(9),'◆ 1')+' '+pr+' <span style="background:#BEFFAA;color:#030A04"> </span>'].join('\n');
+$('termdemo').lastChild;
+// editor
+const K=t=>sp('#78FF5A',t,1),Sg=t=>sp('#8CF0BE',t),Nm=t=>sp('#E6FFE1',t),Cm=t=>`<span style="color:#6EAA6E;font-style:italic">${t}</span>`,Bt=t=>sp('#C8E632',t),Fn=t=>sp('#E6FFE1',t,1),Ty=t=>sp('#6EE6C8',t);
+const code=[Cm('# Lê a temperatura e devolve o estado GAMMA'),K('from')+' pathlib '+K('import')+' '+Ty('Path'),'',
+ 'LIMITES = {'+Sg('"atencao"')+': '+Nm('70')+', '+Sg('"critico"')+': '+Nm('85')+'}','',
+ K('def')+' '+Fn('estado')+'(temp: '+Ty('float')+' | '+K('None')+') -> '+Ty('str')+':',
+ '    '+K('if')+' temp '+K('is')+' '+K('None')+':','        '+K('return')+' '+Sg('"sem_dado"'),
+ `<span style="background:#081C0A;display:inline-block;width:100%">    ${K('if')} temp &gt;= LIMITES[${Sg('"critico"')}]:</span>`,
+ '        '+K('return')+' '+Sg('"critico"'),
+ '    '+K('return')+' '+Sg('"atencao"')+' '+K('if')+' temp &gt;= LIMITES['+Sg('"atencao"')+'] '+K('else')+' '+Sg('"ok"'),'',
+ 'zona = '+Ty('Path')+'('+Sg('"/sys/class/thermal/thermal_zone0/temp"')+')',
+ 'temp = '+Bt('int')+'(zona.read_text()) / '+Nm('1000'),
+ Bt('print')+'('+Sg('f"CPU {temp:.1f} °C -&gt; {'+'<span style="background:#3C2C00;color:#FFD75A;outline:1px solid #FFBE00">estado</span>'+'(temp)}"')+')',
+ Bt('pritn')+'<span style="text-decoration:underline wavy #FF3C32">(temp)</span>'];
+$('code').innerHTML=code.join('\n'); $('ln').textContent=code.map((_,i)=>i+1).join('\n');
+const syn=[['Palavra-chave','#78FF5A','negrito'],['Função definida','#E6FFE1','negrito'],['Tipo, classe','#6EE6C8',''],['Texto (string)','#8CF0BE',''],['Número, constante','#E6FFE1',''],['Função embutida','#C8E632',''],['Comentário','#6EAA6E','itálico'],['Número da linha','#40783C',''],['Erro','#FF3C32','sublinhado'],['Busca encontrada','#FFBE00','fundo #3C2C00']];
+$('syn').innerHTML='<h4>CORES DE SINTAXE</h4>'+syn.map(([n,c,s])=>`<div style="display:flex;gap:14px;align-items:center;border-bottom:1px solid #0E200F;padding:8px 0"><span style="width:16px;height:16px;background:${c}"></span><span style="font:13px var(--ui);color:var(--ice);flex:1">${n}</span><span class="mono" style="font-size:12px;color:var(--sub)">${c} ${s}</span></div>`).join('');
+// cursores
+const cur=[['Ponteiro','<path d="M2 1 L2 17 L6.5 13 L9.5 20 L12 19 L9 12 L15 12 Z"/>'],['Texto','<path d="M5 2h6M8 2v18M5 20h6"/>',1],['Link','<path d="M7 9V3.5a1.5 1.5 0 0 1 3 0V9M10 8.5a1.5 1.5 0 0 1 3 0V10M13 9.5a1.5 1.5 0 0 1 3 0V14c0 4-2.5 6-6 6s-5-1.5-6.5-4L2 12.5a1.5 1.5 0 0 1 2.4-1.6L7 13Z"/>'],['Ocupado','hex'],['Mira','<path d="M11 1v7M11 14v7M1 11h7M14 11h7"/><circle cx="11" cy="11" r="1.5"/>',1],['Mover','<path d="M11 1l3 4h-2v5h5V8l4 3-4 3v-2h-5v5h2l-3 4-3-4h2v-5H5v2l-4-3 4-3v2h5V5H8Z"/>'],['Redimensionar','<path d="M2 2h7L6.5 4.5l11 11L20 13v7h-7l2.5-2.5-11-11L2 9Z"/>'],['Não permitido','no']];
+$('cursors').innerHTML=cur.map(([n,p,line])=>{let g;
+ if(p=='hex')g=`<polygon points="11,2 18.8,6.5 18.8,15.5 11,20 3.2,15.5 3.2,6.5" fill="#030A04" stroke="#234B23" stroke-width="2"/><polyline points="11,2 18.8,6.5 18.8,15.5" fill="none" stroke="#78FF5A" stroke-width="2"/>`;
+ else if(p=='no')g=`<polygon points="11,2 18.8,6.5 18.8,15.5 11,20 3.2,15.5 3.2,6.5" fill="#480404" stroke="#FF3C32" stroke-width="1.6"/><path d="M6 16L16 6" stroke="#FF3C32" stroke-width="1.8"/>`;
+ else g=line?`<g fill="none" stroke="#030A04" stroke-width="4">${p}</g><g fill="none" stroke="#78FF5A" stroke-width="1.6">${p}</g>`:`<g fill="#030A04" stroke="#78FF5A" stroke-width="1.4" stroke-linejoin="round">${p}</g>`;
+ return `<div class="box" style="padding:14px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:18px;height:80px"><svg width="66" height="66" viewBox="0 0 22 22" style="filter:drop-shadow(0 0 3px rgba(120,255,90,.45))">${g}</svg><svg width="24" height="24" viewBox="0 0 22 22">${g}</svg></div><div class="note">${n}</div></div>`}).join('');
+$('sym').innerHTML=['term','folder','globe','edit','gear','chart','search','lock','power','image','music','code','office','star','clock','sys','vol','net','close','min','max','down','check'].map(i=>`<div style="width:44px;height:44px;border:1px solid var(--dim);display:flex;align-items:center;justify-content:center"><i data-i="${i}" data-s="20"></i></div>`).join('');
+$('folders').innerHTML=[['Pasta',0],['Aberta',1],['Imagens',2],['Código',3],['Lixeira',4]].map(([n,k])=>`<div style="text-align:center"><svg width="64" height="56" viewBox="0 0 64 56"><path d="M2 8h22l6 6h32v40H2z" fill="#081C0A" stroke="#40783C" stroke-width="1.5"/><path d="M2 20h60v34H2z" fill="${k==1?'#0A300C':'#0A240C'}" stroke="${k==1?'#78FF5A':'#40783C'}" stroke-width="1.5"/>${k==2?'<path d="M14 46l10-10 8 8 6-6 12 12" fill="none" stroke="#78FF5A" stroke-width="2"/>':k==3?'<path d="M24 30l-7 7 7 7M40 30l7 7-7 7" fill="none" stroke="#78FF5A" stroke-width="2"/>':k==4?'<path d="M24 28h16l-2 20H26zM22 28h20M29 24h6" fill="none" stroke="#6EAA6E" stroke-width="2"/>':'<polygon points="32,28 39,32 39,40 32,44 25,40 25,32" fill="none" stroke="'+(k==1?'#78FF5A':'#40783C')+'" stroke-width="1.5"/>'}</svg><div class="note">${n}</div></div>`).join('');
+// papéis de parede
+const wpn=['Núcleo','Meia-vida','Cadeia','Contagem','Osciloscópio','Colmeia','Órbita','Topologia','Espectro','Varredura','Fósforo','Silêncio'];
+const wpd=['núcleo único com satélite U-238','curva de decaimento com marcas de T½','cadeia completa do U-238 ao Pb-206','contador Geiger com trem de pulsos','pulso do detector com persistência','células acesas na colmeia','órbitas e escala angular','rede de nós e sinais','picos reais do espectro gama','radar com varredura e alvos','hexágono em ASCII com varredura','sem sinal, para a noite'];
+$('wps').innerHTML=wpn.map((n,i)=>{const k=String(i+1).padStart(2,'0');return `<div><img src="../wp/s${k}.png" style="width:100%;border:1px solid var(--dim);display:block"><div style="display:flex;gap:10px;align-items:baseline;margin-top:6px"><span class="mono" style="color:var(--amber);font-size:12px">${k}</span><span style="font:700 14px var(--ui);color:var(--white)">${n}</span></div><div class="note">${wpd[i]}</div></div>`}).join('');
+// diagrama de rotação
+(function(){const s=$('rot'),NS='http://www.w3.org/2000/svg';const a=(t,o,x)=>{const e=document.createElementNS(NS,t);for(const k in o)e.setAttribute(k,o[k]);if(x!=null)e.textContent=x;s.appendChild(e);return e};
+ const P=(cx,cy,r)=>{const w=Math.sqrt(3)/2*r;return [[cx,cy-r],[cx+w,cy-r/2],[cx+w,cy+r/2],[cx,cy+r],[cx-w,cy+r/2],[cx-w,cy-r/2]].map(p=>p.join(',')).join(' ')};
+ const cx=380,cy=280,R=200;a('circle',{cx,cy,r:R,fill:'none',stroke:'#234B23','stroke-dasharray':'2 6'});
+ for(let i=0;i<12;i++){const t=(i/12)*2*Math.PI-Math.PI/2,x=cx+R*Math.cos(t),y=cy+R*Math.sin(t),on=i==0;
+  a('polygon',{points:P(x,y,on?26:20),fill:on?'#0A300C':'#081209',stroke:on?'#78FF5A':'#40783C','stroke-width':on?2:1.2,style:on?'filter:drop-shadow(0 0 6px rgba(120,255,90,.6))':''});
+  a('text',{x,y:y+4,'text-anchor':'middle',fill:on?'#78FF5A':'#BEFFAA',style:'font:500 12px JetBrains Mono'},String(i+1).padStart(2,'0'));
+  a('text',{x:cx+(R+52)*Math.cos(t),y:cy+(R+52)*Math.sin(t)+4,'text-anchor':'middle',fill:'#6EAA6E',style:'font:400 11px Roboto'},wpn[i]);}
+ a('polygon',{points:P(cx,cy,70),fill:'#041006',stroke:'#78FF5A','stroke-width':2});
+ a('text',{x:cx,y:cy-6,'text-anchor':'middle',fill:'#E6FFE1',style:'font:500 22px JetBrains Mono'},'30 min');
+ a('text',{x:cx,y:cy+18,'text-anchor':'middle',fill:'#6EAA6E',style:'font:400 12px Roboto'},'aleatório');})();
+</script>
+<script src="icons.js"></script>
+<script src="hex.js"></script>
+<script>
+const p=new URLSearchParams(location.search).get('p')||'1';
+document.querySelector(`.pg[data-p="${p}"]`).classList.add('show');
+</script>
+</body></html>

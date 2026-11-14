@@ -1,0 +1,17 @@
+# Arquivo: tema/GAMMA/index.theme
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 14/11/2026 19:24 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=GAMMA
+Comment=Tema Contador: verde fluorescente sobre quase preto, como um instrumento científico
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=GAMMA
+MetacityTheme=GAMMA
+IconTheme=GAMMA
+CursorTheme=GAMMA-cursor
+ButtonLayout=menu:minimize,maximize,close
