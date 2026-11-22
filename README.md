@@ -1,8 +1,8 @@
 <!--
   File / Arquivo: README.md
   Project / Projeto: GAMMA Debian (Contador theme)
-  Version / Versão: 1.2.0
-  Date / Data: 22/11/2026 19:00 (America/Sao_Paulo)
+  Version / Versão: 1.2.1
+  Date / Data: 22/11/2026 19:05 (America/Sao_Paulo)
   Author / Autoria: lstavares84, with / com Claude Opus 5.5 (Anthropic)
 -->
 
@@ -20,9 +20,10 @@ A complete desktop theme for **Debian 13 (Trixie) with XFCE 4.20**, built in the
 same visual language as [GAMMA](https://github.com/lstavares84/turzx), a
 monitoring dashboard for a 3.5" USB screen.
 
-The look is a scientific instrument in a control room: fluorescent green on an
-almost black background, like a radiation counter or a green phosphor
-oscilloscope. The guiding idea of the "Contador" (counter) direction is simple:
+The look is a 1980s surveillance panel: fluorescent green on an almost black
+background, like a military control room console or a green phosphor
+oscilloscope, with espionage and science fiction touches and the hexagon as an
+abstract signature. The guiding idea of the "Contador" (counter) direction is simple:
 **the interface only glows where something is happening.** The focused window,
 the selected item, the field being edited and the measured value light up;
 everything else recedes into dim green.
@@ -339,9 +340,10 @@ Tema completo para **Debian 13 (Trixie) com XFCE 4.20**, na mesma linguagem
 visual do [GAMMA](https://github.com/lstavares84/turzx), o painel de
 monitoramento para a telinha USB de 3,5".
 
-A estética é a de um instrumento científico numa sala de controle: verde
-fluorescente sobre fundo quase preto, como um contador de radiação ou um
-osciloscópio de fósforo verde. A ideia central da direção "Contador" é simples:
+A estética é a de um painel de vigilância dos anos 80: verde fluorescente sobre
+fundo quase preto, como o console de uma sala de controle militar ou um
+osciloscópio de fósforo verde, com toques de espionagem e ficção científica e o
+hexágono como assinatura abstrata. A ideia central da direção "Contador" é simples:
 **a interface só brilha onde há atividade.** A janela com foco, o item
 selecionado, o campo em edição e o valor medido acendem; todo o resto recua para
 o verde apagado.
