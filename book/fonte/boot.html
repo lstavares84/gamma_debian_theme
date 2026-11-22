@@ -1,0 +1,225 @@
+<!doctype html>
+<!--
+  Arquivo: book/fonte/boot.html
+  Projeto: GAMMA Debian (tema Contador)
+  Versão: 1.1.0
+  Data e hora: 21/11/2026 21:50 (America/Sao_Paulo)
+  Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+  Mockups das telas de inicialização em estilo terminal militar dos anos 80:
+  GRUB, Plymouth (com pedido da chave do disco LUKS) e login (lightdm-gtk-greeter).
+  Três famílias: A Terminal, B Console, C Cifra. Todo o texto em inglês.
+  Parâmetros: t=grub|ply|login, o=a|b|c (login: também a2, segundo monitor), f=1 só o fundo, w e h.
+  Uso: firefox --headless --window-size=3440,1440 --screenshot saida.png "file://.../boot.html?t=grub&o=a"
+-->
+<html lang="en"><head><meta charset="utf-8">
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#030A04}svg{position:absolute;left:0;top:0}</style></head><body>
+<script>
+const q=new URLSearchParams(location.search); const TELA=q.get('t')||'grub', OP=q.get('o')||'a', W=+q.get('w')||3440, H=+q.get('h')||1440;
+const FUNDO=q.get('f')=='1'; // só o fundo, sem as partes que o GRUB, o Plymouth e o LightDM desenham
+for(const el of [document.documentElement,document.body]){el.style.width=W+'px';el.style.height=H+'px'}
+const NS='http://www.w3.org/2000/svg';
+const C={bg:'#030A04',acc:'#78FF5A',ice:'#BEFFAA',white:'#E6FFE1',sub:'#6EAA6E',dim:'#234B23',amb:'#FFBE00',red:'#FF3C32',
+ okf:'#0A300C',waf:'#3C2C00',crf:'#480404',ndf:'#081209',ndb:'#1E341E',nef:'#081C0A',neb:'#40783C',mesh:'#0A1A0B',grid:'#0E2410',mid:'#2E6A2A'};
+const svg=document.createElementNS(NS,'svg');svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);document.body.appendChild(svg);
+function add(tag,a,txt,parent){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;(parent||svg).appendChild(e);return e}
+function P(cx,cy,r,rot=0){const o=[];for(let i=0;i<6;i++){const a=(-90+60*i+rot)*Math.PI/180;o.push([cx+r*Math.cos(a),cy+r*Math.sin(a)])}return o}
+const pstr=p=>p.map(v=>v[0].toFixed(1)+','+v[1].toFixed(1)).join(' ');
+const G=(c,b=7)=>`filter:drop-shadow(0 0 ${b}px ${c}99) drop-shadow(0 0 ${b*3}px ${c}2e)`;
+function T(x,y,s,o={}){return add('text',{x,y,'text-anchor':o.a||'start',fill:o.c||C.sub,opacity:o.op??1,style:`font:${o.w||500} ${o.z||18}px ${o.f||'JetBrains Mono'};letter-spacing:${o.ls||0}px;white-space:pre;${o.st||''}`},s,o.p)}
+function hex(cx,cy,r,f,s,sw=1.5,st='',rot=0){return add('polygon',{points:pstr(P(cx,cy,r,rot)),fill:f,stroke:s,'stroke-width':sw,style:st})}
+function R(x,y,w,h,f,s,sw=1.5,st=''){return add('rect',{x,y,width:w,height:h,fill:f,stroke:s||'none','stroke-width':sw,style:st})}
+function L(x1,y1,x2,y2,s,sw=1,da=''){return add('line',{x1,y1,x2,y2,stroke:s,'stroke-width':sw,'stroke-dasharray':da})}
+function cham(x,y,w,h,c,f,s,sw=1.5,st=''){return add('path',{d:`M${x+c} ${y}H${x+w-c}L${x+w} ${y+c}V${y+h-c}L${x+w-c} ${y+h}H${x+c}L${x} ${y+h-c}V${y+c}Z`,fill:f,stroke:s,'stroke-width':sw,style:st})}
+function brk(x,y,w,h,l,s,sw=2){[[x,y,1,1],[x+w,y,-1,1],[x+w,y+h,-1,-1],[x,y+h,1,-1]].forEach(([px,py,sx,sy])=>add('path',{d:`M${px} ${py+sy*l}V${py}H${px+sx*l}`,fill:'none',stroke:s,'stroke-width':sw}))}
+let seed=({grub:11,ply:23,login:37})[TELA]*97+OP.charCodeAt(0); const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const defs=add('defs',{});
+const r0=11,w0=Math.sqrt(3)*r0; const pat=add('pattern',{id:'m',width:w0,height:3*r0,patternUnits:'userSpaceOnUse'},null,defs);
+[[w0/2,r0],[0,2.5*r0],[w0,2.5*r0],[0,-0.5*r0],[w0,-0.5*r0]].forEach(([x,y])=>add('polygon',{points:pstr(P(x,y,r0)),fill:'none',stroke:C.mesh,'stroke-width':1},null,pat));
+const sl=add('pattern',{id:'s',width:4,height:4,patternUnits:'userSpaceOnUse'},null,defs); add('rect',{x:0,y:0,width:4,height:2,fill:'#000'},null,sl);
+const vg=add('radialGradient',{id:'v',cx:'50%',cy:'50%',r:'75%'},null,defs);
+add('stop',{offset:'55%','stop-color':'#000','stop-opacity':0},null,vg); add('stop',{offset:'100%','stop-color':'#000','stop-opacity':.75},null,vg);
+const fundo=()=>R(0,0,W,H,C.bg); const malha=()=>R(0,0,W,H,'url(#m)');
+function crt(op=.22){add('rect',{x:0,y:0,width:W,height:H,fill:'url(#s)',opacity:op});R(0,0,W,H,'url(#v)')}
+function faixa(y,txt,cor='amb'){const f=cor=='amb'?C.waf:C.crf,s=C[cor];R(0,y,W,36,f);L(0,y+.5,W,y+.5,s,1);L(0,y+35.5,W,y+35.5,s,1);
+  T(W/2,y+24,txt,{a:'middle',c:s,z:16,w:700,ls:8});for(const x of [40,W-40])hex(x,y+18,8,'none',s,1.5)}
+const AVISO1='WARNING: THIS IS A RESTRICTED SYSTEM. ACCESS IS LIMITED TO AUTHORIZED PERSONNEL.';
+const AVISO2='ALL ACTIVITY IS MONITORED AND RECORDED. UNAUTHORIZED USE IS PROHIBITED AND WILL BE PROSECUTED.';
+const BANNER='RESTRICTED  //  AUTHORIZED PERSONNEL ONLY';
+const MENU=['Debian GNU/Linux','Advanced options for Debian GNU/Linux','UEFI Firmware Settings'];
+function logo(cx,cy,r,txt=true){hex(cx,cy,r,C.okf,C.acc,2,G(C.acc,5));hex(cx,cy,r*.62,'none',C.acc,1.2);
+  if(txt)T(cx,cy+r*.16,'G',{a:'middle',c:C.ice,z:r*.5,w:700})}
+function lamp(cx,cy,lb,st){const m={ok:[C.okf,C.acc],wa:[C.waf,C.amb],cr:[C.crf,C.red],nd:[C.ndf,C.ndb]}[st];
+  hex(cx,cy,15,m[0],m[1],1.8,st=='nd'?'':G(m[1],4)); T(cx,cy+40,lb,{a:'middle',c:st=='nd'?C.dim:C.sub,z:13,ls:2})}
+function tarja(y,h=80){R(0,y,W,h,'#030A04',null);L(0,y,W,y,C.dim,1);L(0,y+h,W,y+h,C.dim,1)}
+function cifra(x0,y0,x1,y1,dy,cor,op,frase,linhaF){let lin=0;
+  for(let y=y0;y<y1;y+=dy,lin++){let s='';const n=Math.floor((x1-x0)/88);
+    for(let i=0;i<n;i++){let g='';for(let k=0;k<5;k++)g+=String.fromCharCode(65+Math.floor(rnd()*26));s+=g+'   '}
+    if(frase&&lin==linhaF){const ini=2;const parts=s.split('   ');const fr=frase.replace(/ /g,'').padEnd(30,'X').match(/.{5}/g);
+      const pre=parts.slice(0,ini).join('   ')+'   ';T(x0,y,pre,{c:cor,z:16,op,ls:1});
+      const w=pre.length*10.8;T(x0+w,y,fr.join('   '),{c:C.acc,z:16,ls:1,st:G(C.acc,4)});
+      const pos=parts.slice(ini+6).join('   ');T(x0+w+(fr.join('   ').length+3)*10.8,y,pos,{c:cor,z:16,op,ls:1});}
+    else T(x0,y,s,{c:cor,z:16,op,ls:1})}}
+// componentes do lightdm-gtk-greeter (painel, caixa de login)
+function painel(rel='TERMINAL 07  //  21.11.2026  21:19:04'){R(0,0,W,32,'#020703');L(0,31.5,W,31.5,C.dim,1);T(W/2,22,rel,{a:'middle',c:C.ice,z:15,ls:3});
+  const x=W-40,y=16;add('path',{d:`M${x-5} ${y-6}A8 8 0 1 0 ${x+5} ${y-6}`,fill:'none',stroke:C.sub,'stroke-width':1.8});L(x,y-11,x,y-1,C.sub,1.8);}
+function campo(x,y,w,txt,pw,foco,estilo){const h=46;
+  if(estilo=='cham')cham(x,y,w,h,8,C.nef,foco?C.acc:C.neb,foco?1.8:1.2);else R(x,y,w,h,C.nef,foco?C.acc:C.neb,foco?1.8:1.2);
+  if(pw){for(let i=0;i<9;i++)hex(x+26+i*24,y+h/2,6,C.acc,'none');R(x+26+9*24,y+12,10,22,C.acc,'none',0,G(C.acc,3))}
+  else T(x+18,y+29,txt,{c:C.sub,z:16,f:'Roboto',w:400})}
+function botao(x,y,w,txt,estilo){const h=44;if(estilo=='cham')cham(x,y,w,h,8,C.okf,C.acc,1.8,G(C.acc,3));else R(x,y,w,h,C.okf,C.acc,1.8,G(C.acc,3));
+  T(x+w/2,y+28,txt,{a:'middle',c:C.ice,z:16,f:'Roboto',w:500})}
+function sessao(x,y){R(x,y,44,44,C.nef,C.neb,1.2);hex(x+22,y+22,10,'none',C.sub,1.6)}
+function caixa(cx,cy,estilo){const w=600,h=230,x=cx-w/2,y=cy-h/2;
+  if(estilo=='cham')cham(x,y,w,h,18,'#041006',C.acc,2,G(C.acc,6));else if(estilo=='min'){R(x,y,w,h,'#030A04',C.neb,1.2)}else R(x,y,w,h,'#041006',C.acc,2,G(C.acc,6));
+  campo(x+30,y+30,w-60,'Enter your username',false,false,estilo);campo(x+30,y+90,w-60,'',true,true,estilo);
+  sessao(x+30,y+156);botao(x+w-30-180,y+156,180,'Log In',estilo)}
+
+const S={
+/* ============ GRUB ============ */
+'grub-a'(){ fundo();
+  faixa(0,BANNER);faixa(H-36,BANNER);
+  const x=900,X=2540; let y=330;
+  T(x,y,'GAMMA-6  SECURE BOOT LOADER',{c:C.ice,z:30,w:700,ls:6,st:G(C.acc,4)});T(X,y,'REV 1984.3',{a:'end',c:C.sub,z:20,ls:4});
+  y+=50;T(x,y,'TERMINAL 07   ·   SECTOR 4   ·   CORE MEMORY 524288 WORDS',{c:C.sub,z:18,ls:2});T(X,y,'[ OK ]',{a:'end',c:C.acc,z:18,w:700});
+  y+=36;T(x,y,'CRYPTO MODULE KEYED   ·   LINK ESTABLISHED   ·   SELF TEST PASSED',{c:C.sub,z:18,ls:2});T(X,y,'[ OK ]',{a:'end',c:C.acc,z:18,w:700});
+  y+=40;L(x,y,X,y,C.dim,1.5);
+  y+=90;T(x,y,'SELECT OPERATING MODE:',{c:C.ice,z:22,w:700,ls:4});
+  y+=70;if(!FUNDO)MENU.forEach((m,i)=>{const yy=y+i*58;if(i==0){R(x-10,yy-36,X-x+20,50,C.acc,'none',0,G(C.acc,6));T(x+14,yy-3,'▸ '+m,{c:C.bg,z:24,w:700})}
+    else T(x+14,yy-3,'  '+m,{c:C.ice,z:24})});
+  y+=3*58+60;if(!FUNDO){T(x,y,'AUTOMATIC SELECTION IN 5 SECONDS',{c:C.amb,z:18,w:700,ls:3});
+  for(let i=0;i<40;i++)R(x+520+i*26,y-18,18,20,i<26?C.amb:C.waf,'none');}
+  y+=56;T(x,y,'↑↓ SELECT    ENTER BOOT    E EDIT    C COMMAND',{c:C.dim,z:16,ls:3});
+  y+=70;L(x,y,X,y,C.dim,1.5);
+  y+=60;T(x,y,AVISO1,{c:C.red,z:17,w:700,ls:1});y+=30;T(x,y,AVISO2,{c:C.red,z:17,ls:1,op:.85});
+  logo(2930,330,70);T(2930,450,'G A M M A',{a:'middle',c:C.sub,z:16,ls:6});
+  T(140,1360,'NODE 0x2F7A',{c:C.dim,z:14,ls:4});T(W-140,1360,'IPL READY',{a:'end',c:C.dim,z:14,ls:4});
+  crt(.28)},
+'grub-b'(){ fundo();malha();
+  faixa(0,BANNER);
+  const px=1060,py=280,pw=1320,ph=820;
+  cham(px,py,pw,ph,28,'#040F06ee',C.neb,1.5);brk(px-18,py-18,pw+36,ph+36,40,C.acc,2);
+  R(px,py,pw,64,C.okf,'none');L(px,py+64,px+pw,py+64,C.neb,1.2);
+  T(px+40,py+42,'BOOT SEQUENCE AUTHORIZATION',{c:C.ice,z:22,w:700,ls:5});T(px+pw-40,py+42,'FORM G-6/12',{a:'end',c:C.sub,z:16,ls:3});
+  T(px+40,py+130,'SELECT OPERATING MODE',{c:C.sub,z:17,ls:4});
+  MENU.forEach((m,i)=>{const yy=py+190+i*76;
+    if(i==0){cham(px+40,yy-34,pw-80,58,10,C.okf,C.acc,1.8,G(C.acc,4));hex(px+80,yy-5,12,C.acc,'none');T(px+116,yy+3,m,{c:C.white,z:24,w:600})}
+    else{hex(px+80,yy-5,12,'none',C.dim,1.5);T(px+116,yy+3,m,{c:C.sub,z:24})}});
+  const by=py+500;T(px+40,by,'AUTO-SELECT',{c:C.amb,z:16,ls:4,w:700});
+  for(let i=0;i<30;i++)hex(px+260+i*32,by-6,11,i<19?C.amb:C.waf,'none');T(px+pw-40,by,'5 s',{a:'end',c:C.amb,z:18,w:700});
+  L(px+40,by+50,px+pw-40,by+50,C.dim,1);
+  T(px+40,by+100,AVISO1,{c:C.red,z:15,w:700});T(px+40,by+128,'ALL ACTIVITY IS MONITORED AND RECORDED.',{c:C.red,z:15,op:.85});T(px+40,by+156,'UNAUTHORIZED USE IS PROHIBITED AND WILL BE PROSECUTED.',{c:C.red,z:15,op:.85});
+  T(px+40,by+240,'↑↓ SELECT   ENTER BOOT   E EDIT   C COMMAND',{c:C.dim,z:15,ls:3});
+  // laterais
+  const lx=600;T(lx,360,'SYSTEM STATUS',{a:'middle',c:C.sub,z:15,ls:4});
+  [['PWR','ok'],['CORE','ok'],['CRYPTO','ok'],['LINK','ok'],['AUTH','wa'],['ALARM','nd']].forEach(([l,s],i)=>lamp(lx+(i%2?60:-60),450+Math.floor(i/2)*130,l,s));
+  T(lx,880,'TERMINAL 07',{a:'middle',c:C.ice,z:18,w:700,ls:4});T(lx,910,'NODE 0x2F7A',{a:'middle',c:C.dim,z:14,ls:3});
+  const rx=2840;cham(rx-200,380,400,180,14,C.waf,C.amb,2,G(C.amb,5));
+  T(rx,440,'ACCESS CLASS',{a:'middle',c:C.amb,z:16,ls:5});T(rx,494,'RESTRICTED',{a:'middle',c:C.amb,z:38,w:800,ls:6});T(rx,532,'AUTHORIZED PERSONNEL ONLY',{a:'middle',c:C.amb,z:13,ls:3});
+  logo(rx,760,90);T(rx,900,'G A M M A',{a:'middle',c:C.sub,z:18,ls:8});T(rx,928,'SECURE COMPUTING SYSTEM',{a:'middle',c:C.dim,z:13,ls:3});
+  T(W/2,H-40,'REV 1984.3   ·   SECTOR 4   ·   CORE 524288 WORDS',{a:'middle',c:C.dim,z:14,ls:4});
+  crt(.12)},
+'grub-c'(){ fundo();
+  cifra(120,70,W-100,H-40,38,C.dim,.55,'AUTHORIZED PERSONNEL ONLY',1);
+  R(0,0,W,H,'url(#v)');
+  const cx=W/2,cy=650,r=440;
+  hex(cx,cy,r+24,'#030A04f2',C.dim,1.2);hex(cx,cy,r,'none',C.neb,1.5,G(C.acc,3));
+  for(let i=0;i<6;i++){const [x,y]=P(cx,cy,r)[i];hex(x,y,10,C.bg,C.acc,1.5,G(C.acc,4))}
+  T(cx,cy-250,'·   G A M M A   ·',{a:'middle',c:C.ice,z:26,w:700,ls:6,st:G(C.acc,5)});
+  T(cx,cy-200,'IDENTIFY BOOT TARGET',{a:'middle',c:C.sub,z:16,ls:6});
+  MENU.forEach((m,i)=>{const yy=cy-90+i*64;if(i==0){R(cx-320,yy-34,640,52,C.okf,C.acc,1.4,G(C.acc,4));T(cx,yy,m,{a:'middle',c:C.white,z:22,w:600})}
+    else T(cx,yy,m,{a:'middle',c:C.sub,z:22})});
+  for(let i=0;i<12;i++)R(cx-234+i*40,cy+150,28,6,i<8?C.acc:C.dim,'none');
+  T(cx,cy+196,'05',{a:'middle',c:C.acc,z:22,w:700,ls:6});
+  tarja(1230);T(cx,1270,'ACCESS RESTRICTED  ·  THIS TERMINAL IS MONITORED',{a:'middle',c:C.amb,z:16,w:700,ls:6});
+  T(cx,1302,'unauthorized use is prohibited',{a:'middle',c:C.dim,z:15,ls:4});
+  crt(.10)},
+
+/* ============ PLYMOUTH (chave do disco LUKS) ============ */
+'ply-a'(){ fundo();
+  faixa(0,BANNER);faixa(H-36,BANNER);
+  const x=900;let y=380;const lin=[
+   ['GAMMA-6 INITIAL PROGRAM LOAD','','ice'],
+   ['MEMORY TEST','524288 WORDS  OK','acc'],['CLOCK SYNC','STRATUM 2  OK','acc'],['CRYPTO MODULE','KEYED  OK','acc'],
+   ['PERIPHERAL BUS','6 DEVICES  OK','acc'],['SYSTEM VOLUME','SEALED','amb']];
+  if(!FUNDO){lin.forEach(([a,b,c],i)=>{const yy=y+i*44;T(x,yy,a,{c:i?C.sub:C.ice,z:20,w:i?500:700,ls:2});if(b){L(x+460,yy-6,2540-b.length*12-24,yy-6,C.dim,2,'2 10');T(2540,yy,b,{a:'end',c:C[c],z:20,w:700})}});
+  y+=6*44+80;T(x,y,'CRYPTOGRAPHIC KEY REQUIRED TO UNSEAL SYSTEM VOLUME',{c:C.amb,z:22,w:700,ls:2});
+  y+=70;T(x,y,'KEY >',{c:C.ice,z:26,w:700});T(x+110,y,'* * * * * * * * *',{c:C.acc,z:26,w:700,st:G(C.acc,4)});R(x+110+17*15.6+12,y-24,16,30,C.acc,'none',0,G(C.acc,4));
+  y+=60;T(x,y,'FAILED ATTEMPTS ARE LOGGED.',{c:C.dim,z:17,ls:2});}
+  logo(2930,330,70);for(let i=0;i<6;i++){const [hx,hy]=P(2930,330,104)[i];if(FUNDO)hex(hx,hy,9,C.ndf,C.ndb,1.4);else hex(hx,hy,9,i<4?C.acc:C.ndf,i<4?C.acc:C.ndb,1.4)}
+  T(2930,470,'LOADING',{a:'middle',c:C.sub,z:15,ls:6});
+  T(x,1250,AVISO1,{c:C.red,z:16,w:700,op:.9});T(x,1280,AVISO2,{c:C.red,z:16,op:.8});
+  crt(.28)},
+'ply-b'(){ fundo();malha();faixa(0,BANNER);
+  const cx=W/2,cy=560;
+  for(let k=0;k<3;k++)hex(cx,cy,330-k*26,'none',k?C.dim:C.neb,1.2);
+  for(let i=0;i<6;i++){const a=P(cx,cy,300),b=P(cx,cy,250);const j=(i+1)%6;
+    add('polygon',{points:pstr([a[i],a[j],b[j],b[i]]),fill:i<4?C.okf:C.ndf,stroke:i<4?C.acc:C.ndb,'stroke-width':1.6,style:i<4?G(C.acc,4):''})}
+  logo(cx,cy,150);
+  T(cx,cy+30,'',{});T(cx,cy+410,'VOLUME SEALED',{a:'middle',c:C.amb,z:20,w:700,ls:8});
+  const bx=cx-420,by=1040;cham(bx,by,840,170,16,'#040F06ee',C.acc,2,G(C.acc,5));
+  T(bx+36,by+48,'CRYPTOGRAPHIC KEY REQUIRED',{c:C.ice,z:18,w:700,ls:4});T(bx+840-36,by+48,'nvme0n1p3_crypt',{a:'end',c:C.sub,z:16});
+  cham(bx+36,by+76,768,58,10,C.nef,C.neb,1.2);for(let i=0;i<12;i++)hex(bx+76+i*36,by+105,9,C.acc,'none',0,G(C.acc,3));
+  const lx=640;[['PWR','ok'],['CORE','ok'],['CRYPTO','wa'],['LINK','nd']].forEach(([l,s],i)=>lamp(lx,380+i*140,l,s));
+  T(2800,420,'IPL  STAGE 2 OF 3',{a:'middle',c:C.sub,z:16,ls:4});T(2800,456,'TERMINAL 07',{a:'middle',c:C.ice,z:20,w:700,ls:5});
+  T(cx,H-40,AVISO1,{a:'middle',c:C.red,z:15,w:700,op:.9});
+  crt(.12)},
+'ply-c'(){ fundo();
+  cifra(120,70,W-100,H-40,38,C.dim,.45,'UNSEAL VOLUME KEY REQUIRED',30);
+  R(0,0,W,H,'url(#v)');
+  const cx=W/2,cy=620;hex(cx,cy,300,'#030A04f2',C.dim,1.2);hex(cx,cy,270,'none',C.neb,1.4);
+  add('path',{d:`M${P(cx,cy,270)[5][0]} ${P(cx,cy,270)[5][1]}L${P(cx,cy,270)[0][0]} ${P(cx,cy,270)[0][1]}L${P(cx,cy,270)[1][0]} ${P(cx,cy,270)[1][1]}`,fill:'none',stroke:C.acc,'stroke-width':3,style:G(C.acc,6)});
+  hex(cx,cy,80,C.okf,C.acc,2,G(C.acc,6));T(cx,cy+14,'?',{a:'middle',c:C.ice,z:44,w:700});
+  T(cx,cy-150,'SEALED',{a:'middle',c:C.amb,z:18,w:700,ls:10});
+  T(cx,cy+150,'K E Y',{a:'middle',c:C.sub,z:16,ls:8});
+  for(let i=0;i<9;i++)hex(cx-160+i*40,cy+200,8,C.acc,'none',0,G(C.acc,3));
+  tarja(1235,60);T(cx,1270,'AUTHORIZED PERSONNEL ONLY',{a:'middle',c:C.amb,z:16,w:700,ls:8});
+  crt(.10)},
+
+/* ============ LOGIN (lightdm-gtk-greeter) ============ */
+'login-a'(){ fundo();if(!FUNDO)painel();faixa(32,BANNER);faixa(H-36,BANNER);
+  const cx=W/2;
+  T(cx,300,'GAMMA-6  SECURE TERMINAL',{a:'middle',c:C.ice,z:34,w:700,ls:8,st:G(C.acc,4)});
+  T(cx,346,'REV 1984.3   ·   TERMINAL 07   ·   SECTOR 4',{a:'middle',c:C.sub,z:18,ls:4});
+  T(cx,470,'IDENTIFICATION REQUIRED',{a:'middle',c:C.amb,z:22,w:700,ls:8});
+  if(!FUNDO)caixa(cx,640,'reto');
+  T(cx,960,AVISO1,{a:'middle',c:C.red,z:17,w:700});T(cx,992,AVISO2,{a:'middle',c:C.red,z:17,op:.85});
+  L(cx-560,1100,cx+560,1100,C.dim,1.5);
+  T(cx,1150,'LAST ACCESS VERIFIED   ·   SESSIONS ARE RECORDED   ·   NODE 0x2F7A',{a:'middle',c:C.dim,z:15,ls:3});
+  logo(330,330,64);logo(W-330,330,64);
+  crt(.26)},
+'login-a2'(){ fundo();faixa(0,BANNER);faixa(H-36,BANNER);
+  const cx=W/2,cy=H/2;
+  logo(cx,cy-170,90);
+  T(cx,cy-20,'GAMMA-6  SECURE TERMINAL',{a:'middle',c:C.ice,z:30,w:700,ls:8,st:G(C.acc,4)});
+  T(cx,cy+22,'REV 1984.3   ·   TERMINAL 07   ·   SECTOR 4',{a:'middle',c:C.sub,z:16,ls:4});
+  T(cx,cy+110,'AUTHORIZED PERSONNEL ONLY',{a:'middle',c:C.amb,z:20,w:700,ls:8});
+  T(cx,cy+170,AVISO1,{a:'middle',c:C.red,z:15,w:700});T(cx,cy+198,AVISO2,{a:'middle',c:C.red,z:15,op:.85});
+  crt(.26)},
+'login-b'(){ fundo();malha();painel();faixa(32,BANNER);
+  const cx=W/2;
+  logo(cx,330,110);for(let i=0;i<6;i++){const [hx,hy]=P(cx,330,160)[i];hex(hx,hy,10,C.okf,C.acc,1.4,G(C.acc,3))}
+  T(cx,540,'G A M M A',{a:'middle',c:C.ice,z:28,w:700,ls:10});T(cx,574,'SECURE COMPUTING SYSTEM',{a:'middle',c:C.sub,z:15,ls:5});
+  brk(cx-340,620,680,300,30,C.acc,2);caixa(cx,770,'cham');
+  T(cx,1010,'AUTHORIZED PERSONNEL ONLY',{a:'middle',c:C.amb,z:20,w:700,ls:8});
+  T(cx,1050,AVISO2,{a:'middle',c:C.red,z:15,op:.85});
+  const lx=760;T(lx,400,'SYSTEM STATUS',{a:'middle',c:C.sub,z:15,ls:4});
+  [['PWR','ok'],['CORE','ok'],['CRYPTO','ok'],['LINK','ok'],['AUTH','wa'],['ALARM','nd']].forEach(([l,s],i)=>lamp(lx+(i%2?60:-60),490+Math.floor(i/2)*130,l,s));
+  const rx=2680;cham(rx-200,420,400,180,14,C.waf,C.amb,2,G(C.amb,5));
+  T(rx,480,'ACCESS CLASS',{a:'middle',c:C.amb,z:16,ls:5});T(rx,534,'RESTRICTED',{a:'middle',c:C.amb,z:38,w:800,ls:6});T(rx,572,'CLEARANCE LEVEL 3',{a:'middle',c:C.amb,z:13,ls:3});
+  T(rx,700,'TERMINAL 07',{a:'middle',c:C.ice,z:18,w:700,ls:4});T(rx,730,'NODE 0x2F7A',{a:'middle',c:C.dim,z:14,ls:3});
+  T(cx,H-40,'REV 1984.3   ·   ALL SESSIONS ARE MONITORED AND RECORDED',{a:'middle',c:C.dim,z:14,ls:4});
+  crt(.12)},
+'login-c'(){ fundo();
+  cifra(120,90,W-100,H-40,38,C.dim,.45,'IDENTIFY YOURSELF NOW',2);
+  R(0,0,W,H,'url(#v)');painel('21.11.2026   21:19:04');
+  const cx=W/2,cy=700;hex(cx,cy,470,'#030A04f2',C.dim,1.2);hex(cx,cy,440,'none',C.neb,1.4,G(C.acc,3));
+  for(let i=0;i<6;i++){const [x,y]=P(cx,cy,440)[i];hex(x,y,10,C.bg,C.acc,1.5,G(C.acc,4))}
+  T(cx,cy-240,'IDENTIFY.',{a:'middle',c:C.ice,z:40,w:700,ls:14,st:G(C.acc,6)});
+  T(cx,cy-188,'G A M M A',{a:'middle',c:C.sub,z:16,ls:8});
+  caixa(cx,cy+10,'min');
+  T(cx,cy+230,'RESTRICTED',{a:'middle',c:C.amb,z:18,w:700,ls:12});
+  tarja(1265,56);T(cx,1300,'authorized personnel only  ·  this terminal is monitored',{a:'middle',c:C.dim,z:15,ls:4});
+  crt(.10)}
+};
+S[TELA+'-'+OP]();
+</script></body></html>

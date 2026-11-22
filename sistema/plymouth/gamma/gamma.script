@@ -1,0 +1,174 @@
+# Arquivo: sistema/plymouth/gamma/gamma.script
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 21/11/2026 22:20 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Tela de carga do Plymouth, opção A "Terminal": registro de carga linha a
+# linha, anel hexagonal girando, pedido da chave do disco (LUKS) e barra de
+# progresso. Desenhado em 3440x1440 e escalado para a tela real.
+# Variáveis de estado são globais; dentro das funções, i, img e spr são locais.
+# Referência da linguagem: wiki do Plymouth, "Script theme" (freedesktop.org).
+
+#---------------- escala e posição ----------------
+Window.SetBackgroundTopColor(0.012, 0.039, 0.016);
+Window.SetBackgroundBottomColor(0.012, 0.039, 0.016);
+LARG = Window.GetWidth();
+ALT = Window.GetHeight();
+s = Math.Min(LARG / 3440, ALT / 1440);
+ox = Window.GetX() + (LARG - 3440 * s) / 2;
+oy = Window.GetY() + (ALT - 1440 * s) / 2;
+
+fun carrega(nome)
+  {
+    local.img;
+    img = Image(nome);
+    return img.Scale(img.GetWidth() * s, img.GetHeight() * s);
+  }
+
+fun poe(img, x, y, z, op)
+  {
+    local.spr;
+    spr = Sprite(img);
+    spr.SetPosition(ox + x * s, oy + y * s, z);
+    spr.SetOpacity(op);
+    return spr;
+  }
+
+#---------------- fundo ----------------
+fundo = poe(carrega("fundo.png"), 0, 0, -100, 1);
+
+#---------------- registro de carga ----------------
+desligando = (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "reboot");
+if (desligando)
+  {
+    for (i = 0; i < 4; i++)
+      linha[i] = poe(carrega("desliga" + i + ".png"), 900, 348 + i * 44, 10, 0);
+    NLINHAS = 4;
+  }
+else
+  {
+    for (i = 0; i < 5; i++)
+      linha[i] = poe(carrega("linha" + i + ".png"), 900, 348 + i * 44, 10, 0);
+    NLINHAS = 5;
+  }
+selado = poe(carrega("selado.png"), 900, 568, 10, 0);
+liberado = poe(carrega("liberado.png"), 900, 568, 10, 0);
+
+#---------------- pedido da chave ----------------
+pedido = poe(carrega("pedido.png"), 900, 692, 10, 0);
+chave = poe(carrega("chave.png"), 900, 758, 10, 0);
+registro = poe(carrega("registro.png"), 900, 822, 10, 0);
+img_bala = carrega("bala.png");
+for (i = 0; i < 30; i++)
+  bala[i] = poe(img_bala, 1002 + i * 31.2, 758, 11, 0);
+cursor = poe(carrega("cursor.png"), 1006, 762, 12, 0);
+
+#---------------- barra de carga ----------------
+carregando = poe(carrega("carregando.png"), 900, 692, 10, 0);
+img_on = carrega("seg_on.png");
+img_off = carrega("seg_off.png");
+for (i = 0; i < 40; i++)
+  {
+    seg_off[i] = poe(img_off, 1420 + i * 26, 706, 10, 0);
+    seg_on[i] = poe(img_on, 1420 + i * 26, 706, 11, 0);
+  }
+
+#---------------- anel hexagonal ----------------
+img_no = carrega("no.png");
+for (i = 0; i < 6; i++)
+  {
+    ang = (-90 + 60 * i) * Math.Pi / 180;
+    no[i] = poe(img_no, 2930 + 104 * Math.Cos(ang) - 20, 330 + 104 * Math.Sin(ang) - 20, 10, 0);
+  }
+
+#---------------- estado ----------------
+quadro = 0;
+pedindo = 0;
+liberou = 0;
+progresso = 0;
+
+fun mostra_carga(op)
+  {
+    local.i;
+    carregando.SetOpacity(op);
+    for (i = 0; i < 40; i++)
+      seg_off[i].SetOpacity(op);
+  }
+
+fun esconde_pedido()
+  {
+    local.i;
+    pedido.SetOpacity(0);
+    chave.SetOpacity(0);
+    registro.SetOpacity(0);
+    cursor.SetOpacity(0);
+    for (i = 0; i < 30; i++)
+      bala[i].SetOpacity(0);
+  }
+
+fun atualiza()
+  {
+    local.i;
+    quadro++;
+    # uma linha nova a cada 12 quadros (o Plymouth chama isto 50 vezes por segundo)
+    n = Math.Int(quadro / 12);
+    for (i = 0; i < NLINHAS; i++)
+      if (i <= n) linha[i].SetOpacity(1);
+    # anel: quatro nós acesos girando
+    k = Math.Int(quadro / 6) % 6;
+    for (i = 0; i < 6; i++)
+      {
+        d = (i - k + 6) % 6;
+        if (d < 4) no[i].SetOpacity(1 - d * 0.25);
+        else no[i].SetOpacity(0);
+      }
+    if (pedindo)
+      cursor.SetOpacity(Math.Int(quadro / 25) % 2);
+    else if (!desligando && n >= NLINHAS)
+      {
+        mostra_carga(1);
+        for (i = 0; i < 40; i++)
+          if (i < progresso * 40) seg_on[i].SetOpacity(1);
+      }
+  }
+Plymouth.SetRefreshFunction(atualiza);
+
+fun pede_senha(prompt, bullets)
+  {
+    local.i;
+    pedindo = 1;
+    mostra_carga(0);
+    for (i = 0; i < 40; i++)
+      seg_on[i].SetOpacity(0);
+    selado.SetOpacity(1);
+    liberado.SetOpacity(0);
+    pedido.SetOpacity(1);
+    chave.SetOpacity(1);
+    registro.SetOpacity(1);
+    for (i = 0; i < 30; i++)
+      {
+        if (i < bullets) bala[i].SetOpacity(1);
+        else bala[i].SetOpacity(0);
+      }
+    b = Math.Min(bullets, 30);
+    cursor.SetPosition(ox + (1006 + b * 31.2) * s, oy + 762 * s, 12);
+  }
+Plymouth.SetDisplayPasswordFunction(pede_senha);
+
+fun normal()
+  {
+    if (pedindo)
+      {
+        pedindo = 0;
+        esconde_pedido();
+        selado.SetOpacity(0);
+        liberado.SetOpacity(1);
+      }
+  }
+Plymouth.SetDisplayNormalFunction(normal);
+
+fun progride(duracao, p)
+  {
+    progresso = p;
+  }
+Plymouth.SetBootProgressFunction(progride);

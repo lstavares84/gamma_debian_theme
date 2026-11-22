@@ -1,0 +1,120 @@
+/*
+  Arquivo: sistema/lightdm/greeter.css
+  Projeto: GAMMA Debian (tema Contador)
+  Versão: 1.0.0
+  Data e hora: 21/11/2026 22:30 (America/Sao_Paulo)
+  Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+  Regras extras do lightdm-gtk-greeter 2.0, opção A "Terminal". O instalador
+  acrescenta este arquivo ao fim do gtk.css do tema GAMMA-Login. Os nomes
+  (#login_window, #panel_window...) são os ids da interface do greeter.
+*/
+
+/* painel do topo: só o relógio e o botão de energia */
+#panel_window {
+  background-color: #020703;
+  background-image: none;
+  border-bottom: 1px solid #234B23;
+  min-height: 31px;
+  padding: 0;
+}
+#panel_window menubar,
+#panel_window menubar > menuitem {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #BEFFAA;
+  font-family: "JetBrains Mono";
+  font-size: 11pt;
+  letter-spacing: 3px;
+  padding: 3px 10px;
+}
+#panel_window menubar > menuitem:hover {
+  background-color: #0A300C;
+  color: #E6FFE1;
+}
+
+/* caixa de login: retângulo com borda de fósforo */
+#login_window {
+  background-color: #041006;
+  border: 2px solid #78FF5A;
+  border-radius: 0;
+  box-shadow: 0 0 8px rgba(120, 255, 90, 0.55), 0 0 26px rgba(120, 255, 90, 0.18);
+  padding: 0;
+}
+#login_box { min-width: 540px; }
+#content_frame { padding: 28px 28px 8px 28px; background: transparent; border: none; }
+#buttonbox_frame { padding: 8px 28px 28px 28px; background: transparent; border: none; }
+
+#login_window entry {
+  min-height: 44px;
+  padding: 0 16px;
+  background-color: #081C0A;
+  background-image: none;
+  border: 1px solid #40783C;
+  border-radius: 0;
+  box-shadow: none;
+  color: #E6FFE1;
+  caret-color: #78FF5A;
+  font-family: "Roboto";
+  font-size: 12pt;
+}
+#login_window entry:focus { border: 2px solid #78FF5A; }
+#password_entry { color: #78FF5A; letter-spacing: 4px; }
+
+#login_window button {
+  min-height: 42px;
+  min-width: 160px;
+  border-radius: 0;
+  background-image: none;
+  font-family: "Roboto";
+  font-size: 12pt;
+}
+#login_button {
+  background-color: #0A300C;
+  border: 2px solid #78FF5A;
+  color: #BEFFAA;
+  box-shadow: 0 0 6px rgba(120, 255, 90, 0.45);
+}
+#login_button:hover { background-color: #78FF5A; color: #030A04; }
+#cancel_button {
+  background-color: #081C0A;
+  border: 1px solid #40783C;
+  color: #6EAA6E;
+}
+
+/* mensagens de erro e aviso do greeter */
+#message_label {
+  color: #FF3C32;
+  font-family: "JetBrains Mono";
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+#greeter_infobar,
+#greeter_infobar > revealer > box {
+  background-color: #480404;
+  background-image: none;
+  border: 1px solid #FF3C32;
+  color: #FF3C32;
+}
+
+/* janela de desligar/reiniciar: borda âmbar */
+#power_window {
+  background-color: #041006;
+  border: 2px solid #FFBE00;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgba(255, 190, 0, 0.4);
+}
+#power_title { color: #FFBE00; font-family: "JetBrains Mono"; font-weight: bold; letter-spacing: 4px; }
+#power_text { color: #BEFFAA; font-family: "JetBrains Mono"; }
+#power_window button { border-radius: 0; min-height: 40px; min-width: 140px; }
+#power_ok_button { background-color: #3C2C00; border: 2px solid #FFBE00; color: #FFBE00; }
+#power_cancel_button { background-color: #081C0A; border: 1px solid #40783C; color: #6EAA6E; }
+
+/* menus do painel (energia) */
+#power_menu, #panel_window menu {
+  background-color: #041006;
+  border: 1px solid #40783C;
+  border-radius: 0;
+}
+#panel_window menu menuitem { color: #BEFFAA; font-family: "JetBrains Mono"; padding: 6px 14px; }
+#panel_window menu menuitem:hover { background-color: #0A300C; color: #E6FFE1; }

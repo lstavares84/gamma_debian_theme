@@ -1,8 +1,8 @@
 <!--
   File / Arquivo: README.md
   Project / Projeto: GAMMA Debian (Contador theme)
-  Version / Versão: 1.0.0
-  Date / Data: 14/11/2026 19:58 (America/Sao_Paulo)
+  Version / Versão: 1.1.0
+  Date / Data: 21/11/2026 22:55 (America/Sao_Paulo)
   Author / Autoria: lstavares84, with / com Claude Opus 5.5 (Anthropic)
 -->
 
@@ -40,6 +40,7 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 - [Install](#install)
 - [What the installer changes](#what-the-installer-changes)
 - [Rotating wallpapers](#rotating-wallpapers)
+- [Boot and login screens](#boot-and-login-screens)
 - [Restore or uninstall](#restore-or-uninstall)
 - [Customizing](#customizing)
 - [Rebuilding the generated files](#rebuilding-the-generated-files)
@@ -61,6 +62,7 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 | Editor scheme (GtkSourceView 4: Mousepad and others) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 original wallpapers in two series, 3440x1440 and 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
 | Roboto and JetBrains Mono fonts | `fontes/` | `~/.local/share/fonts/gamma` |
+| GRUB, Plymouth and LightDM login screens (optional, needs sudo) | `sistema/` | see [Boot and login screens](#boot-and-login-screens) |
 | Visual identity book (22-page PDF) and mockups | `book/`, `mockups/` | |
 
 ### Screenshots
@@ -191,6 +193,46 @@ keeps the same physical size on two 34" monitors of different resolution.
 To change the interval later, run the installer again with `--intervalo`, or use
 *Settings > Desktop > Background > Change the background*.
 
+### Boot and login screens
+
+![GRUB menu, Plymouth disk key prompt and LightDM login](docs/boot-login.jpg)
+
+An optional, separate installer themes the screens outside your session as a
+fictional 1980s restricted military terminal ("GAMMA-6 SECURE TERMINAL",
+"AUTHORIZED PERSONNEL ONLY"), all in English:
+
+| Screen | What you get |
+|---|---|
+| GRUB | boot menu with a phosphor selection bar and an amber countdown bar |
+| Plymouth | boot log revealed line by line, rotating hexagon ring, disk encryption (LUKS) key prompt, loading bar; a shutdown variant |
+| LightDM (lightdm-gtk-greeter) | GAMMA login box, clock panel, English messages, user list hidden (type your user name), a separate background for each monitor |
+
+```bash
+sudo ./instalar-sistema.sh
+```
+
+Options: `--sem-grub`, `--sem-plymouth`, `--sem-login`. It saves the original
+Debian files once in `/var/backups/gamma-sistema/` and lists every path it
+creates. To go back: `sudo ./instalar-sistema.sh --desfazer`. Reboot to see the
+result.
+
+What it changes:
+
+- `/boot/grub/themes/GAMMA` and `/etc/default/grub.d/gamma.cfg` (theme,
+  `GRUB_GFXMODE=3440x1440,auto`, `splash` on the kernel line), then `update-grub`.
+- `/usr/share/plymouth/themes/gamma`, default theme set to `gamma`, then
+  `update-initramfs -u -k all`.
+- `/usr/share/themes/GAMMA-Login`, `/usr/share/icons/GAMMA-cursor`,
+  `/usr/local/share/fonts/gamma`, `/usr/share/backgrounds/gamma-login`,
+  `/etc/lightdm/lightdm-gtk-greeter.conf`, `/etc/lightdm/lightdm.conf.d/50-gamma.conf`
+  and `/usr/share/xgreeters/gamma-greeter.desktop`.
+
+The layouts are drawn for 3440x1440. The greeter configuration names the
+monitors `DP-2` (login box) and `DP-4`; edit `sistema/lightdm/lightdm-gtk-greeter.conf`
+for other names. Before rebooting you can preview the new login theme with
+`dm-tool switch-to-greeter` (log in again to return to your session); the
+English messages and the hidden user list only start after a reboot.
+
 ### Restore or uninstall
 
 ```bash
@@ -220,13 +262,16 @@ deleted.
 | `ferramentas/gerar_cursor.py` | cursor theme (needs `xcursorgen`) |
 | `icones/gerar_icones.py` | icon theme from the local Papirus install |
 | `ferramentas/gamma_config.py` | applies and restores the XFCE settings |
-| `book/fonte/` | HTML sources of the book, mockups and wallpapers: `wp.html` series 1, `wp2.html` series 2 (rendered with Firefox headless) |
+| `ferramentas/gerar_sistema.py` | GRUB, Plymouth and login images and GRUB fonts (from `book/fonte/boot.html`) |
+| `book/fonte/` | HTML sources of the book, mockups and wallpapers: `wp.html` series 1, `wp2.html` series 2, `boot.html` boot and login screens (rendered with Firefox headless) |
 
 ### Repository layout
 
 ```
 instalar.sh            installer (no sudo, with backup)
 restaurar.sh           restore and optional uninstall
+instalar-sistema.sh    boot and login screens (sudo, with backup and --desfazer)
+sistema/               GRUB, Plymouth and LightDM themes
 tema/GAMMA/            GTK 3, GTK 2, xfwm4 and notification themes
 cursor/                cursor theme and preview
 icones/                icon generator (derived from Papirus at install time)
@@ -236,7 +281,7 @@ wallpapers/            26 wallpapers in two resolutions
 fontes/                Roboto and JetBrains Mono with their licenses
 ferramentas/           generators, settings script and test window
 book/                  visual identity book (PDF) and its sources
-mockups/               first design directions
+mockups/               design directions (boot/: boot and login options)
 docs/                  images used in this README
 ```
 
@@ -249,6 +294,11 @@ docs/                  images used in this README
 - The panel pager draws workspaces as rectangles; making them hexagons is not
   possible with CSS alone.
 - xfwm4 borders are 2 px wide. Use Alt plus right drag to resize windows easily.
+- GRUB only shows still images, and its menu entries keep the text GRUB gives
+  them. Plymouth draws the same scene on every screen it controls; with two GPUs
+  it may appear on only one monitor.
+- The greeter password field shows round dots; GTK 3 cannot change that character
+  from CSS.
 
 ### Troubleshooting
 
@@ -256,6 +306,11 @@ docs/                  images used in this README
   and back in.
 - **Notifications still look old:** `systemctl --user restart xfce4-notifyd`.
 - **Wallpaper did not change:** `xfdesktop --reload`.
+- **Black screen instead of the login after `instalar-sistema.sh`:** press
+  Ctrl+Alt+F2, log in and run `sudo ./instalar-sistema.sh --desfazer`. Version
+  1.1.0 of the installer writes the full path of the greeter and only enables the
+  GAMMA greeter after testing it with the greeter's reduced `PATH`; the greeter log
+  is `/var/log/lightdm/seat0-greeter.log`.
 - **Something looks wrong and you want your old desktop back now:** run
   `~/.local/share/gamma-theme/restaurar.sh`.
 
@@ -305,6 +360,7 @@ estado têm significado fixo em todo lugar: **verde** normal, **âmbar** atenç�
 - [Instalação](#instalação)
 - [O que o instalador muda](#o-que-o-instalador-muda)
 - [Papéis de parede que se trocam sozinhos](#papéis-de-parede-que-se-trocam-sozinhos)
+- [Telas de boot e login](#telas-de-boot-e-login)
 - [Restaurar ou desinstalar](#restaurar-ou-desinstalar)
 - [Personalizar](#personalizar)
 - [Refazer os arquivos gerados](#refazer-os-arquivos-gerados)
@@ -327,6 +383,7 @@ As imagens e a estrutura de pastas estão na seção em inglês, acima.
 | Esquema do editor (GtkSourceView 4: Mousepad e outros) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 papéis de parede originais em duas séries, 3440x1440 e 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
 | Fontes Roboto e JetBrains Mono | `fontes/` | `~/.local/share/fonts/gamma` |
+| Telas do GRUB, do Plymouth e de login do LightDM (opcional, precisa de sudo) | `sistema/` | veja [Telas de boot e login](#telas-de-boot-e-login) |
 | Book de identidade visual (PDF de 22 páginas) e mockups | `book/`, `mockups/` | |
 
 **Série 1, laboratório (01 a 13):** Núcleo, Meia-vida, Cadeia, Contagem,
@@ -430,6 +487,45 @@ de 34" com resoluções diferentes.
 Para mudar o intervalo depois, rode o instalador de novo com `--intervalo`, ou use
 *Configurações > Área de trabalho > Plano de fundo > Alterar o plano de fundo*.
 
+### Telas de boot e login
+
+Um instalador separado e opcional aplica o tema nas telas de fora da sessão,
+como um terminal militar restrito dos anos 80, fictício ("GAMMA-6 SECURE
+TERMINAL", "AUTHORIZED PERSONNEL ONLY"), todo em inglês:
+
+| Tela | O que muda |
+|---|---|
+| GRUB | menu com barra de seleção verde e contagem regressiva em barra âmbar |
+| Plymouth | registro de carga linha a linha, anel hexagonal girando, pedido da chave do disco criptografado (LUKS), barra de carga; versão própria para desligar |
+| LightDM (lightdm-gtk-greeter) | caixa de login GAMMA, painel com relógio, mensagens em inglês, lista de usuários escondida (digite o nome), fundo próprio em cada monitor |
+
+```bash
+sudo ./instalar-sistema.sh
+```
+
+Opções: `--sem-grub`, `--sem-plymouth`, `--sem-login`. Ele guarda uma única vez
+os arquivos originais do Debian em `/var/backups/gamma-sistema/` e anota cada
+caminho que cria. Para voltar: `sudo ./instalar-sistema.sh --desfazer`. Reinicie
+para ver o resultado.
+
+O que ele muda:
+
+- `/boot/grub/themes/GAMMA` e `/etc/default/grub.d/gamma.cfg` (tema,
+  `GRUB_GFXMODE=3440x1440,auto`, `splash` na linha do kernel), depois `update-grub`.
+- `/usr/share/plymouth/themes/gamma`, tema padrão `gamma`, depois
+  `update-initramfs -u -k all`.
+- `/usr/share/themes/GAMMA-Login`, `/usr/share/icons/GAMMA-cursor`,
+  `/usr/local/share/fonts/gamma`, `/usr/share/backgrounds/gamma-login`,
+  `/etc/lightdm/lightdm-gtk-greeter.conf`, `/etc/lightdm/lightdm.conf.d/50-gamma.conf`
+  e `/usr/share/xgreeters/gamma-greeter.desktop`.
+
+Os desenhos são feitos para 3440x1440. A configuração do login usa os nomes de
+monitor `DP-2` (caixa de login) e `DP-4`; edite
+`sistema/lightdm/lightdm-gtk-greeter.conf` se os seus forem outros. Antes de
+reiniciar dá para ver o novo login com `dm-tool switch-to-greeter` (entre de novo
+para voltar à sessão); as mensagens em inglês e a lista escondida só valem depois
+de reiniciar.
+
 ### Restaurar ou desinstalar
 
 ```bash
@@ -459,7 +555,8 @@ instalados. Os backups nunca são apagados.
 | `ferramentas/gerar_cursor.py` | tema de cursor (requer `xcursorgen`) |
 | `icones/gerar_icones.py` | tema de ícones a partir do Papirus instalado |
 | `ferramentas/gamma_config.py` | aplica e restaura as configurações do XFCE |
-| `book/fonte/` | HTML do book, dos mockups e dos papéis de parede: `wp.html` série 1, `wp2.html` série 2 (renderizados com Firefox headless) |
+| `ferramentas/gerar_sistema.py` | imagens do GRUB, do Plymouth e do login e fontes do GRUB (a partir de `book/fonte/boot.html`) |
+| `book/fonte/` | HTML do book, dos mockups e dos papéis de parede: `wp.html` série 1, `wp2.html` série 2, `boot.html` telas de boot e login (renderizados com Firefox headless) |
 
 ### Limitações conhecidas
 
@@ -471,6 +568,11 @@ instalados. Os backups nunca são apagados.
   transformá-las em hexágonos só com CSS.
 - As bordas do xfwm4 têm 2 px. Use Alt mais arrastar com o botão direito para
   redimensionar janelas com facilidade.
+- O GRUB só mostra imagens paradas, e os itens do menu ficam com o texto que o
+  GRUB dá a eles. O Plymouth desenha a mesma cena em cada tela que controla; com
+  duas placas de vídeo, pode aparecer em um monitor só.
+- O campo de senha do login mostra bolinhas; o GTK 3 não deixa trocar esse
+  caractere pelo CSS.
 
 ### Solução de problemas
 
@@ -481,6 +583,11 @@ instalados. Os backups nunca são apagados.
 - **O papel de parede não mudou:** `xfdesktop --reload`.
 - **Algo ficou estranho e você quer o desktop antigo agora:** rode
   `~/.local/share/gamma-theme/restaurar.sh`.
+- **Tela preta no lugar do login depois do `instalar-sistema.sh`:** aperte
+  Ctrl+Alt+F2, entre e rode `sudo ./instalar-sistema.sh --desfazer`. A versão
+  1.1.0 do instalador grava o caminho completo do greeter e só ativa o greeter
+  GAMMA depois de testá-lo com o `PATH` reduzido da sessão do greeter; o log do
+  greeter fica em `/var/log/lightdm/seat0-greeter.log`.
 
 ### Créditos e licenças
 

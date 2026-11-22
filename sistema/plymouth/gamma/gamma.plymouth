@@ -1,0 +1,13 @@
+# Arquivo: sistema/plymouth/gamma/gamma.plymouth
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 21/11/2026 22:20 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+[Plymouth Theme]
+Name=GAMMA
+Description=GAMMA Terminal: restricted system boot screen
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/gamma
+ScriptFile=/usr/share/plymouth/themes/gamma/gamma.script

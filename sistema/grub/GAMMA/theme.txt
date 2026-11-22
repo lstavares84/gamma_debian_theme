@@ -1,0 +1,57 @@
+# Arquivo: sistema/grub/GAMMA/theme.txt
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.0
+# Data e hora: 21/11/2026 22:15 (America/Sao_Paulo)
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Tema do GRUB, opção A "Terminal". Feito para 3440x1440; as posições são
+# relativas ao centro da tela, então o bloco continua centrado em outra resolução.
+# Referência do formato: manual do GRUB, seção "Theme file format".
+
+title-text: ""
+desktop-image: "background.png"
+desktop-image-scale-method: "stretch"
+desktop-color: "#030A04"
+terminal-font: "JetBrains Mono Regular 16"
+
++ boot_menu {
+  left = 50%-830
+  top = 50%-140
+  width = 1660
+  height = 224
+  item_font = "JetBrains Mono Regular 24"
+  selected_item_font = "JetBrains Mono Bold 24"
+  item_color = "#BEFFAA"
+  selected_item_color = "#030A04"
+  item_height = 50
+  item_spacing = 8
+  item_padding = 24
+  icon_width = 0
+  icon_height = 0
+  item_icon_space = 0
+  selected_item_pixmap_style = "select_*.png"
+  scrollbar = false
+}
+
++ label {
+  id = "__timeout__"
+  left = 50%-820
+  top = 50%+113
+  width = 500
+  height = 24
+  align = "left"
+  color = "#FFBE00"
+  font = "JetBrains Mono Bold 18"
+  text = "AUTOMATIC SELECTION IN %d SECONDS"
+}
+
++ progress_bar {
+  id = "__timeout__"
+  left = 50%-300
+  top = 50%+112
+  width = 1040
+  height = 20
+  fg_color = "#FFBE00"
+  bg_color = "#3C2C00"
+  border_color = "#3C2C00"
+  show_text = false
+}

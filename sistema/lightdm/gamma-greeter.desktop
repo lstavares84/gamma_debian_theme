@@ -1,0 +1,14 @@
+# Arquivo: sistema/lightdm/gamma-greeter.desktop
+# Projeto: GAMMA Debian (tema Contador)
+# Versão: 1.0.1
+# Data e hora: 22/11/2026 08:25 (America/Sao_Paulo)
+# 1.0.1: caminho completo do greeter. O PATH da sessão do greeter não inclui
+#        /usr/sbin, e o env não achava lightdm-gtk-greeter (tela de login preta).
+# Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+# Vai para /usr/share/xgreeters/. Roda o lightdm-gtk-greeter com as mensagens
+# em inglês (LANGUAGE=en), sem mudar o idioma do resto do sistema.
+[Desktop Entry]
+Name=GAMMA Greeter
+Comment=lightdm-gtk-greeter with English messages, for the GAMMA theme
+Exec=env LANGUAGE=en /usr/sbin/lightdm-gtk-greeter
+Type=Application
