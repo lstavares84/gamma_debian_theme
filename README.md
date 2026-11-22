@@ -1,8 +1,8 @@
 <!--
   File / Arquivo: README.md
   Project / Projeto: GAMMA Debian (Contador theme)
-  Version / Versão: 1.1.0
-  Date / Data: 21/11/2026 22:55 (America/Sao_Paulo)
+  Version / Versão: 1.2.0
+  Date / Data: 22/11/2026 19:00 (America/Sao_Paulo)
   Author / Autoria: lstavares84, with / com Claude Opus 5.5 (Anthropic)
 -->
 
@@ -67,13 +67,14 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 
 ### Screenshots
 
-**Series 1, laboratory (01 to 13):** Nucleus, Half-life, Decay chain, Count,
-Oscilloscope, Honeycomb, Orbit, Topology, Gamma spectrum, Sweep, Phosphor,
-Silence and Reticle.
+**Series 1, control room (01 to 13):** Sentinel (watch post), Orbital tracking
+(satellite ground track), Sequence (access protocol), Countdown, Oscilloscope
+(transponder echo), Honeycomb, Orbit (satellite network), Topology, Radio
+spectrum (intercepted band), Sweep (radar), Phosphor, Silence and Reticle.
 
 ![Series 1 wallpapers](docs/wallpapers.jpg)
 
-**Series 2, no nuclear references (14 to 26):** Tactical (military map),
+**Series 2, field operations (14 to 26):** Tactical (military map),
 Triangulation (signal interception), Cipher (one-time pad), Intrusion (hacking),
 Neon (cyberpunk city), Circuit (control board), Spectrogram, Interference,
 Lissajous, Galaxy, Event horizon, Fractal (hexaflake) and Biometrics.
@@ -329,8 +330,6 @@ docs/                  images used in this README
   [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
   (GPL-3.0) and generated on your machine from the Debian package. No Papirus file
   is distributed in this repository.
-- Half-lives in the U-238 decay chain and the gamma spectrum peaks used in the
-  wallpapers are published physical values.
 
 ---
 
@@ -386,11 +385,13 @@ As imagens e a estrutura de pastas estão na seção em inglês, acima.
 | Telas do GRUB, do Plymouth e de login do LightDM (opcional, precisa de sudo) | `sistema/` | veja [Telas de boot e login](#telas-de-boot-e-login) |
 | Book de identidade visual (PDF de 22 páginas) e mockups | `book/`, `mockups/` | |
 
-**Série 1, laboratório (01 a 13):** Núcleo, Meia-vida, Cadeia, Contagem,
-Osciloscópio, Colmeia, Órbita, Topologia, Espectro, Varredura, Fósforo, Silêncio
-e Retícula.
+**Série 1, sala de controle (01 a 13):** Sentinela (posto de vigília), Rastreio
+(trilha orbital de satélite), Sequência (protocolo de acesso), Contagem
+(regressiva), Osciloscópio (eco do transponder), Colmeia, Órbita (rede de
+satélites), Topologia, Espectro (banda de rádio interceptada), Varredura (radar),
+Fósforo, Silêncio e Retícula.
 
-**Série 2, sem referências nucleares (14 a 26):** Tático (carta militar),
+**Série 2, operações de campo (14 a 26):** Tático (carta militar),
 Triangulação (interceptação de sinal), Cifra (bloco de uso único), Intrusão
 (hacking), Neon (cidade cyberpunk), Circuito (placa de controle), Espectrograma,
 Interferência, Lissajous, Galáxia, Horizonte (de eventos), Fractal (hexafloco) e
@@ -604,5 +605,3 @@ instalados. Os backups nunca são apagados.
   [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
   (GPL-3.0) e gerados no seu computador a partir do pacote do Debian. Nenhum
   arquivo do Papirus é distribuído neste repositório.
-- As meias-vidas da cadeia do U-238 e os picos do espectro gama usados nos papéis
-  de parede são valores físicos publicados.

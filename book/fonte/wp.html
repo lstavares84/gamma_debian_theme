@@ -1,7 +1,16 @@
 <!doctype html>
-<!-- GAMMA Debian, gerador de papéis de parede "Contador". Criação original. -->
-<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css">
-<style>html,body{width:auto;height:auto;background:#030A04}svg{position:absolute;left:0;top:0}</style></head><body>
+<!--
+  Arquivo: book/fonte/wp.html
+  Projeto: GAMMA Debian (tema Contador)
+  Versão: 2.0.0
+  Data e hora: 22/11/2026 19:00 (America/Sao_Paulo)
+  Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
+  2.0.0: série 1 refeita como "sala de controle": hexágono abstrato em painéis
+         dos anos 80, espionagem, militarismo e ficção científica.
+  Uso: firefox --headless --window-size=W,H --screenshot saida.png "file://.../wp.html?n=1&w=W&h=H"
+-->
+<html lang="pt-BR"><head><meta charset="utf-8">
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#030A04}svg{position:absolute;left:0;top:0}</style></head><body>
 <script>
 const q=new URLSearchParams(location.search); const N=+q.get('n')||1, W=+q.get('w')||3440, H=+q.get('h')||1440;
 for(const el of [document.documentElement,document.body]){el.style.width=W+'px';el.style.height=H+'px'}
@@ -27,55 +36,59 @@ add('rect',{x:-100,y:-100,width:3640,height:1640,fill:'url(#m)'});
 function sig(num,name){T(3400,1404,`GAMMA   ${String(num).padStart(2,'0')}   ${name}`,{a:'end',c:C.dim,z:11,ls:3})}
 
 const S={
-1(){ // Núcleo
+1(){ // Sentinela
   add('line',{x1:2860,y1:250,x2:2860,y2:548,stroke:C.dim,'stroke-width':1.5,'stroke-dasharray':'2 7'});
   add('circle',{cx:2860,cy:244,r:5,fill:'none',stroke:C.sub,'stroke-width':1.5});
   hex(2860,760,205,'#041006',C.acc,2.5,G(C.acc,8)); hex(2860,760,186,'none',C.dim,1);
+  hex(2860,760,96,'none',C.neb,1.2).setAttribute('stroke-dasharray','5 7');
+  for(let i=0;i<6;i++){const t=(-90+60*i)*Math.PI/180; add('line',{x1:2860+214*Math.cos(t),y1:760+214*Math.sin(t),x2:2860+236*Math.cos(t),y2:760+236*Math.sin(t),stroke:C.neb,'stroke-width':1.5})}
   add('circle',{cx:2860,cy:760,r:4,fill:C.acc,style:G(C.acc,5)});
   add('line',{x1:3040,y1:862,x2:3092,y2:892,stroke:C.dim,'stroke-dasharray':'2 5'});
   hex(3112,904,24,C.waf,C.amb,1.5,G(C.amb,5)); add('circle',{cx:3112,cy:904,r:2.5,fill:C.amb});
-  T(2884,248,'NÚCLEO U-235',{ls:4}); T(2884,270,'06-A',{c:C.amb,z:12,ls:4});
-  T(2860,1000,'U-235',{a:'middle',ls:4}); T(3148,909,'U-238',{c:C.amb,z:12,ls:3}); sig(1,'NÚCLEO');},
+  T(2884,248,'POSTO SENTINELA',{ls:4}); T(2884,270,'06-A',{c:C.amb,z:12,ls:4});
+  T(2860,1000,'VIGÍLIA CONTÍNUA',{a:'middle',ls:4}); T(3148,909,'ELO-2',{c:C.amb,z:12,ls:3}); sig(1,'SENTINELA');},
 
-2(){ // Meia-vida
-  const x0=1760,x1=3240,y0=360,y1=1100, X=t=>x0+(x1-x0)*t/6, Y=v=>y1-(y1-y0)*v;
+2(){ // Rastreio orbital
+  const x0=1760,x1=3240,y0=360,y1=1100, X=l=>x0+(x1-x0)*(l+180)/360, Y=b=>y0+(y1-y0)*(90-b)/180;
   for(let i=0;i<=24;i++)add('line',{x1:x0+(x1-x0)*i/24,y1:y0,x2:x0+(x1-x0)*i/24,y2:y1,stroke:i%4?C.mesh:C.grid,'stroke-width':1});
-  for(let i=0;i<=16;i++)add('line',{x1:x0,y1:y0+(y1-y0)*i/16,x2:x1,y2:y0+(y1-y0)*i/16,stroke:i%4?C.mesh:C.grid,'stroke-width':1});
-  add('path',{d:`M${x0} ${y0-20}V${y1}H${x1+20}`,fill:'none',stroke:C.dim,'stroke-width':1.5});
-  const curve=(k,op,sw)=>{let d='';for(let i=0;i<=300;i++){const t=6*i/300;d+=(i?'L':'M')+X(t).toFixed(1)+' '+Y(Math.pow(2,-t)*k).toFixed(1)}
-    add('path',{d,fill:'none',stroke:C.acc,'stroke-width':sw,opacity:op,style:op>.9?G(C.acc,6):''})};
-  [.93,.96,.985].forEach((k,i)=>curve(k,.12+i*.08,1.2)); curve(1,1,2.5);
-  const lab=['50%','25%','12,5%','6,25%','3,125%'];
-  for(let t=1;t<=5;t++){const x=X(t),y=Y(Math.pow(2,-t));
-    add('path',{d:`M${x} ${y}V${y1}M${x0} ${y}H${x}`,stroke:t==1?'#6b5000':C.dim,'stroke-dasharray':'2 6',fill:'none'});
-    hex(x,y,t==1?11:8,t==1?C.waf:C.okf,t==1?C.amb:C.acc,1.5,t==1?G(C.amb,5):'');
-    T(x,y1+30,t==1?'T½':t+'T½',{a:'middle',c:t==1?C.amb:C.sub,z:13,ls:2});
-    T(x+18,y-14,lab[t-1],{c:t==1?C.amb:C.ice,z:13});}
-  T(x0,y0-48,'MEIA-VIDA',{ls:5,z:13}); T(x0+150,y0-48,'N(t) = N0 × 2^(-t / T½)',{c:C.ice,z:13});
-  T(x0-16,Y(1)+5,'N0',{a:'end',c:C.ice,z:13}); sig(2,'MEIA-VIDA');},
+  for(let i=0;i<=12;i++)add('line',{x1:x0,y1:y0+(y1-y0)*i/12,x2:x1,y2:y0+(y1-y0)*i/12,stroke:i==6?C.dim:i%2?C.mesh:C.grid,'stroke-width':1});
+  add('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:'none',stroke:C.dim,'stroke-width':1.5});
+  const lat=(l,f)=>63.4*Math.sin((l-f)*Math.PI/180);
+  const trilha=(f,op,sw,glow)=>{let d='';for(let l=-180;l<=180;l+=1.5)d+=(l==-180?'M':'L')+X(l).toFixed(1)+' '+Y(lat(l,f)).toFixed(1);
+    add('path',{d,fill:'none',stroke:C.acc,'stroke-width':sw,opacity:op,style:glow?G(C.acc,6):''})};
+  [72,48,24].forEach((f,i)=>trilha(f,.12+i*.08,1.2)); trilha(0,1,2.5,1);
+  const est=[-40,22]; add('circle',{cx:X(est[0]),cy:Y(est[1]),r:96,fill:'none',stroke:'#6b5000','stroke-dasharray':'3 6'});
+  hex(X(est[0]),Y(est[1]),11,C.waf,C.amb,1.5,G(C.amb,5)); T(X(est[0])+20,Y(est[1])-14,'ESTAÇÃO 07',{c:C.amb,z:13,ls:2});
+  const aos=['AOS 04:12Z','AOS 05:49Z','AOS 07:26Z','AOS 09:03Z'];
+  [-135,-15,75,150].forEach((l,i)=>{const x=X(l),y=Y(lat(l,0)); hex(x,y,8,C.okf,C.acc,1.5); T(x+16,y-14,aos[i],{c:C.ice,z:13})});
+  [-180,-120,-60,0,60,120,180].forEach(l=>T(X(l),y1+30,(l>0?'+':'')+l+'°',{a:'middle',c:C.sub,z:12}));
+  [60,30,0,-30,-60].forEach(b=>T(x0-14,Y(b)+5,(b>0?'+':'')+b+'°',{a:'end',c:C.sub,z:12}));
+  T(x0,y0-48,'RASTREIO ORBITAL',{ls:5,z:13}); T(x0+270,y0-48,'SAT K-7   INCL 63,4°   PERÍODO 97 min',{c:C.ice,z:13});
+  sig(2,'RASTREIO');},
 
-3(){ // Cadeia do U-238
-  const ch=[['U-238','4,47e9 a','α'],['Th-234','24,1 d','β'],['Pa-234m','1,17 min','β'],['U-234','2,45e5 a','α'],['Th-230','7,54e4 a','α'],['Ra-226','1600 a','α'],
-   ['Rn-222','3,82 d','α'],['Po-218','3,10 min','α'],['Pb-214','26,8 min','β'],['Bi-214','19,9 min','β'],['Po-214','164 µs','α'],['Pb-210','22,2 a','β'],['Bi-210','5,01 d','β'],['Po-210','138 d','α'],['Pb-206','estável','']];
+3(){ // Sequência de acesso
+  const ch=[['INÍCIO','T+00:00'],['IDENT','T+00:04'],['CHAVE A','T+00:11'],['CHAVE B','T+00:17'],['SINCRONIA','T+00:26'],['CIFRA','T+00:38'],
+   ['RELÉ','T+00:51'],['ELO 1','T+01:02'],['ELO 2','T+01:09'],['ELO 3','T+01:15'],['ECO','T+01:24'],['VERIF','T+01:37'],['SELO','T+01:48'],['REGISTRO','T+01:56'],['LIBERADO','T+02:03']];
   const y=1040, x0=660, dx=172;
   add('line',{x1:x0-120,y1:y,x2:x0+dx*14+120,y2:y,stroke:C.dim,'stroke-width':1});
-  ch.forEach(([n,t,m],i)=>{const x=x0+i*dx; const first=i==0,last=i==14,gas=n=='Rn-222';
-    const f=first?C.okf:last?'#0E2A10':gas?C.waf:C.ndf, s=first?C.acc:last?C.ice:gas?C.amb:C.neb;
-    hex(x,y,first?30:22,f,s,first?2:1.4,first?G(C.acc,6):gas?G(C.amb,4):'');
+  ch.forEach(([n,t],i)=>{const x=x0+i*dx; const first=i==0,last=i==14,wa=n=='RELÉ';
+    const f=first?C.okf:last?'#0E2A10':wa?C.waf:C.ndf, s=first?C.acc:last?C.ice:wa?C.amb:C.neb;
+    hex(x,y,first?30:22,f,s,first?2:1.4,first?G(C.acc,6):wa?G(C.amb,4):'');
     if(first)add('circle',{cx:x,cy:y,r:3,fill:C.acc});
-    T(x,y-(first?48:40),n,{a:'middle',c:first?C.acc:gas?C.amb:last?C.white:C.ice,z:14,w:first?700:500});
+    T(x,y-(first?48:40),n,{a:'middle',c:first?C.acc:wa?C.amb:last?C.white:C.ice,z:14,w:first?700:500});
     T(x,y+(first?56:48),t,{a:'middle',c:C.sub,z:12});
-    if(m)T(x+dx/2,y-8,m,{a:'middle',c:C.dim,z:13,f:'Roboto'});});
-  T(x0-30,y-150,'CADEIA DE DECAIMENTO DO U-238',{ls:5,z:13}); T(x0-30,y-126,'14 decaimentos até o chumbo estável',{c:C.dim,z:12,f:'Roboto',w:400});
-  sig(3,'CADEIA');},
+    if(!last)T(x+dx/2,y+5,'›',{a:'middle',c:C.dim,z:16});});
+  T(x0-30,y-150,'PROTOCOLO DE ACESSO 7',{ls:5,z:13}); T(x0-30,y-126,'14 etapas até a liberação do terminal',{c:C.dim,z:12,f:'Roboto',w:400});
+  sig(3,'SEQUÊNCIA');},
 
-4(){ // Contagem
+4(){ // Contagem regressiva
   const x=3180,y=700;
-  const digits='000137'; let xx=x-6*92;
+  const digits='000137'; const by=1000,bx0=1500,bx1=3240; let xx=x-6*92;
   for(const d of digits){const lead=xx<x-3*92-1; T(xx,y,d,{c:lead?C.dim:C.white,z:150,w:500,st:lead?'':G(C.acc,6)});xx+=92;}
-  T(x+18,y-100,'CPM',{c:C.acc,z:22,w:700,ls:4}); T(x-6*92,y-170,'CONTAGEM POR MINUTO',{ls:5,z:13});
-  T(x-6*92,y+70,'0,18 µSv/h',{c:C.ice,z:22}); T(x-6*92+190,y+70,'fundo natural',{c:C.sub,z:14,f:'Roboto',w:400});
-  const by=1000,bx0=1500,bx1=3240; add('line',{x1:bx0,y1:by,x2:bx1,y2:by,stroke:C.dim,'stroke-width':1});
+  T(x+18,y-100,'SEG',{c:C.acc,z:22,w:700,ls:4}); T(x-6*92,y-170,'CONTAGEM REGRESSIVA',{ls:5,z:13});
+  T(x-6*92,y+70,'JANELA 04',{c:C.ice,z:22}); T(x-6*92+190,y+70,'abertura do canal seguro',{c:C.sub,z:14,f:'Roboto',w:400});
+  T(bx0,by-100,'PACOTES RECEBIDOS',{ls:4,z:12});
+  add('line',{x1:bx0,y1:by,x2:bx1,y2:by,stroke:C.dim,'stroke-width':1});
   for(let i=0;i<=29;i++)add('line',{x1:bx0+(bx1-bx0)*i/29,y1:by,x2:bx0+(bx1-bx0)*i/29,y2:by+(i%5?6:12),stroke:C.dim});
   let px=bx0+20; while(px<bx1){const age=(bx1-px)/(bx1-bx0); add('line',{x1:px,y1:by,x2:px,y2:by-70,stroke:C.acc,'stroke-width':2,opacity:(1-age*.85).toFixed(2),style:age<.15?G(C.acc,4):''}); px+=-Math.log(1-rnd())*48+4;}
   T(bx1,by+40,'agora',{a:'end',c:C.sub,z:12}); T(bx0,by+40,'-60 s',{c:C.dim,z:12}); sig(4,'CONTAGEM');},
@@ -91,7 +104,7 @@ const S={
     p+=(i?'L':'M')+(x0+t*d).toFixed(1)+' '+(cy+d*1.5-v*d*3.2).toFixed(1)}add('path',{d:p,fill:'none',stroke:C.acc,'stroke-width':sw,opacity:op,style:glow?G(C.acc,6):''})};
   [.82,.88,.93,.97].forEach((a,i)=>pulse(a,.1+i*.07,1.2)); pulse(1,1,2.4,1);
   T(x0,y1+40,'CH1  200 mV/div',{c:C.ice,z:14}); T(x0+250,y1+40,'50 µs/div',{c:C.ice,z:14}); T(x0+430,y1+40,'TRIG ↑ 120 mV',{c:C.amb,z:14});
-  T(x1,y1+40,'PULSO DO DETECTOR',{a:'end',ls:4,z:13}); sig(5,'OSCILOSCÓPIO');},
+  T(x1,y1+40,'ECO DO TRANSPONDER',{a:'end',ls:4,z:13}); sig(5,'OSCILOSCÓPIO');},
 
 6(){ // Colmeia
   const R=34, sx=Math.sqrt(3)*R, sy=1.5*R;
@@ -110,11 +123,11 @@ const S={
     add('line',{x1:cx+r1*Math.cos(t),y1:cy+r1*Math.sin(t),x2:cx+r2*Math.cos(t),y2:cy+r2*Math.sin(t),stroke:a%45==0?C.neb:C.dim,'stroke-width':1})}
   [[300,110,-18],[260,150,32],[200,200,0]].forEach(([rx,ry,rot],i)=>add('ellipse',{cx,cy,rx,ry,fill:'none',stroke:i==2?C.grid:C.dim,'stroke-width':1.2,transform:`rotate(${rot} ${cx} ${cy})`,'stroke-dasharray':i==2?'3 6':''}));
   hex(cx,cy,88,'#041006',C.acc,2.2,G(C.acc,7)); hex(cx,cy,74,'none',C.dim,1);
-  T(cx,cy+6,'U-235',{a:'middle',c:C.ice,z:24,w:500});
+  T(cx,cy+6,'G-06',{a:'middle',c:C.ice,z:24,w:500});
   const dot=(rx,ry,rot,ang,c)=>{const t=ang*Math.PI/180,x=rx*Math.cos(t),y=ry*Math.sin(t),k=rot*Math.PI/180;
     add('circle',{cx:cx+x*Math.cos(k)-y*Math.sin(k),cy:cy+x*Math.sin(k)+y*Math.cos(k),r:5,fill:c,style:G(c,5)})};
   dot(300,110,-18,200,C.acc); dot(260,150,32,40,C.amb); dot(200,200,0,300,C.ice);
-  T(cx,cy-390,'0°',{a:'middle',c:C.sub,z:12}); T(cx+392,cy+4,'90°',{c:C.sub,z:12}); sig(7,'ÓRBITA');},
+  T(cx,cy-390,'0°',{a:'middle',c:C.sub,z:12}); T(cx-366,cy+440,'REDE ORBITAL',{ls:5,z:13}); T(cx+366,cy+440,'3 satélites em órbita',{a:'end',c:C.dim,z:12,f:'Roboto',w:400}); T(cx+392,cy+4,'90°',{c:C.sub,z:12}); sig(7,'ÓRBITA');},
 
 8(){ // Topologia
   const n=[[2780,700,1],[2240,420],[2400,1020],[3060,360],[3240,860],[2900,1160],[1980,760],[2560,240],[3300,560]];
@@ -126,21 +139,21 @@ const S={
     T(x+(c?60:26),y+(c?-40:5),'N-'+String(i).padStart(2,'0'),{c:nd?C.dim:c?C.acc:C.sub,z:c?14:12,ls:2});});
   T(1980,1340,'TOPOLOGIA',{ls:5,z:13}); sig(8,'TOPOLOGIA');},
 
-9(){ // Espectro gama
-  const x0=1640,x1=3240,y0=380,y1=1080, E=e=>x0+(x1-x0)*e/2000;
+9(){ // Espectro de rádio (banda interceptada)
+  const x0=1640,x1=3240,y0=380,y1=1080, E=e=>x0+(x1-x0)*e/2000, MHz=e=>(100+e*0.2).toFixed(1).replace('.',',');
   for(let e=0;e<=2000;e+=100)add('line',{x1:E(e),y1:y1,x2:E(e),y2:y1+(e%500?6:14),stroke:C.dim});
-  for(let e=0;e<=2000;e+=500)T(E(e),y1+38,e+'',{a:'middle',c:C.sub,z:12});
-  T(x1,y1+64,'keV',{a:'end',c:C.sub,z:12});
+  for(let e=0;e<=2000;e+=500)T(E(e),y1+38,String(100+e*0.2),{a:'middle',c:C.sub,z:12});
+  T(x1,y1+64,'MHz',{a:'end',c:C.sub,z:12});
   add('path',{d:`M${x0} ${y0-20}V${y1}H${x1+20}`,fill:'none',stroke:C.dim,'stroke-width':1.5});
-  const pk=[[63.3,.28],[92.6,.5],[185.7,.62,'U-235',1],[241.9,.32],[295.2,.5,'Pb-214'],[351.9,.66,'Pb-214'],[609.3,.72,'Bi-214'],[1001,.16,'Pa-234m'],[1120.3,.3,'Bi-214'],[1764.5,.22,'Bi-214']];
-  const f=e=>{let v=.55*Math.exp(-e/260)+.06*Math.exp(-e/1400);for(const [c,a] of pk){const s=4+c*.012;v+=a*Math.exp(-((e-c)**2)/(2*s*s))}return v};
-  let d='';for(let e=20;e<=2000;e+=4){const v=f(e)+(rnd()-.5)*.012;d+=(e==20?'M':'L')+E(e).toFixed(1)+' '+(y1-v*.78*(y1-y0)).toFixed(1)}
+  const pk=[[63.3,.28],[92.6,.5],[185.7,.62,'ALVO',1],[241.9,.32],[295.2,.5,'ECO-1'],[351.9,.66,'K-7'],[609.3,.72,'VESPA'],[1001,.16,'ÍRIS'],[1120.3,.3,'CORVO'],[1764.5,.22,'FAROL']];
+  const f=e=>{let v=.07+.02*Math.sin(e/37);for(const [c,a] of pk){const s=4+c*.012;v+=a*Math.exp(-((e-c)**2)/(2*s*s))}return v};
+  let d='';for(let e=20;e<=2000;e+=4){const v=f(e)+(rnd()-.5)*.03;d+=(e==20?'M':'L')+E(e).toFixed(1)+' '+(y1-v*.78*(y1-y0)).toFixed(1)}
   add('path',{d,fill:'none',stroke:C.acc,'stroke-width':1.6,style:G(C.acc,4)});
   pk.filter(p=>p[2]).forEach(([c,a,n,hi])=>{const x=E(c),y=y1-f(c)*.78*(y1-y0)-18;
     add('line',{x1:x,y1:y,x2:x,y2:y-60,stroke:hi?C.amb:C.dim,'stroke-dasharray':'2 4'});
-    T(x,y-92,c.toString().replace('.',','),{a:'middle',c:hi?C.amb:C.ice,z:13}); T(x,y-72,n,{a:'middle',c:hi?C.amb:C.sub,z:12});
+    T(x,y-92,MHz(c),{a:'middle',c:hi?C.amb:C.ice,z:13}); T(x,y-72,n,{a:'middle',c:hi?C.amb:C.sub,z:12});
     if(hi)hex(x,y-112-8,9,C.waf,C.amb,1.4,G(C.amb,4));});
-  T(x0,y1+110,'ESPECTRO GAMA',{ls:5,z:13}); T(x0+220,y1+110,'minério de urânio, picos principais',{c:C.dim,z:12,f:'Roboto',w:400}); sig(9,'ESPECTRO');},
+  T(x0,y1+110,'ESPECTRO DE RÁDIO',{ls:5,z:13}); T(x0+270,y1+110,'banda interceptada, emissores identificados',{c:C.dim,z:12,f:'Roboto',w:400}); sig(9,'ESPECTRO');},
 
 10(){ // Varredura
   const cx=2720,cy=720,R=400;
@@ -163,7 +176,7 @@ const S={
     if(inside(x,y,R)&&!inside(x,y,R-26)){c=C.acc;st=G(C.acc,3)} else if(inside(x,y,R-48)&&!inside(x,y,R-56))c='#2E6A2A';
     else if(inside(x,y,R-56)&&!(Math.abs(y)<46&&Math.abs(x)<140)&&rnd()<.5)c='#143616';
     if(c)add('text',{x:ox+x,y:oy+y+4,fill:c,'text-anchor':'middle',style:st},ch,g);}
-  T(ox,oy+14,'U-235',{a:'middle',c:C.white,z:44,w:700,st:G(C.acc,5)}); T(ox,oy+46,'NÚCLEO  06-A',{a:'middle',c:C.sub,z:13,ls:5});
+  T(ox,oy+14,'G-06',{a:'middle',c:C.white,z:44,w:700,st:G(C.acc,5)}); T(ox,oy+46,'NÓ SELADO  06-A',{a:'middle',c:C.sub,z:13,ls:5});
   add('rect',{x:-100,y:-100,width:3640,height:1640,fill:'url(#scan)'});
   const sp=add('pattern',{id:'scan',width:4,height:3,patternUnits:'userSpaceOnUse'},null,defs); add('rect',{x:0,y:0,width:4,height:1,fill:'rgba(0,0,0,.35)'},null,sp);
   sig(11,'FÓSFORO');},

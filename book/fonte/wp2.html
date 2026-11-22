@@ -2,8 +2,9 @@
 <!--
   Arquivo: book/fonte/wp2.html
   Projeto: GAMMA Debian (tema Contador)
-  Versão: 1.0.0
-  Data e hora: 14/11/2026 22:30 (America/Sao_Paulo)
+  Versão: 1.0.1
+  Data e hora: 22/11/2026 19:00 (America/Sao_Paulo)
+  1.0.1: coordenada do Tático trocada (23K KQ), sem siglas de elementos.
   Autoria: lstavares84, com Claude Opus 5.5 (Anthropic). Criação original.
   Gerador da série 2 de papéis de parede (14 a 26): militar, espionagem, hacking,
   cyberpunk, ondas e sinais, cósmico e abstrato. Usa as fontes Roboto e
@@ -60,7 +61,7 @@ const S={
   const [tx,ty]=rota[rota.length-1];
   hex(tx,ty,26,C.waf,C.amb,2,G(C.amb,6)); add('circle',{cx:tx,cy:ty,r:3,fill:C.amb});
   [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx,sy])=>add('path',{d:`M${tx+sx*52} ${ty+sy*34}V${ty+sy*52}H${tx+sx*34}`,fill:'none',stroke:C.amb,'stroke-width':2}));
-  T(tx+66,ty-10,'OBJETIVO',{c:C.amb,z:15,w:700,ls:4}); T(tx+66,ty+14,'23K PU 4512 8890',{c:C.ice,z:13});
+  T(tx+66,ty-10,'OBJETIVO',{c:C.amb,z:15,w:700,ls:4}); T(tx+66,ty+14,'23K KQ 4512 8890',{c:C.ice,z:13});
   T(1720,1336,'BASE',{c:C.sub,z:12,ls:3}); hex(1720,1300,10,C.nef,C.neb,1.4);
   const nx=3300,ny=1180; add('path',{d:`M${nx} ${ny-50}L${nx+14} ${ny}L${nx} ${ny-12}L${nx-14} ${ny}Z`,fill:C.acc,opacity:.9}); T(nx,ny-62,'N',{a:'middle',c:C.ice,z:14,w:700});
   add('path',{d:'M2700 1330H3020M2700 1322V1338M2860 1324V1336M3020 1322V1338',stroke:C.sub,'stroke-width':1.5,fill:'none'});
