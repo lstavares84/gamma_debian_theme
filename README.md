@@ -1,8 +1,8 @@
 <!--
   File / Arquivo: README.md
   Project / Projeto: GAMMA Debian (Contador theme)
-  Version / Versão: 1.2.1
-  Date / Data: 22/11/2026 19:05 (America/Sao_Paulo)
+  Version / Versão: 1.3.0
+  Date / Data: 22/11/2026 21:05 (America/Sao_Paulo)
   Author / Autoria: lstavares84, with / com Claude Opus 5.5 (Anthropic)
 -->
 
@@ -41,6 +41,7 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 - [Install](#install)
 - [What the installer changes](#what-the-installer-changes)
 - [Rotating wallpapers](#rotating-wallpapers)
+- [Phone wallpapers](#phone-wallpapers)
 - [Boot and login screens](#boot-and-login-screens)
 - [Restore or uninstall](#restore-or-uninstall)
 - [Customizing](#customizing)
@@ -62,6 +63,7 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 | xfce4-terminal color scheme (16 ANSI colors) | `terminal/gamma.theme` | `~/.local/share/xfce4/terminal/colorschemes` |
 | Editor scheme (GtkSourceView 4: Mousepad and others) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 original wallpapers in two series, 3440x1440 and 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
+| 10 original phone wallpapers, portrait 1272x2772 | `wallpapers/celular/` | copied to the phone by hand, see [Phone wallpapers](#phone-wallpapers) |
 | Roboto and JetBrains Mono fonts | `fontes/` | `~/.local/share/fonts/gamma` |
 | GRUB, Plymouth and LightDM login screens (optional, needs sudo) | `sistema/` | see [Boot and login screens](#boot-and-login-screens) |
 | Visual identity book (22-page PDF) and mockups | `book/`, `mockups/` | |
@@ -81,6 +83,11 @@ Neon (cyberpunk city), Circuit (control board), Spectrogram, Interference,
 Lissajous, Galaxy, Event horizon, Fractal (hexaflake) and Biometrics.
 
 ![Series 2 wallpapers](docs/wallpapers-serie2.jpg)
+
+**Phone series (C01 to C10):** Sentinel, Sweep, Reticle, Countdown, Honeycomb,
+Cipher, Phosphor, Orbital tracking, Biometrics and Silence.
+
+![Phone wallpapers](docs/wallpapers-celular.jpg)
 
 ![Wallpaper 13, Reticle](docs/wallpaper-reticula.jpg)
 
@@ -195,6 +202,26 @@ keeps the same physical size on two 34" monitors of different resolution.
 To change the interval later, run the installer again with `--intervalo`, or use
 *Settings > Desktop > Background > Change the background*.
 
+### Phone wallpapers
+
+`wallpapers/celular/1272x2772/` holds 10 portrait wallpapers drawn for a
+motorola edge 70 pro (1272x2772, density 450). The top of each image is left
+clear for the camera and the lock screen clock, the main element sits in the
+middle third and the bottom is left clear for the app dock. For another phone,
+render them at its resolution (`book/fonte/wp-celular.html?n=1&w=W&h=H`): the
+drawing is cropped from the sides and keeps its center.
+
+Copy them to the phone over USB with debugging turned on:
+
+```bash
+adb push wallpapers/celular/1272x2772/. /sdcard/Pictures/GAMMA/
+```
+
+Android has no built-in slideshow from your own folder on most phones. A
+wallpaper app does the rotation: for example
+[Muzei Live Wallpaper](https://github.com/muzei/muzei) (open source), with the
+"My photos" source and the 10 images selected, and the interval set in the app.
+
 ### Boot and login screens
 
 ![GRUB menu, Plymouth disk key prompt and LightDM login](docs/boot-login.jpg)
@@ -265,7 +292,7 @@ deleted.
 | `icones/gerar_icones.py` | icon theme from the local Papirus install |
 | `ferramentas/gamma_config.py` | applies and restores the XFCE settings |
 | `ferramentas/gerar_sistema.py` | GRUB, Plymouth and login images and GRUB fonts (from `book/fonte/boot.html`) |
-| `book/fonte/` | HTML sources of the book, mockups and wallpapers: `wp.html` series 1, `wp2.html` series 2, `boot.html` boot and login screens (rendered with Firefox headless) |
+| `book/fonte/` | HTML sources of the book, mockups and wallpapers: `wp.html` series 1, `wp2.html` series 2, `wp-celular.html` phone series, `boot.html` boot and login screens (rendered with Firefox headless) |
 
 ### Repository layout
 
@@ -361,6 +388,7 @@ estado têm significado fixo em todo lugar: **verde** normal, **âmbar** atenç�
 - [Instalação](#instalação)
 - [O que o instalador muda](#o-que-o-instalador-muda)
 - [Papéis de parede que se trocam sozinhos](#papéis-de-parede-que-se-trocam-sozinhos)
+- [Papéis de parede do celular](#papéis-de-parede-do-celular)
 - [Telas de boot e login](#telas-de-boot-e-login)
 - [Restaurar ou desinstalar](#restaurar-ou-desinstalar)
 - [Personalizar](#personalizar)
@@ -383,6 +411,7 @@ As imagens e a estrutura de pastas estão na seção em inglês, acima.
 | Esquema de cores do xfce4-terminal (16 cores ANSI) | `terminal/gamma.theme` | `~/.local/share/xfce4/terminal/colorschemes` |
 | Esquema do editor (GtkSourceView 4: Mousepad e outros) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 papéis de parede originais em duas séries, 3440x1440 e 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
+| 10 papéis de parede originais para celular, verticais, 1272x2772 | `wallpapers/celular/` | copiados para o celular à mão, veja [Papéis de parede do celular](#papéis-de-parede-do-celular) |
 | Fontes Roboto e JetBrains Mono | `fontes/` | `~/.local/share/fonts/gamma` |
 | Telas do GRUB, do Plymouth e de login do LightDM (opcional, precisa de sudo) | `sistema/` | veja [Telas de boot e login](#telas-de-boot-e-login) |
 | Book de identidade visual (PDF de 22 páginas) e mockups | `book/`, `mockups/` | |
@@ -398,6 +427,9 @@ Triangulação (interceptação de sinal), Cifra (bloco de uso único), Intrusã
 (hacking), Neon (cidade cyberpunk), Circuito (placa de controle), Espectrograma,
 Interferência, Lissajous, Galáxia, Horizonte (de eventos), Fractal (hexafloco) e
 Biometria.
+
+**Série celular (C01 a C10):** Sentinela, Varredura, Retícula, Contagem,
+Colmeia, Cifra, Fósforo, Rastreio, Biometria e Silêncio.
 
 ### Paleta
 
@@ -490,6 +522,26 @@ de 34" com resoluções diferentes.
 Para mudar o intervalo depois, rode o instalador de novo com `--intervalo`, ou use
 *Configurações > Área de trabalho > Plano de fundo > Alterar o plano de fundo*.
 
+### Papéis de parede do celular
+
+`wallpapers/celular/1272x2772/` tem 10 papéis de parede verticais desenhados para
+um motorola edge 70 pro (1272x2772, densidade 450). O topo de cada imagem fica
+livre para a câmera e o relógio da tela de bloqueio, o elemento principal fica no
+terço do meio e a parte de baixo fica livre para a barra de apps. Para outro
+celular, gere na resolução dele (`book/fonte/wp-celular.html?n=1&w=L&h=A`): o
+desenho é cortado nas laterais e mantém o centro.
+
+Para copiar pelo cabo USB, com a depuração ligada:
+
+```bash
+adb push wallpapers/celular/1272x2772/. /sdcard/Pictures/GAMMA/
+```
+
+Na maioria dos celulares, o Android não troca o papel de parede sozinho a partir
+de uma pasta sua. Quem faz a troca é um app de papel de parede: por exemplo o
+[Muzei Live Wallpaper](https://github.com/muzei/muzei) (código aberto), com a
+fonte "Minhas fotos" e as 10 imagens escolhidas, e o intervalo definido no app.
+
 ### Telas de boot e login
 
 Um instalador separado e opcional aplica o tema nas telas de fora da sessão,
@@ -559,7 +611,7 @@ instalados. Os backups nunca são apagados.
 | `icones/gerar_icones.py` | tema de ícones a partir do Papirus instalado |
 | `ferramentas/gamma_config.py` | aplica e restaura as configurações do XFCE |
 | `ferramentas/gerar_sistema.py` | imagens do GRUB, do Plymouth e do login e fontes do GRUB (a partir de `book/fonte/boot.html`) |
-| `book/fonte/` | HTML do book, dos mockups e dos papéis de parede: `wp.html` série 1, `wp2.html` série 2, `boot.html` telas de boot e login (renderizados com Firefox headless) |
+| `book/fonte/` | HTML do book, dos mockups e dos papéis de parede: `wp.html` série 1, `wp2.html` série 2, `wp-celular.html` série celular, `boot.html` telas de boot e login (renderizados com Firefox headless) |
 
 ### Limitações conhecidas
 
