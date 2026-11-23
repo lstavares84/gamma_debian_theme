@@ -1,8 +1,8 @@
 <!--
   File / Arquivo: README.md
   Project / Projeto: GAMMA Debian (Contador theme)
-  Version / Versão: 1.3.0
-  Date / Data: 22/11/2026 21:05 (America/Sao_Paulo)
+  Version / Versão: 1.4.0
+  Date / Data: 22/11/2026 21:20 (America/Sao_Paulo)
   Author / Autoria: lstavares84, with / com Claude Opus 5.5 (Anthropic)
 -->
 
@@ -63,7 +63,7 @@ buttons, wallpapers), and state colors have a fixed meaning everywhere:
 | xfce4-terminal color scheme (16 ANSI colors) | `terminal/gamma.theme` | `~/.local/share/xfce4/terminal/colorschemes` |
 | Editor scheme (GtkSourceView 4: Mousepad and others) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 original wallpapers in two series, 3440x1440 and 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
-| 10 original phone wallpapers, portrait 1272x2772 | `wallpapers/celular/` | copied to the phone by hand, see [Phone wallpapers](#phone-wallpapers) |
+| 15 phone wallpapers, portrait 1272x2772 (10 original, 5 adapted) | `wallpapers/celular/` | copied to the phone by hand, see [Phone wallpapers](#phone-wallpapers) |
 | Roboto and JetBrains Mono fonts | `fontes/` | `~/.local/share/fonts/gamma` |
 | GRUB, Plymouth and LightDM login screens (optional, needs sudo) | `sistema/` | see [Boot and login screens](#boot-and-login-screens) |
 | Visual identity book (22-page PDF) and mockups | `book/`, `mockups/` | |
@@ -84,8 +84,10 @@ Lissajous, Galaxy, Event horizon, Fractal (hexaflake) and Biometrics.
 
 ![Series 2 wallpapers](docs/wallpapers-serie2.jpg)
 
-**Phone series (C01 to C10):** Sentinel, Sweep, Reticle, Countdown, Honeycomb,
-Cipher, Phosphor, Orbital tracking, Biometrics and Silence.
+**Phone series (C01 to C15):** Sentinel, Sweep, Reticle, Countdown, Honeycomb,
+Cipher, Phosphor, Orbital tracking, Biometrics and Silence (C01 to C10, original),
+plus five "Alice Meets Matrix" images adapted to the phone: Eye, Rabbit, Arches,
+Lake and Curtain (C11 to C15).
 
 ![Phone wallpapers](docs/wallpapers-celular.jpg)
 
@@ -204,8 +206,12 @@ To change the interval later, run the installer again with `--intervalo`, or use
 
 ### Phone wallpapers
 
-`wallpapers/celular/1272x2772/` holds 10 portrait wallpapers drawn for a
-motorola edge 70 pro (1272x2772, density 450). The top of each image is left
+`wallpapers/celular/1272x2772/` holds 15 portrait wallpapers for a motorola edge
+70 pro (1272x2772, density 450). C01 to C10 are drawn by
+`book/fonte/wp-celular.html`. C11 to C15 are "Alice Meets Matrix" images supplied
+by the theme author (`book/fonte/alice/`), adapted by `ferramentas/adaptar_alice.py`:
+each scene is cropped around its subject and the top and bottom are extended with
+fog, grain, scanlines and digital rain built from the scene itself. The top of each image is left
 clear for the camera and the lock screen clock, the main element sits in the
 middle third and the bottom is left clear for the app dock. For another phone,
 render them at its resolution (`book/fonte/wp-celular.html?n=1&w=W&h=H`): the
@@ -220,7 +226,7 @@ adb push wallpapers/celular/1272x2772/. /sdcard/Pictures/GAMMA/
 Android has no built-in slideshow from your own folder on most phones. A
 wallpaper app does the rotation: for example
 [Muzei Live Wallpaper](https://github.com/muzei/muzei) (open source), with the
-"My photos" source and the 10 images selected, and the interval set in the app.
+"My photos" source and the images selected, and the interval set in the app.
 
 ### Boot and login screens
 
@@ -411,7 +417,7 @@ As imagens e a estrutura de pastas estão na seção em inglês, acima.
 | Esquema de cores do xfce4-terminal (16 cores ANSI) | `terminal/gamma.theme` | `~/.local/share/xfce4/terminal/colorschemes` |
 | Esquema do editor (GtkSourceView 4: Mousepad e outros) | `editor/gamma.xml` | `~/.local/share/gtksourceview-4/styles` |
 | 26 papéis de parede originais em duas séries, 3440x1440 e 2560x1080 | `wallpapers/` | `~/.local/share/backgrounds/gamma` |
-| 10 papéis de parede originais para celular, verticais, 1272x2772 | `wallpapers/celular/` | copiados para o celular à mão, veja [Papéis de parede do celular](#papéis-de-parede-do-celular) |
+| 15 papéis de parede para celular, verticais, 1272x2772 (10 originais, 5 adaptados) | `wallpapers/celular/` | copiados para o celular à mão, veja [Papéis de parede do celular](#papéis-de-parede-do-celular) |
 | Fontes Roboto e JetBrains Mono | `fontes/` | `~/.local/share/fonts/gamma` |
 | Telas do GRUB, do Plymouth e de login do LightDM (opcional, precisa de sudo) | `sistema/` | veja [Telas de boot e login](#telas-de-boot-e-login) |
 | Book de identidade visual (PDF de 22 páginas) e mockups | `book/`, `mockups/` | |
@@ -428,8 +434,10 @@ Triangulação (interceptação de sinal), Cifra (bloco de uso único), Intrusã
 Interferência, Lissajous, Galáxia, Horizonte (de eventos), Fractal (hexafloco) e
 Biometria.
 
-**Série celular (C01 a C10):** Sentinela, Varredura, Retícula, Contagem,
-Colmeia, Cifra, Fósforo, Rastreio, Biometria e Silêncio.
+**Série celular (C01 a C15):** Sentinela, Varredura, Retícula, Contagem,
+Colmeia, Cifra, Fósforo, Rastreio, Biometria e Silêncio (C01 a C10, originais),
+mais cinco imagens "Alice Meets Matrix" adaptadas para o celular: Olho, Coelho,
+Arcos, Lago e Cortina (C11 a C15).
 
 ### Paleta
 
@@ -524,8 +532,13 @@ Para mudar o intervalo depois, rode o instalador de novo com `--intervalo`, ou u
 
 ### Papéis de parede do celular
 
-`wallpapers/celular/1272x2772/` tem 10 papéis de parede verticais desenhados para
-um motorola edge 70 pro (1272x2772, densidade 450). O topo de cada imagem fica
+`wallpapers/celular/1272x2772/` tem 15 papéis de parede verticais para um motorola
+edge 70 pro (1272x2772, densidade 450). Os C01 a C10 são desenhados pelo
+`book/fonte/wp-celular.html`. Os C11 a C15 são imagens "Alice Meets Matrix"
+fornecidas pelo autor do tema (`book/fonte/alice/`), adaptadas pelo
+`ferramentas/adaptar_alice.py`: cada cena é recortada em volta do assunto e o topo
+e a base são estendidos com névoa, grão, linhas de varredura e chuva de código
+feitos a partir da própria cena. O topo de cada imagem fica
 livre para a câmera e o relógio da tela de bloqueio, o elemento principal fica no
 terço do meio e a parte de baixo fica livre para a barra de apps. Para outro
 celular, gere na resolução dele (`book/fonte/wp-celular.html?n=1&w=L&h=A`): o
@@ -540,7 +553,7 @@ adb push wallpapers/celular/1272x2772/. /sdcard/Pictures/GAMMA/
 Na maioria dos celulares, o Android não troca o papel de parede sozinho a partir
 de uma pasta sua. Quem faz a troca é um app de papel de parede: por exemplo o
 [Muzei Live Wallpaper](https://github.com/muzei/muzei) (código aberto), com a
-fonte "Minhas fotos" e as 10 imagens escolhidas, e o intervalo definido no app.
+fonte "Minhas fotos" e as imagens escolhidas, e o intervalo definido no app.
 
 ### Telas de boot e login
 
